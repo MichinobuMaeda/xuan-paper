@@ -1,0 +1,27 @@
+{
+  "cSpell.words": [
+    "apdisk",
+    "argb",
+    "dbnavigator",
+    "donotpresent",
+    "encryptable",
+    "esktop",
+    "fseventsd",
+    "icns",
+    "Maeda",
+    "Michinobu",
+    "mpeltonen",
+    "msix",
+    "netrwhist",
+    "njsproj",
+    "ntvs",
+    "precaching",
+    "replstate",
+    "Sessionx",
+    "sonarlint",
+    "timemachine",
+    "xuan"
+  ],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
