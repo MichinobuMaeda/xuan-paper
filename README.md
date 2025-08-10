@@ -2,9 +2,15 @@
 
 Tailwind / React / Material design 3
 
-## API
+## Components
 
-[Components](/docs/components.md)
+[API](/docs/components.md)
+
+![Components](/docs/xuan-paper-components.png)
+
+## Color theme generator
+
+![Color theme generator](/docs/xuan-paper-color-theme.png)
 
 ## Note
 

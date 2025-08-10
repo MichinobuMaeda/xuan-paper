@@ -9,7 +9,12 @@ function Footer() {
         className="text-sm
          text-light-on-primary-container dark:text-dark-on-primary-container"
       >
-        &copy; 2025, Michinobu Maeda
+        <a
+          href="https://github.com/MichinobuMaeda/xuan-paper"
+          className="text-light-link dark:text-dark-link"
+        >
+          GitHub
+        </a>
       </div>
     </div>
   );
