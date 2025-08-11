@@ -18,7 +18,7 @@ export const resources = {
       "update app":
         "新しいアプリがあります。更新するには再読み込みボタンをクリックしてください。",
       components: "コンポーネント",
-      "color theme": "カラー・テーマ",
+      "color theme": "カラーテーマ",
       hue: "色相",
       contrast: "コントラスト",
     },
