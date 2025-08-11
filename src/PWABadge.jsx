@@ -1,10 +1,11 @@
-import './PWABadge.css'
+import "./PWABadge.css";
+import Button from "./xuan-paper/Button.jsx";
 
-import { useRegisterSW } from 'virtual:pwa-register/react'
+import { useRegisterSW } from "virtual:pwa-register/react";
 
 function PWABadge() {
   // check for updates every hour
-  const period = 60 * 60 * 1000
+  const period = 60 * 60 * 1000;
 
   const {
     offlineReady: [offlineReady, setOfflineReady],
@@ -12,47 +13,78 @@ function PWABadge() {
     updateServiceWorker,
   } = useRegisterSW({
     onRegisteredSW(swUrl, r) {
-      if (period <= 0) return
-      if (r?.active?.state === 'activated') {
-        registerPeriodicSync(period, swUrl, r)
-      }
-      else if (r?.installing) {
-        r.installing.addEventListener('statechange', (e) => {
+      if (period <= 0) return;
+      if (r?.active?.state === "activated") {
+        registerPeriodicSync(period, swUrl, r);
+      } else if (r?.installing) {
+        r.installing.addEventListener("statechange", (e) => {
           /** @type {ServiceWorker} */
-          const sw = e.target
-          if (sw.state === 'activated')
-            registerPeriodicSync(period, swUrl, r)
-        })
+          const sw = e.target;
+          if (sw.state === "activated") registerPeriodicSync(period, swUrl, r);
+        });
       }
     },
-  })
+  });
 
   function close() {
-    setOfflineReady(false)
-    setNeedRefresh(false)
+    setOfflineReady(false);
+    setNeedRefresh(false);
   }
 
-  return (
-    <div className="PWABadge" role="alert" aria-labelledby="toast-message">
-      { (offlineReady || needRefresh)
-      && (
-        <div className="PWABadge-toast">
-          <div className="PWABadge-message">
-            { offlineReady
-              ? <span id="toast-message">App ready to work offline</span>
-              : <span id="toast-message">New content available, click on reload button to update.</span>}
-          </div>
-          <div className="PWABadge-buttons">
-            { needRefresh && <button className="PWABadge-toast-button" onClick={() => updateServiceWorker(true)}>Reload</button> }
-            <button className="PWABadge-toast-button" onClick={() => close()}>Close</button>
-          </div>
-        </div>
-      )}
+  return needRefresh ? (
+    <div
+      className={`flex flex-row py-1 px-2 h-12 items-center gap-2
+        bg-light-error-container dark:bg-dark-error-container
+        text-light-on-error-container dark:text-dark-on-error-container`}
+    >
+      <div className="flex flex-row grow">
+        New content available, click on reload button to update.
+      </div>
+      <Button
+        icon={
+          /* Material icon 'Refresh' */
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+            fill="currentColor"
+          >
+            <path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z" />
+          </svg>
+        }
+        style="danger"
+        size="xs"
+        onClick={() => updateServiceWorker(true)}
+      />
     </div>
-  )
+  ) : needRefresh ? (
+    <div
+      className={`flex flex-row py-1 px-2 h-12 items-center gap-2
+        bg-light-secondary-container dark:bg-dark-secondary-container
+        text-light-on-secondary-container dark:text-dark-on-secondary-container`}
+    >
+      <div className="flex flex-row grow">App ready to work offline</div>
+      <Button
+        icon={
+          /* Material icon 'Close' */
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+            fill="currentColor"
+          >
+            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+          </svg>
+        }
+        style="text"
+        size="xs"
+        onClick={() => close()}
+      />
+    </div>
+  ) : (
+    <></>
+  );
 }
 
-export default PWABadge
+export default PWABadge;
 
 /**
  * This function will register a periodic sync check every hour, you can modify the interval as needed.
@@ -61,21 +93,19 @@ export default PWABadge
  * @param r {ServiceWorkerRegistration}
  */
 function registerPeriodicSync(period, swUrl, r) {
-  if (period <= 0) return
+  if (period <= 0) return;
 
   setInterval(async () => {
-    if ('onLine' in navigator && !navigator.onLine)
-      return
+    if ("onLine" in navigator && !navigator.onLine) return;
 
     const resp = await fetch(swUrl, {
-      cache: 'no-store',
+      cache: "no-store",
       headers: {
-        'cache': 'no-store',
-        'cache-control': 'no-cache',
+        cache: "no-store",
+        "cache-control": "no-cache",
       },
-    })
+    });
 
-    if (resp?.status === 200)
-      await r.update()
-  }, period)
+    if (resp?.status === 200) await r.update();
+  }, period);
 }

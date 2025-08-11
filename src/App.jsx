@@ -214,7 +214,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header bottom={<PWABadge />} />
       <main className="flex flex-col pt-2 pb-6 gap-2 bg-light-form dark:bg-dark-form text-light-on-form dark:text-dark-on-form">
         <div className="flex flex-wrap px-2 gap-2 justify-start text-light-tertiary dark:text-dark-tertiary">
           Tailwind / React / Material design 3
@@ -682,7 +682,6 @@ function App() {
           )}
         </div>
       </main>
-      <PWABadge />
       <Footer />
     </>
   );

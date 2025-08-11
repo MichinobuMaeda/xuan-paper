@@ -215,16 +215,15 @@ const Slider = ({
           ))}
         <div
           className={`flex flex-row h-11 w-3 justify-center absolute
-          ${mouseHover ? "bg-light-form/80 dark:bg-dark-form/80 " : "bg-light-form dark:bg-dark-form"}
-          ${mouseActive ? "bg-light-form/60 dark:bg-dark-form/60" : ""}`}
+            bg-light-form dark:bg-dark-form`}
           style={{
             left: `${((targetWidth - 12) * value) / count}px`,
           }}
         >
           <div
             className={`h-11 w-1 rounded-full
-            ${mouseHover ? "bg-light-primary/80 dark:bg-dark-primary/80" : "bg-light-primary dark:bg-dark-primary"}
-            ${mouseActive ? "bg-light-primary/60 dark:bg-dark-primary/60" : ""}`}
+            ${mouseHover ? "bg-light-primary/80 dark:bg-dark-primary/80 scale-x-120" : "bg-light-primary dark:bg-dark-primary"}
+            ${mouseActive ? "bg-light-primary/60 dark:bg-dark-primary/60 scale-x-110" : ""}`}
           ></div>
         </div>
       </div>

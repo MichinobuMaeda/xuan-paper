@@ -89,6 +89,7 @@ ${
         disabled={disabled}
       />
       {value ? (
+        /* Material icon 'check' */
         <svg
           className={`absolute inset-x-7 inset-y-1 size-6 rounded-full
       pointer-events-none transition-all duration-200
