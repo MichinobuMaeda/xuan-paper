@@ -35,7 +35,7 @@ export default defineConfig({
         name: "xuan-paper",
         short_name: "xuan-paper",
         description: "xuan-paper",
-        theme_color: "#46B482",
+        theme_color: "#6B9E6D",
       },
 
       injectManifest: {

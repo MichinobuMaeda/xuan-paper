@@ -50,7 +50,7 @@ const ColorThemeGenerator = () => {
         }
       >
         <Row>
-          <span className="flex h-10 w-24 items-end">
+          <span className="flex h-10 w-20 items-end">
             {t("hue")}: {Math.round(h * 360)}
           </span>
           <span
@@ -86,24 +86,26 @@ const ColorThemeGenerator = () => {
           <Slider value={c} onChange={(v) => setC(v)} width="w-full" />
         </Row>
       </Section>
-      <div className="flex flex-col px-4 gap-0">
-        {schema.map(([brightness, colors]) =>
-          colors.map(([key, hex]) => (
-            <div
-              key={`${brightness}:${key}`}
-              className={`flex flex-wrap w-full px-2
+      <div className="flex flex-col md:flex-row sm:px-2 gap-2 w-full justify-center">
+        {schema.map(([brightness, colors]) => (
+          <div className="flex flex-col gap-0">
+            {colors.map(([key, hex]) => (
+              <div
+                key={`${brightness}:${key}`}
+                className={`flex flex-wrap w-full px-2 gap-2 sm:gap-4
                   font-mono text-sm sm:text-base ${
                     isDarkBackground(hex) ? "text-light-form" : "text-dark-form"
                   }`}
-              style={{ backgroundColor: hex }}
-            >
-              <div className="flex flex-row grow">
-                {brightness}:{key}
+                style={{ backgroundColor: hex }}
+              >
+                <div className="flex flex-row grow">
+                  {brightness}:{key}
+                </div>
+                <div className="flex flex-row">{hex}</div>
               </div>
-              <div className="flex flex-row">{hex}</div>
-            </div>
-          )),
-        )}
+            ))}
+          </div>
+        ))}
       </div>
     </>
   );

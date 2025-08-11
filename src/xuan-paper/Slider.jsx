@@ -152,7 +152,7 @@ const Slider = ({
   return (
     <div
       id={id}
-      className={`flex flex-row h-14 p-1 relative ${width} items-center
+      className={`flex flex-row h-14 px-2 relative ${width} items-center
         cursor-pointer`}
       onMouseOver={() => {
         setMouseHover(true);

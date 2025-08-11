@@ -15,7 +15,7 @@ function App() {
   const { i18n } = useTranslation();
 
   return (
-    <>
+    <div className="flex flex-col items-center">
       <Header
         suffix={
           <div className="flex flex-row grow justify-end items-center">
@@ -38,7 +38,7 @@ function App() {
         bottom={<PWABadge />}
       />
       <main
-        className={`flex flex-col pt-2 pb-6 gap-2
+        className={`flex flex-col pt-2 pb-6 gap-2 w-full sm:max-w-[1024px]
           bg-light-form dark:bg-dark-form
           text-light-on-form dark:text-dark-on-form`}
       >
@@ -52,7 +52,7 @@ function App() {
         <ColorThemeGenerator />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 
