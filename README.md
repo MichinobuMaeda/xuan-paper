@@ -2,15 +2,17 @@
 
 Tailwind / React / Material design 3
 
+[Sample](https://xuan-paper.michinobu.jp)
+
 ## Components
 
-[API](/docs/components.md)
+[API](docs/components.md)
 
-![Components](/docs/xuan-paper-components.png)
+![Components](docs/xuan-paper-components.png)
 
 ## Color theme generator
 
-![Color theme generator](/docs/xuan-paper-color-theme.png)
+![Color theme generator](docs/xuan-paper-color-theme.png)
 
 ## Note
 
@@ -48,4 +50,6 @@ $ $ npm i prop-types
 $ npm i -D --save-exact prettier
 $ node --eval "fs.writeFileSync('.prettierrc','{}\n')"
 $ node --eval "fs.writeFileSync('.prettierignore','# Ignore artifacts:\nbuild\ncoverage\n')"
+
+$ npm i react-i18next i18next
 ```

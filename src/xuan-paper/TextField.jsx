@@ -9,28 +9,17 @@ import PropTypes from "prop-types";
  *
  * @param {Object} props - The props object
  * @param {string} [props.id] - Unique identifier for the input element
- * @param {('text'|'email'|'password'|'number')} [props.type='text']
- *  - HTML input type
+ * @param {('text'|'email'|'password'|'number')} [props.type='text'] - HTML input type
  * @param {string|number} [props.value] - Current value of the input field
- * @param {string} [props.label]
- *  - Floating label text that appears above the input when focused or filled
+ * @param {string} [props.label] - Floating label text that appears above the input when focused or filled
  * @param {string} [props.message] - Helper text displayed below the input field
- * @param {string} [props.error]
- *  - Error message that overrides the helper text and applies error styling
- * @param {React.ReactNode} [props.prefix]
- *  - Element to display at the start of the input.
- *    Typically uses Button component with style="embed" for interactive elements
- * @param {React.ReactNode} [props.suffix]
- *  - Element to display at the end of the input.
- *    Typically uses Button component with style="embed" for interactive elements
- * @param {string} [props.style]
- *  - Visual style variant, use "filled" for filled background style
- * @param {string} [props.width='w-48']
- *  - Tailwind CSS width class for the input field
- * @param {string} [props.fontFamily='font-sans']
- *  - Tailwind CSS font family class
- * @param {Function} [props.onChange]
- *  - Callback function called when input value changes
+ * @param {string} [props.error] - Error message that overrides the helper text and applies error styling
+ * @param {React.ReactNode} [props.prefix] - Element to display at the start of the input. Typically uses Button component with style="embed" for interactive elements
+ * @param {React.ReactNode} [props.suffix] - Element to display at the end of the input. Typically uses Button component with style="embed" for interactive elements
+ * @param {string} [props.style] - Visual style variant, use "filled" for filled background style
+ * @param {string} [props.width='w-48'] - Tailwind CSS width class for the input field
+ * @param {string} [props.fontFamily='font-sans'] - Tailwind CSS font family class
+ * @param {Function} [props.onChange] - Callback function called when input value changes
  * @returns {JSX.Element} Rendered text field component
  *
  * @example

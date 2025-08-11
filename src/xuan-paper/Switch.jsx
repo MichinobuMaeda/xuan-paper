@@ -8,12 +8,9 @@ import PropTypes from "prop-types";
  *
  * @param {Object} props - The props object
  * @param {string} [props.id] - Unique identifier for the switch input element
- * @param {boolean} props.value - Current state of the switch
- *  (true for on/enabled, false for off/disabled)
- * @param {Function} [props.onChange]
- *  - Callback function called when switch state changes
- * @param {boolean} [props.disabled=false]
- *  - Whether the switch is disabled and non-interactive
+ * @param {boolean} props.value - Current state of the switch (true for on/enabled, false for off/disabled)
+ * @param {Function} [props.onChange] - Callback function called when switch state changes
+ * @param {boolean} [props.disabled=false] - Whether the switch is disabled and non-interactive
  * @returns {JSX.Element} Rendered switch component
  *
  * @example

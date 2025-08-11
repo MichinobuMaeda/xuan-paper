@@ -7,15 +7,12 @@ import PropTypes from "prop-types";
  *
  * @param {Object} props - The props object
  * @param {string} [props.id] - Unique identifier for the button element
- * @param {React.ReactNode} [props.icon]
- *  - Icon element to display alongside or instead of label
+ * @param {React.ReactNode} [props.icon] - Icon element to display alongside or instead of label
  * @param {string} [props.label] - Text content to display in the button
- * @param {('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embed')}
- *  [props.style='filled'] - Visual style variant of the button
+ * @param {('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embed')} [props.style='filled'] - Visual style variant of the button
  * @param {Function} [props.onClick] - Click event handler function
  * @param {boolean} [props.disabled=false] - Whether the button is disabled
- * @param {string} [props.rounded='rounded-full']
- *  - Tailwind CSS class for border radius
+ * @param {string} [props.rounded='rounded-full'] - Tailwind CSS class for border radius
  * @param {('xs'|'sm'|'md')} [props.size='sm'] - Size variant of the button
  * @param {string} [props.width='w-fit'] - Tailwind CSS class for button width
  * @returns {JSX.Element} Rendered button component

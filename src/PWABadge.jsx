@@ -1,5 +1,5 @@
-import "./PWABadge.css";
 import Button from "./xuan-paper/Button.jsx";
+import { useTranslation } from "react-i18next";
 
 import { useRegisterSW } from "virtual:pwa-register/react";
 
@@ -31,15 +31,15 @@ function PWABadge() {
     setNeedRefresh(false);
   }
 
+  const { t } = useTranslation();
+
   return needRefresh ? (
     <div
       className={`flex flex-row py-1 px-2 h-12 items-center gap-2
         bg-light-error-container dark:bg-dark-error-container
         text-light-on-error-container dark:text-dark-on-error-container`}
     >
-      <div className="flex flex-row grow">
-        New content available, click on reload button to update.
-      </div>
+      <div className="flex flex-row grow">{t("update app")}</div>
       <Button
         icon={
           /* Material icon 'Refresh' */
@@ -56,13 +56,13 @@ function PWABadge() {
         onClick={() => updateServiceWorker(true)}
       />
     </div>
-  ) : needRefresh ? (
+  ) : offlineReady ? (
     <div
       className={`flex flex-row py-1 px-2 h-12 items-center gap-2
         bg-light-secondary-container dark:bg-dark-secondary-container
         text-light-on-secondary-container dark:text-dark-on-secondary-container`}
     >
-      <div className="flex flex-row grow">App ready to work offline</div>
+      <div className="flex flex-row grow">{t("offline ready")}</div>
       <Button
         icon={
           /* Material icon 'Close' */

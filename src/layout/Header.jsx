@@ -2,8 +2,6 @@ import PropTypes from "prop-types";
 import appLogo from "/favicon.svg";
 
 function Header({ suffix, bottom }) {
-  const Suffix = () => <>{suffix}</>;
-
   return (
     <div className="flex flex-col sticky top-0 w-full z-10">
       <div
@@ -14,9 +12,7 @@ function Header({ suffix, bottom }) {
       >
         <img src={appLogo} className="size-8" alt="Xuan paper logo" />
         <h1 className="text-2xl">Xuan paper</h1>
-        <span className="flex flex-row grow p-1 justify-end">
-          <Suffix />
-        </span>
+        {suffix}
       </div>
       {bottom}
     </div>

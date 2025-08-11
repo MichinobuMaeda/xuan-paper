@@ -12,19 +12,13 @@ import Button from "./Button";
  * @param {Object} props - The props object
  * @param {string} [props.id] - Unique identifier for the password input element
  * @param {string} [props.value=''] - Current value of the password field
- * @param {string} [props.label]
- *  - Floating label text that appears above the input when focused or filled
+ * @param {string} [props.label] - Floating label text that appears above the input when focused or filled
  * @param {string} [props.message] - Helper text displayed below the input field
- * @param {string} [props.error]
- *  - Error message that overrides helper text and applies error styling
- * @param {string} [props.style]
- *  - Visual style variant, use "filled" for filled background style
- * @param {string} [props.width='w-48']
- *  - Tailwind CSS width class for the input field
- * @param {string} [props.fontFamily='font-mono']
- *  - Tailwind CSS font family class (monospace by default for passwords)
- * @param {Function} [props.onChange]
- *  - Callback function called when password value changes
+ * @param {string} [props.error] - Error message that overrides helper text and applies error styling
+ * @param {string} [props.style] - Visual style variant, use "filled" for filled background style
+ * @param {string} [props.width='w-48'] - Tailwind CSS width class for the input field
+ * @param {string} [props.fontFamily='font-mono'] - Tailwind CSS font family class (monospace by default for passwords)
+ * @param {Function} [props.onChange] - Callback function called when password value changes
  * @returns {JSX.Element} Rendered password field component with visibility toggle
  *
  * @example

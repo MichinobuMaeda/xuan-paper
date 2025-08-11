@@ -7,19 +7,12 @@ import PropTypes from "prop-types";
  * Features hover and active states, automatic resize handling, and customizable sizing.
  *
  * @param {Object} props - The props object
- * @param {string} [props.id]
- *  - Unique identifier for the slider element (auto-generated if not provided)
- * @param {number} [props.value=0]
- *  - Current value of the slider. For continuous mode (count=1):
- *    0-1 range. For discrete mode: 0 to count
- * @param {number} [props.count=1]
- *  - Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider
- * @param {('xs'|'sm'|'md')} [props.size='xs']
- *  - Visual size variant affecting track height and thumb size
- * @param {string} [props.width='w-48']
- *  - Tailwind CSS width class for the slider container
- * @param {Function} [props.onChange]
- *  - Callback function called when slider value changes
+ * @param {string} [props.id] - Unique identifier for the slider element (auto-generated if not provided)
+ * @param {number} [props.value=0] - Current value of the slider. For continuous mode (count=1): 0-1 range. For discrete mode: 0 to count
+ * @param {number} [props.count=1] - Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider
+ * @param {('xs'|'sm'|'md')} [props.size='xs'] - Visual size variant affecting track height and thumb size
+ * @param {string} [props.width='w-48'] - Tailwind CSS width class for the slider container
+ * @param {Function} [props.onChange] - Callback function called when slider value changes
  * @returns {JSX.Element} Rendered interactive slider component
  *
  * @example

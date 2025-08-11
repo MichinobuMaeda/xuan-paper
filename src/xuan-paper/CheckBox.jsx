@@ -8,13 +8,10 @@ import PropTypes from "prop-types";
  *
  * @param {Object} props - The props object
  * @param {string} [props.id] - Unique identifier for the checkbox input element
- * @param {boolean} props.value
- *  - Current checked state of the checkbox (controlled component)
+ * @param {boolean} props.value - Current checked state of the checkbox (controlled component)
  * @param {string} [props.label] - Text label to display next to the checkbox
- * @param {string} [props.style]
- *  - Visual style variant, use "danger" for error states
- * @param {Function} [props.onChange]
- *  - Callback function called when checkbox state changes
+ * @param {string} [props.style] - Visual style variant, use "danger" for error states
+ * @param {Function} [props.onChange] - Callback function called when checkbox state changes
  * @param {boolean} [props.disabled=false] - Whether the checkbox is disabled
  * @returns {JSX.Element} Rendered checkbox component
  *

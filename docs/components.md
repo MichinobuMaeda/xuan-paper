@@ -25,10 +25,12 @@ A versatile button component with multiple styles, sizes, and configurations.
 |------|------|-------------|
 | **props** | `Object` | The props object |
 | props.id *(optional)* | `string` | Unique identifier for the button element |
+| props.icon *(optional)* | `React.ReactNode` | Icon element to display alongside or instead of label |
 | props.label *(optional)* | `string` | Text content to display in the button |
+| props.style='filled' *(optional)* | `('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embed')` | Visual style variant of the button |
 | props.onClick *(optional)* | `Function` | Click event handler function |
 | props.disabled=false *(optional)* | `boolean` | Whether the button is disabled |
-| props.rounded='rounded *(optional)* | `string` | full'] |
+| props.rounded='rounded-full' *(optional)* | `string` | Tailwind CSS class for border radius |
 | props.size='sm' *(optional)* | `('xs'|'sm'|'md')` | Size variant of the button |
 | props.width='w-fit' *(optional)* | `string` | Tailwind CSS class for button width |
 
@@ -176,7 +178,10 @@ A customizable checkbox component with label support, theming,
 |------|------|-------------|
 | **props** | `Object` | The props object |
 | props.id *(optional)* | `string` | Unique identifier for the checkbox input element |
+| **props.value** | `boolean` | Current checked state of the checkbox (controlled component) |
 | props.label *(optional)* | `string` | Text label to display next to the checkbox |
+| props.style *(optional)* | `string` | Visual style variant, use "danger" for error states |
+| props.onChange *(optional)* | `Function` | Callback function called when checkbox state changes |
 | props.disabled=false *(optional)* | `boolean` | Whether the checkbox is disabled |
 
 ### Returns
@@ -247,9 +252,13 @@ A specialized password input field with visibility toggle functionality.
 | **props** | `Object` | The props object |
 | props.id *(optional)* | `string` | Unique identifier for the password input element |
 | props.value='' *(optional)* | `string` | Current value of the password field |
+| props.label *(optional)* | `string` | Floating label text that appears above the input when focused or filled |
 | props.message *(optional)* | `string` | Helper text displayed below the input field |
-| props.width='w *(optional)* | `string` | 48'] |
-| props.fontFamily='font *(optional)* | `string` | mono'] |
+| props.error *(optional)* | `string` | Error message that overrides helper text and applies error styling |
+| props.style *(optional)* | `string` | Visual style variant, use "filled" for filled background style |
+| props.width='w-48' *(optional)* | `string` | Tailwind CSS width class for the input field |
+| props.fontFamily='font-mono' *(optional)* | `string` | Tailwind CSS font family class (monospace by default for passwords) |
+| props.onChange *(optional)* | `Function` | Callback function called when password value changes |
 
 ### Returns
 
@@ -323,14 +332,17 @@ A radio button group component that allows single selection
 | Name | Type | Description |
 |------|------|-------------|
 | **props** | `Object` | The props object |
+| **props.name** | `string` | Unique name for the radio group (required for proper radio button grouping) |
 | props.value *(optional)* | `string` | Currently selected radio button value |
 | props.items *(optional)* | `Array<Object>` | Array of radio button option objects |
+| props.onChange *(optional)* | `Function` | Callback function called when a radio button is selected |
+| props.layout='horizontal' *(optional)* | `('vertical'|'horizontal')` | Layout direction for the radio buttons |
 
 ### Returns
 
 **Type:** `JSX.Element`
 
-Rendered radio group component
+Rendered radio group component (React Fragment containing radio buttons)
 
 ### Examples
 
@@ -395,7 +407,12 @@ An interactive slider component with drag functionality and responsive design.
 | Name | Type | Description |
 |------|------|-------------|
 | **props** | `Object` | The props object |
-| props.width='w *(optional)* | `string` | 48'] |
+| props.id *(optional)* | `string` | Unique identifier for the slider element (auto-generated if not provided) |
+| props.value=0 *(optional)* | `number` | Current value of the slider. For continuous mode (count=1): 0-1 range. For discrete mode: 0 to count |
+| props.count=1 *(optional)* | `number` | Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider |
+| props.size='xs' *(optional)* | `('xs'|'sm'|'md')` | Visual size variant affecting track height and thumb size |
+| props.width='w-48' *(optional)* | `string` | Tailwind CSS width class for the slider container |
+| props.onChange *(optional)* | `Function` | Callback function called when slider value changes |
 
 ### Returns
 
@@ -472,7 +489,9 @@ A toggle switch component that provides an intuitive on/off control interface.
 |------|------|-------------|
 | **props** | `Object` | The props object |
 | props.id *(optional)* | `string` | Unique identifier for the switch input element |
-| **props.value** | `boolean` | Current state of the switch |
+| **props.value** | `boolean` | Current state of the switch (true for on/enabled, false for off/disabled) |
+| props.onChange *(optional)* | `Function` | Callback function called when switch state changes |
+| props.disabled=false *(optional)* | `boolean` | Whether the switch is disabled and non-interactive |
 
 ### Returns
 
@@ -542,10 +561,17 @@ A versatile text input field component with floating labels,
 |------|------|-------------|
 | **props** | `Object` | The props object |
 | props.id *(optional)* | `string` | Unique identifier for the input element |
+| props.type='text' *(optional)* | `('text'|'email'|'password'|'number')` | HTML input type |
 | props.value *(optional)* | `string|number` | Current value of the input field |
+| props.label *(optional)* | `string` | Floating label text that appears above the input when focused or filled |
 | props.message *(optional)* | `string` | Helper text displayed below the input field |
-| props.width='w *(optional)* | `string` | 48'] |
-| props.fontFamily='font *(optional)* | `string` | sans'] |
+| props.error *(optional)* | `string` | Error message that overrides the helper text and applies error styling |
+| props.prefix *(optional)* | `React.ReactNode` | Element to display at the start of the input. Typically uses Button component with style="embed" for interactive elements |
+| props.suffix *(optional)* | `React.ReactNode` | Element to display at the end of the input. Typically uses Button component with style="embed" for interactive elements |
+| props.style *(optional)* | `string` | Visual style variant, use "filled" for filled background style |
+| props.width='w-48' *(optional)* | `string` | Tailwind CSS width class for the input field |
+| props.fontFamily='font-sans' *(optional)* | `string` | Tailwind CSS font family class |
+| props.onChange *(optional)* | `Function` | Callback function called when input value changes |
 
 ### Returns
 
