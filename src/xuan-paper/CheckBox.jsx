@@ -60,7 +60,7 @@ const CheckBox = ({ id, value = false, label, style, onChange, disabled }) => {
       htmlFor={id || label ? `checkbox-${label}` : undefined}
       className={`flex flex-row justify-start items-center gap-2 px-2 h-8  ${
         disabled ? " opacity-50" : ""
-      } cursor-pointer select-none ${
+      } ${disabled ? "" : "cursor-pointer"} select-none ${
         disabled
           ? "text-light-on-surface dark:text-dark-on-surface"
           : style === "danger"
@@ -75,6 +75,7 @@ const CheckBox = ({ id, value = false, label, style, onChange, disabled }) => {
           checked={value}
           value={id || label}
           className={`appearance-none size-5 rounded-xs
+${disabled ? "" : "cursor-pointer"}
 ${
   value
     ? disabled

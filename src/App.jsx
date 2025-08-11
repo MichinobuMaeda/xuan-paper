@@ -667,9 +667,10 @@ function App() {
             colors.map(([key, hex]) => (
               <div
                 key={`${brightness}:${key}`}
-                className={`flex flex-wrap w-full font-mono ${
-                  darkBackground(hex) ? "text-light-form" : "text-dark-form"
-                }`}
+                className={`flex flex-wrap w-full
+                  font-mono text-sm sm:text-base ${
+                    darkBackground(hex) ? "text-light-form" : "text-dark-form"
+                  }`}
                 style={{ backgroundColor: hex }}
               >
                 <div className="flex flex-row px-2 grow">

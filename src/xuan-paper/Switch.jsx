@@ -61,19 +61,25 @@ const Switch = ({ id, value = false, onChange, disabled }) => {
         id={id}
         checked={value}
         value={id}
-        className={`appearance-none h-8 w-14 rounded-full
+        className={`appearance-none h-8 w-14 rounded-full transition-all duration-200
+${disabled ? "" : "cursor-pointer"}
 ${
   value
     ? disabled
       ? "opacity-50 bg-light-on-surface dark:bg-dark-on-surface"
-      : "bg-light-primary dark:bg-dark-primary"
+      : `bg-light-primary dark:bg-dark-primary
+         hover:bg-light-primary/90 dark:hover:bg-dark-primary/90
+         active:bg-light-primary/80 dark:active:bg-dark-primary/80`
     : `border-2
       ${
         disabled
           ? `opacity-50 bg-light-on-surface dark:bg-dark-on-surface
             border-light-on-surface dark:border-dark-on-surface`
           : `bg-light-surface-container-highest dark:bg-dark-surface-container-highest
-            border-light-outline dark:border-dark-outline`
+            border-light-outline dark:border-dark-outline
+            hover:bg-light-surface-container-high dark:hover:bg-dark-surface-container-high
+            hover:border-light-outline/80 dark:hover:border-dark-outline/80
+            active:bg-light-surface-container dark:active:bg-dark-surface-container`
       }`
 }`}
         onChange={() => {
@@ -85,7 +91,7 @@ ${
       {value ? (
         <svg
           className={`absolute inset-x-7 inset-y-1 size-6 rounded-full
-      pointer-events-none
+      pointer-events-none transition-all duration-200
       ${
         disabled
           ? `opacity-50 bg-light-surface dark:bg-dark-surface
@@ -102,11 +108,12 @@ ${
       ) : (
         <div
           className={`absolute inset-2 size-4 rounded-full
-            pointer-events-none
+            pointer-events-none transition-all duration-200
             ${
               disabled
                 ? "opacity-50 bg-light-on-surface dark:bg-dark-on-surface"
-                : "bg-light-outline dark:bg-dark-outline"
+                : `bg-light-outline dark:bg-dark-outline
+                   group-hover:bg-light-outline/80 dark:group-hover:bg-dark-outline/80`
             }`}
         ></div>
       )}

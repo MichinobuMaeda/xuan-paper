@@ -138,10 +138,29 @@ const Slider = ({
     }
   };
 
+  const handleTouchMove = (touch, target) => {
+    if (onChange) {
+      const margin = 8;
+      const rect = target.getBoundingClientRect();
+      const relativeX = touch.clientX - rect.left - margin;
+      const targetWidth = rect.width - margin * 2;
+      let newRatio = Math.max(0, Math.min(1, relativeX / targetWidth));
+
+      if (newRatio < 0) {
+        newRatio = 0;
+      } else if (newRatio > 1) {
+        newRatio = 1;
+      }
+
+      onChange(count === 1 ? newRatio : Math.round(newRatio * count));
+    }
+  };
+
   return (
     <div
       id={id}
-      className={`flex flex-row h-14 p-1 relative ${width} items-center cursor-pointer`}
+      className={`flex flex-row h-14 p-1 relative ${width} items-center
+        cursor-pointer`}
       onMouseOver={() => {
         setMouseHover(true);
       }}
@@ -149,13 +168,27 @@ const Slider = ({
         setMouseHover(false);
         setMouseActive(false);
       }}
-      onMouseDown={() => {
-        mouseHover && setMouseActive(true);
+      onMouseDown={(e) => {
+        if (mouseHover) {
+          setMouseActive(true);
+          handleMouseMove(e);
+        }
       }}
       onMouseUp={() => {
         setMouseActive(false);
       }}
       onMouseMove={(e) => mouseActive && handleMouseMove(e)}
+      onTouchStart={(e) => {
+        setMouseActive(true);
+        handleTouchMove(e.touches[0], e.currentTarget);
+      }}
+      onTouchMove={(e) => {
+        e.preventDefault();
+        handleTouchMove(e.touches[0], e.currentTarget);
+      }}
+      onTouchEnd={() => {
+        setMouseActive(false);
+      }}
     >
       <div
         ref={targetRef}
@@ -163,12 +196,12 @@ const Slider = ({
       >
         <div
           className={`${trackHeight()} rounded-l-lg
-          bg-light-primary dark:bg-dark-primary`}
+            bg-light-primary dark:bg-dark-primary`}
           style={{ width: `${(targetWidth * value) / count}px` }}
         ></div>
         <div
           className={`${trackHeight()} rounded-r-lg
-          bg-light-secondary-container dark:bg-dark-secondary-container`}
+            bg-light-secondary-container dark:bg-dark-secondary-container`}
           style={{ width: `${targetWidth - (targetWidth * value) / count}px` }}
         ></div>
         {count > 1 &&
@@ -182,14 +215,16 @@ const Slider = ({
           ))}
         <div
           className={`flex flex-row h-11 w-3 justify-center absolute
-          bg-light-form dark:bg-dark-form`}
+          ${mouseHover ? "bg-light-form/80 dark:bg-dark-form/80 " : "bg-light-form dark:bg-dark-form"}
+          ${mouseActive ? "bg-light-form/60 dark:bg-dark-form/60" : ""}`}
           style={{
             left: `${((targetWidth - 12) * value) / count}px`,
           }}
         >
           <div
             className={`h-11 w-1 rounded-full
-            bg-light-primary dark:bg-dark-primary`}
+            ${mouseHover ? "bg-light-primary/80 dark:bg-dark-primary/80" : "bg-light-primary dark:bg-dark-primary"}
+            ${mouseActive ? "bg-light-primary/60 dark:bg-dark-primary/60" : ""}`}
           ></div>
         </div>
       </div>

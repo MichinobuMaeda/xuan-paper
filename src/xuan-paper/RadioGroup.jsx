@@ -81,12 +81,12 @@ const RadioGroup = ({
       {items.map((item) => (
         <label
           className={`flex flex-row justify-start items-center h-8 px-1 gap-2
-            select-none`}
+            select-none cursor-pointer`}
           key={item.value}
         >
           <div className="flex flex-row relative">
             <input
-              className="appearance-none size-6"
+              className="appearance-none size-6 cursor-pointer"
               type="radio"
               id={`radio-${name}-${item.value}`}
               name={name}
