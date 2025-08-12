@@ -125,6 +125,7 @@ RadioGroup.propTypes = {
   value: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object),
   onChange: PropTypes.func,
+  layout: PropTypes.oneOf(["horizontal", "vertical"]),
 };
 
 export default RadioGroup;

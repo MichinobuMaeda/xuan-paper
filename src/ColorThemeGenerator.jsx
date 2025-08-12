@@ -88,7 +88,7 @@ const ColorThemeGenerator = () => {
       </Section>
       <div className="flex flex-col md:flex-row sm:px-2 gap-2 w-full justify-center">
         {schema.map(([brightness, colors]) => (
-          <div className="flex flex-col gap-0">
+          <div className="flex flex-col gap-0" key={brightness}>
             {colors.map(([key, hex]) => (
               <div
                 key={`${brightness}:${key}`}

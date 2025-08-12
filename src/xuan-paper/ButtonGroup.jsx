@@ -15,6 +15,7 @@ import Button from "./Button.jsx";
  * @param {React.ReactNode} [props.items[].icon] - Icon element to display on the button
  * @param {boolean} [props.multiSelect=false] - Whether multiple buttons can be selected simultaneously
  * @param {Function} [props.onChange] - Callback function called when button selection changes
+ * @param {boolean} [props.disabled=false] - When true, disables the input field entirely (prevents interaction)
  * @param {('xs'|'sm'|'md')} [props.size='sm'] - Size variant applied to all buttons in the group
  * @returns {JSX.Element} Rendered button group component
  *
@@ -80,6 +81,7 @@ const ButtonGroup = ({
   items,
   multiSelect = false,
   onChange,
+  disabled = false,
   size = "sm",
 }) => {
   if (multiSelect) {
@@ -94,7 +96,7 @@ const ButtonGroup = ({
 
   return (
     <div id={`button-group-${name}`} className="flex flex-wrap gap-1">
-      {items.map((item, index) => (
+      {items.map((item) => (
         <Button
           id={`${name}-${item.value}`}
           key={item.value}
@@ -122,6 +124,7 @@ const ButtonGroup = ({
               ? "rounded-full"
               : "rounded-sm first:rounded-l-full last:rounded-r-full"
           }
+          disabled={disabled}
           size={size}
         />
       ))}
@@ -138,6 +141,7 @@ ButtonGroup.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
   multiSelect: PropTypes.bool,
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
   size: PropTypes.oneOf(["xs", "sm", "md"]),
 };
 

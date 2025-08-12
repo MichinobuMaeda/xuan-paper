@@ -5,12 +5,25 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
+    ignores: [
+      "**/dist/**",
+      "**/src/sw.js"
+    ],
+  },
+  {
     files: ["**/*.{js,mjs,cjs,jsx}"],
     plugins: { js },
     extends: ["js/recommended"],
     languageOptions: { globals: globals.browser },
   },
-  pluginReact.configs.flat.recommended,
+  {
+    ...pluginReact.configs.flat.recommended,
+    settings: {
+      react: {
+        version: "19.0.0"
+      }
+    }
+  },
   {
     rules: {
       "react/react-in-jsx-scope": "off",

@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
 
 import Button from "./xuan-paper/Button.jsx";
 import CheckBox from "./xuan-paper/CheckBox.jsx";
@@ -147,6 +148,10 @@ const ComponentsDemo = () => {
     );
   };
 
+  Result.propTypes ={
+    children: PropTypes.node
+  }
+
   const ItemGroup = ({ children }) => {
     return (
       <div className="flex flex-row gap-2 justify-items-start items-center">
@@ -154,6 +159,10 @@ const ComponentsDemo = () => {
       </div>
     );
   };
+
+  ItemGroup.propTypes ={
+    children: PropTypes.node
+  }
 
   return (
     <Section
@@ -456,7 +465,6 @@ const ComponentsDemo = () => {
           type="text"
           value="Input 04"
           message="Read only"
-          onChange={(v) => {}}
           style="outlined"
           width="w-24"
           readonly
@@ -466,7 +474,6 @@ const ComponentsDemo = () => {
           type="text"
           value="Input 05"
           message="Disabled"
-          onChange={(v) => {}}
           style="outlined"
           width="w-24"
           disabled
@@ -520,7 +527,6 @@ const ComponentsDemo = () => {
           type="text"
           value="Input 14"
           message="Read only"
-          onChange={(v) => {}}
           style="filled"
           width="w-24"
           readonly
@@ -530,7 +536,6 @@ const ComponentsDemo = () => {
           type="text"
           value="Input 15"
           message="Disabled"
-          onChange={(v) => {}}
           style="filled"
           width="w-24"
           disabled

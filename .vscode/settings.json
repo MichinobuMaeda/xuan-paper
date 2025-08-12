@@ -24,5 +24,7 @@
     "xuan"
   ],
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "javascript.validate.enable": false,
+  "typescript.validate.enable": false
 }

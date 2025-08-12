@@ -28,6 +28,7 @@ Section.propTypes = {
   label: PropTypes.string,
   prefix: PropTypes.node,
   suffix: PropTypes.node,
+  children: PropTypes.node,
 };
 
 export default Section;

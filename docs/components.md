@@ -89,6 +89,7 @@ A button group component that renders a collection of related buttons with singl
 | props.items *(optional)* | `Array<Object>` | Array of button configuration objects |
 | props.multiSelect=false *(optional)* | `boolean` | Whether multiple buttons can be selected simultaneously |
 | props.onChange *(optional)* | `Function` | Callback function called when button selection changes |
+| props.disabled=false *(optional)* | `boolean` | When true, disables the input field entirely (prevents interaction) |
 | props.size='sm' *(optional)* | `('xs'|'sm'|'md')` | Size variant applied to all buttons in the group |
 
 ### Returns
