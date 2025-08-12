@@ -1,6 +1,6 @@
 # Xuan-Paper Components Documentation
 
-Generated on: 2025-08-11
+Generated on: 2025-08-12
 
 ## Components
 
@@ -572,6 +572,8 @@ A versatile text input field component with floating labels,
 | props.width='w-48' *(optional)* | `string` | Tailwind CSS width class for the input field |
 | props.fontFamily='font-sans' *(optional)* | `string` | Tailwind CSS font family class |
 | props.onChange *(optional)* | `Function` | Callback function called when input value changes |
+| props.readonly=false *(optional)* | `boolean` | When true, makes the input read-only (allows selection but prevents editing) |
+| props.disabled=false *(optional)* | `boolean` | When true, disables the input field entirely (prevents interaction) |
 
 ### Returns
 

@@ -20,6 +20,8 @@ import PropTypes from "prop-types";
  * @param {string} [props.width='w-48'] - Tailwind CSS width class for the input field
  * @param {string} [props.fontFamily='font-sans'] - Tailwind CSS font family class
  * @param {Function} [props.onChange] - Callback function called when input value changes
+ * @param {boolean} [props.readonly=false] - When true, makes the input read-only (allows selection but prevents editing)
+ * @param {boolean} [props.disabled=false] - When true, disables the input field entirely (prevents interaction)
  * @returns {JSX.Element} Rendered text field component
  *
  * @example
@@ -94,6 +96,8 @@ const TextField = ({
   width = "w-48",
   fontFamily = "font-sans",
   onChange,
+  readonly = false,
+  disabled = false,
 }) => {
   const isValue = () => value || value === 0;
   const isFilled = () => style === "filled";
@@ -105,14 +109,20 @@ const TextField = ({
 ${isFilled() ? "h-14 rounded-t-sm " : "h-12 mt-2 rounded-sm"}
 ${
   isFilled()
-    ? `border-b-1 focus-within:border-b-2
+    ? readonly
+      ? `border-b-1
+        outline-light-outline-variant dark:outline-dark-outline-variant`
+      : `border-b-1 focus-within:border-b-2
       ${
         error
           ? "border-light-error dark:border-dark-error"
           : `border-light-on-surface-variant dark:border-dark-on-surface-variant
           focus-within:border-light-primary dark:focus-within:border-dark-primary`
       }`
-    : `outline-1 focus-within:outline-2
+    : readonly
+      ? `outline-1
+        outline-light-outline-variant dark:outline-dark-outline-variant`
+      : `outline-1 focus-within:outline-2
       ${
         error
           ? "outline-light-error dark:outline-dark-error"
@@ -122,19 +132,27 @@ ${
 }
 ${
   isFilled()
-    ? "bg-light-surface-container-highest dark:bg-dark-surface-container-highest"
+    ? disabled
+      ? "bg-light-on-surface/10 dark:bg-dark-on-surface/10"
+      : "bg-light-surface-container-highest dark:bg-dark-surface-container-highest"
     : "bg-light-surface-container-lowest dark:bg-dark-surface-container-lowest"
 }
 ${
-  error
-    ? "text-light-error dark:text-dark-error"
-    : "text-light-on-surface dark:text-dark-on-surface"
+  disabled
+    ? "text-light-on-surface/40 dark:text-dark-on-surface/40"
+    : error
+      ? "text-light-error dark:text-dark-error"
+      : "text-light-on-surface-variant dark:text-dark-on-surface-variant"
 }`}
       >
         {prefix && (
           <div
             className={`flex size-8
-              text-light-on-surface dark:text-dark-on-surface`}
+              ${
+                disabled
+                  ? "text-light-on-surface/40 dark:text-dark-on-surface/40"
+                  : "text-light-on-surface-variant dark:text-dark-on-surface-variant"
+              }`}
           >
             {prefix}
           </div>
@@ -143,7 +161,11 @@ ${
           <input
             id={id}
             className={`peer h-6 w-full px-2 outline-0
-              text-light-on-surface dark:text-dark-on-surface
+              ${
+                disabled
+                  ? "text-light-on-surface/40 dark:text-dark-on-surface/40"
+                  : "text-light-on-surface dark:text-dark-on-surface"
+              }
               ${isValue() ? " " : " absolute focus:static "}
               ${fontFamily}`}
             type={type}
@@ -151,6 +173,8 @@ ${
             onChange={(e) => {
               onChange(e.target.value);
             }}
+            readOnly={readonly}
+            disabled={disabled}
           />
           <div
             className={`${isValue() ? "hidden" : "peer-focus:hidden"} select-none px-2`}
@@ -159,9 +183,13 @@ ${
           </div>
           <div
             className={`${isValue() ? "flex" : "hidden peer-focus:flex"} ${
-              error
-                ? "text-light-error dark:text-dark-error"
-                : "text-light-primary dark:text-dark-primary"
+              disabled
+                ? "text-light-on-surface/40 dark:text-dark-on-surface/40"
+                : readonly
+                  ? "text-light-on-surface dark:text-dark-on-surface"
+                  : error
+                    ? "text-light-error dark:text-dark-error"
+                    : "text-light-primary dark:text-dark-primary"
             } select-none text-xs bottom-7 ${
               isFilled()
                 ? "px-2"
@@ -173,11 +201,28 @@ ${
             {label}
           </div>
         </div>
-        {suffix && <div className="flex size-8">{suffix}</div>}
+        {suffix && (
+          <div
+            className={`flex size-8
+          ${
+            disabled
+              ? "text-light-on-surface/40 dark:text-dark-on-surface/40"
+              : error
+                ? "text-light-error dark:text-dark-error"
+                : "text-light-on-surface-variant dark:text-dark-on-surface-variant"
+          }`}
+          >
+            {suffix}
+          </div>
+        )}
       </div>
       <div
         className={`text-xs px-4 pt-1 h-2 text-nowrap ${
-          error ? "text-light-error dark:text-dark-error" : ""
+          disabled
+            ? "text-light-on-surface/40 dark:text-dark-on-surface/40"
+            : error
+              ? "text-light-error dark:text-dark-error"
+              : ""
         }`}
       >
         {error ? error : message}
@@ -210,6 +255,8 @@ TextField.propTypes = {
   width: PropTypes.string.isRequired,
   fontFamily: PropTypes.string.isRequired,
   onChange: PropTypes.func,
+  readonly: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default TextField;

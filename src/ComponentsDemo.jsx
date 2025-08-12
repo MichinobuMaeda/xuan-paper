@@ -451,6 +451,26 @@ const ComponentsDemo = () => {
           width="w-28"
           fontFamily="font-mono"
         />
+        <TextField
+          label="Text 04"
+          type="text"
+          value="Input 04"
+          message="Read only"
+          onChange={(v) => {}}
+          style="outlined"
+          width="w-24"
+          readonly
+        />
+        <TextField
+          label="Text 05"
+          type="text"
+          value="Input 05"
+          message="Disabled"
+          onChange={(v) => {}}
+          style="outlined"
+          width="w-24"
+          disabled
+        />
         <Result>
           [{txt01}] [{txt02}] [{txt03}]
         </Result>
@@ -494,6 +514,26 @@ const ComponentsDemo = () => {
           style="filled"
           width="w-28"
           fontFamily="font-mono"
+        />
+        <TextField
+          label="Text 14"
+          type="text"
+          value="Input 14"
+          message="Read only"
+          onChange={(v) => {}}
+          style="filled"
+          width="w-24"
+          readonly
+        />
+        <TextField
+          label="Text 15"
+          type="text"
+          value="Input 15"
+          message="Disabled"
+          onChange={(v) => {}}
+          style="filled"
+          width="w-24"
+          disabled
         />
         <Result>
           [{txt11}] [{txt12}] [{txt13}]
