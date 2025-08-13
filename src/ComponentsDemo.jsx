@@ -1,6 +1,6 @@
-import { useState, useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Button from "./xuan-paper/Button.jsx";
 import CheckBox from "./xuan-paper/CheckBox.jsx";
@@ -17,15 +17,11 @@ import SvgClose from "./icons/SvgClose.jsx";
 import SvgDirectionsCar from "./icons/SvgDirectionsCar.jsx";
 import SvgDirectionsWalk from "./icons/SvgDirectionsWalk.jsx";
 
-import Section from "./layout/Section.jsx";
 import Row from "./layout/Row.jsx";
 
 const ComponentsDemo = () => {
   const { t } = useTranslation();
 
-  const [btn01, setBtn01] = useState("--");
-  const [btn02, setBtn02] = useState("--");
-  const [btn03, setBtn03] = useState("--");
   const [chk01a, setChk01a] = useState(false);
   const [chk01b, setChk01b] = useState(true);
   const [chk02a, setChk02a] = useState(false);
@@ -50,69 +46,33 @@ const ComponentsDemo = () => {
   const [sld01, setSld01] = useState(0.5);
   const [sld02, setSld02] = useState(5);
 
-  const changed = useMemo(
-    () =>
-      btn01 !== "--" ||
-      btn02 !== "--" ||
-      btn03 !== "--" ||
-      chk01a ||
-      !chk01b ||
-      chk02a ||
-      !chk02b ||
-      chk03a ||
-      !chk03b ||
-      swt01a ||
-      !swt01b ||
-      swt02a ||
-      !swt02b ||
-      radio01 !== "Item 01" ||
-      btns01 !== "Car" ||
-      btns02.length !== 2 ||
-      ["A", "C"].some((i) => !btns02.includes(i)) ||
-      txt01 !== "" ||
-      txt02 !== "Input 02" ||
-      txt03 !== 0 ||
-      txt11 !== "" ||
-      txt12 !== "Input 12" ||
-      txt13 !== 0 ||
-      pwd01 !== "P@ssw0rd" ||
-      pwd11 !== "P@ssw0rd" ||
-      sld01 !== 0.5 ||
-      sld02 !== 5,
-    [
-      btn01,
-      btn02,
-      btn03,
-      chk01a,
-      chk01b,
-      chk02a,
-      chk02b,
-      chk03a,
-      chk03b,
-      swt01a,
-      swt01b,
-      swt02a,
-      swt02b,
-      radio01,
-      btns01,
-      btns02,
-      txt01,
-      txt02,
-      txt03,
-      txt11,
-      txt12,
-      txt13,
-      pwd01,
-      pwd11,
-      sld01,
-      sld02,
-    ],
-  );
+  const changed = () =>
+    chk01a !== false ||
+    chk01b !== true ||
+    chk02a !== false ||
+    chk02b !== true ||
+    chk03a !== false ||
+    chk03b !== true ||
+    swt01a !== false ||
+    swt01b !== true ||
+    swt02a !== false ||
+    swt02b !== true ||
+    radio01 !== "Item 01" ||
+    btns01 !== "Car" ||
+    btns02.length !== ["A", "C"].length ||
+    ["A", "C"].some((v) => !btns02.includes(v)) ||
+    txt01 !== "" ||
+    txt02 !== "Input 02" ||
+    txt03 !== 0 ||
+    txt11 !== "" ||
+    txt12 !== "Input 12" ||
+    txt13 !== 0 ||
+    pwd01 !== "P@ssw0rd" ||
+    pwd11 !== "P@ssw0rd" ||
+    sld01 !== 0.5 ||
+    sld02 !== 5;
 
   const reset = () => {
-    setBtn01("--");
-    setBtn02("--");
-    setBtn03("--");
     setChk01a(false);
     setChk01b(true);
     setChk02a(false);
@@ -138,20 +98,6 @@ const ComponentsDemo = () => {
     setSld02(5);
   };
 
-  const chk = (v) => (v ? "[v]" : "[ ]");
-
-  const Result = ({ children }) => {
-    return (
-      <code className="flex flex-row w-full sm:w-auto sm:grow py-1 justify-end">
-        {children}
-      </code>
-    );
-  };
-
-  Result.propTypes ={
-    children: PropTypes.node
-  }
-
   const ItemGroup = ({ children }) => {
     return (
       <div className="flex flex-row gap-2 justify-items-start items-center">
@@ -160,136 +106,49 @@ const ComponentsDemo = () => {
     );
   };
 
-  ItemGroup.propTypes ={
-    children: PropTypes.node
-  }
+  ItemGroup.propTypes = {
+    children: PropTypes.node,
+  };
 
   return (
-    <Section
-      label={t("components")}
-      suffix={
+    <div className="flex flex-col gap-4">
+      <h2>
+        <div className="flex grow">{t("components")}</div>
         <Button
           icon={<SvgUndo />}
-          style="outlined"
-          onClick={reset}
-          disabled={!changed}
+          style="text"
           size="xs"
+          onClick={reset}
+          disabled={!changed()}
         />
-      }
-    >
+      </h2>
       <Row>
-        <Button
-          label="Filled"
-          style="filled"
-          onClick={() => setBtn01("Filled")}
-        />
-        <Button label="Tonal" style="tonal" onClick={() => setBtn01("Tonal")} />
-        <Button
-          label="Outlined"
-          style="outlined"
-          onClick={() => setBtn01("Outlined")}
-        />
-        <Button
-          label="Elevated"
-          style="elevated"
-          onClick={() => setBtn01("Elevated")}
-        />
-        <Button label="Text" style="text" onClick={() => setBtn01("Text")} />
-        <Button
-          label="Danger"
-          style="danger"
-          onClick={() => setBtn01("Danger")}
-        />
-        <Button
-          label="Disabled"
-          onClick={() => setBtn01("Disabled")}
-          disabled
-        />
-        <Result>[{btn01}]</Result>
+        <Button label="Filled" style="filled" />
+        <Button label="Tonal" style="tonal" />
+        <Button label="Outlined" style="outlined" />
+        <Button label="Elevated" style="elevated" />
+        <Button label="Text" style="text" />
+        <Button label="Danger" style="danger" />
+        <Button label="Disabled" disabled />
       </Row>
       <Row>
-        <Button
-          icon={<SvgInfo />}
-          label="Filled"
-          style="filled"
-          onClick={() => setBtn02("Filled")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          label="Tonal"
-          style="tonal"
-          onClick={() => setBtn02("Tonal")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          label="Outlined"
-          style="outlined"
-          onClick={() => setBtn02("Outlined")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          label="Elevated"
-          style="elevated"
-          onClick={() => setBtn02("Elevated")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          label="Text"
-          style="text"
-          onClick={() => setBtn02("Text")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          label="Danger"
-          style="danger"
-          onClick={() => setBtn02("Danger")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          label="Disabled"
-          onClick={() => setBtn02("Disabled")}
-          disabled
-        />
-        <Result>[{btn02}]</Result>
+        <Button icon={<SvgInfo />} label="Filled" style="filled" />
+        <Button icon={<SvgInfo />} label="Tonal" style="tonal" />
+        <Button icon={<SvgInfo />} label="Outlined" style="outlined" />
+        <Button icon={<SvgInfo />} label="Elevated" style="elevated" />
+        <Button icon={<SvgInfo />} label="Text" style="text" />
+        <Button icon={<SvgInfo />} label="Danger" style="danger" />
+        <Button icon={<SvgInfo />} label="Disabled" disabled />
       </Row>
       <Row>
-        <Button
-          icon={<SvgInfo />}
-          style="filled"
-          onClick={() => setBtn03("Filled")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          style="tonal"
-          onClick={() => setBtn03("Tonal")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          style="outlined"
-          onClick={() => setBtn03("Outlined")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          style="elevated"
-          onClick={() => setBtn03("Elevated")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          style="text"
-          onClick={() => setBtn03("Text")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          style="danger"
-          onClick={() => setBtn03("Danger")}
-        />
-        <Button
-          icon={<SvgInfo />}
-          onClick={() => setBtn03("Disabled")}
-          disabled
-        />
-        <Button onClick={() => setBtn03("Empty")} />
-        <Result>[{btn03}]</Result>
+        <Button icon={<SvgInfo />} style="filled" />
+        <Button icon={<SvgInfo />} style="tonal" />
+        <Button icon={<SvgInfo />} style="outlined" />
+        <Button icon={<SvgInfo />} style="elevated" />
+        <Button icon={<SvgInfo />} style="text" />
+        <Button icon={<SvgInfo />} style="danger" />
+        <Button icon={<SvgInfo />} disabled />
+        <Button />
       </Row>
       <Row>
         <Button
@@ -345,16 +204,6 @@ const ComponentsDemo = () => {
             disabled
           />
         </ItemGroup>
-        <Result>
-          {chk(chk01a)}
-          {chk(chk01b)}
-          <span className="text-light-error dark:text-dark-error">
-            {chk(chk02a)}
-            {chk(chk02b)}
-          </span>
-          {chk(chk03a)}
-          {chk(chk03b)}
-        </Result>
       </Row>
       <Row>
         <ItemGroup>
@@ -374,12 +223,6 @@ const ComponentsDemo = () => {
             disabled
           />
         </ItemGroup>
-        <Result>
-          {chk(swt01a)}
-          {chk(swt01b)}
-          {chk(swt02a)}
-          {chk(swt02b)}
-        </Result>
       </Row>
       <Row>
         <RadioGroup
@@ -393,7 +236,6 @@ const ComponentsDemo = () => {
           onChange={(v) => setRadio01(v)}
           layout="horizontal"
         />
-        <Result>[{radio01}]</Result>
       </Row>
       <Row>
         <ButtonGroup
@@ -419,9 +261,6 @@ const ComponentsDemo = () => {
           onChange={(v) => setBtns02(v)}
           multiSelect
         />
-        <Result>
-          [{btns01}] [{btns02.sort((a, b) => (a < b ? -1 : 1)).join(", ")}]
-        </Result>
       </Row>
       <Row>
         <TextField
@@ -434,13 +273,19 @@ const ComponentsDemo = () => {
           label="Text 02"
           value={txt02}
           prefix={
-            <Button icon={<SvgInfo />} style="embed" onClick={() => {}} />
+            <Button
+              icon={<SvgInfo />}
+              style="text"
+              size="xs"
+              onClick={() => {}}
+            />
           }
           suffix={
             txt02 !== "Input 02" && (
               <Button
                 icon={<SvgClose />}
-                style="embed"
+                style="text"
+                size="xs"
                 onClick={() => setTxt02("Input 02")}
               />
             )
@@ -478,9 +323,6 @@ const ComponentsDemo = () => {
           width="w-24"
           disabled
         />
-        <Result>
-          [{txt01}] [{txt02}] [{txt03}]
-        </Result>
       </Row>
       <Row>
         <TextField
@@ -494,13 +336,18 @@ const ComponentsDemo = () => {
           label="Text 12"
           value={txt12}
           prefix={
-            <Button icon={<SvgInfo />} style="embed" onClick={() => {}} />
+            <Button
+              icon={<SvgInfo />}
+              style="text"
+              size="xs"
+              onClick={() => {}}
+            />
           }
           suffix={
             txt12 !== "Input 12" && (
               <Button
                 icon={<SvgClose />}
-                style="embed"
+                style="embedded"
                 onClick={() => setTxt12("Input 12")}
               />
             )
@@ -540,9 +387,6 @@ const ComponentsDemo = () => {
           width="w-24"
           disabled
         />
-        <Result>
-          [{txt11}] [{txt12}] [{txt13}]
-        </Result>
       </Row>
       <Row>
         <PasswordField
@@ -563,9 +407,6 @@ const ComponentsDemo = () => {
           style="filled"
           width="w-44"
         />
-        <Result>
-          [{pwd01}] [{pwd11}]
-        </Result>
       </Row>
       <Row>
         <Slider value={sld01} onChange={(v) => setSld01(v)} />
@@ -575,13 +416,17 @@ const ComponentsDemo = () => {
           onChange={(v) => setSld02(v)}
           size="sm"
         />
-        <Result>
-          [{Math.round(sld01 * 100)}%] [{sld02}]
-        </Result>
       </Row>
-      <hr className="mx-2" />
-    </Section>
+      <Row>
+        <hr className="mx-2 my-4 w-full" />
+      </Row>
+    </div>
   );
+};
+
+ComponentsDemo.propTypes = {
+  changed: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default ComponentsDemo;

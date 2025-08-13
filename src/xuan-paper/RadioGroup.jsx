@@ -94,7 +94,7 @@ const RadioGroup = ({
             {item.value === value ? (
               <svg
                 className={`absolute inset-0 pointer-events-none size-6
-                  text-light-primary dark:text-dark-primary-primary`}
+                  text-light-primary dark:text-dark-primary`}
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 -960 960 960"
                 fill="currentColor"

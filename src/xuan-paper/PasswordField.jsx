@@ -107,7 +107,7 @@ const PasswordField = ({
               </svg>
             )
           }
-          style="embed"
+          style="embedded"
           onClick={() => setVisible(!visible)}
         />
       }

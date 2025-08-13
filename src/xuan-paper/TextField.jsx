@@ -14,8 +14,8 @@ import PropTypes from "prop-types";
  * @param {string} [props.label] - Floating label text that appears above the input when focused or filled
  * @param {string} [props.message] - Helper text displayed below the input field
  * @param {string} [props.error] - Error message that overrides the helper text and applies error styling
- * @param {React.ReactNode} [props.prefix] - Element to display at the start of the input. Typically uses Button component with style="embed" for interactive elements
- * @param {React.ReactNode} [props.suffix] - Element to display at the end of the input. Typically uses Button component with style="embed" for interactive elements
+ * @param {React.ReactNode} [props.prefix] - Element to display at the start of the input. Typically uses Button component with style="embedded" for interactive elements
+ * @param {React.ReactNode} [props.suffix] - Element to display at the end of the input. Typically uses Button component with style="embedded" for interactive elements
  * @param {string} [props.style] - Visual style variant, use "filled" for filled background style
  * @param {string} [props.width='w-48'] - Tailwind CSS width class for the input field
  * @param {string} [props.fontFamily='font-sans'] - Tailwind CSS font family class
@@ -46,25 +46,25 @@ import PropTypes from "prop-types";
  * />
  *
  * @example
- * // Password field with embed button prefix
+ * // Password field with embedded button prefix
  * <TextField
  *   id="password"
  *   type="password"
  *   label="Password"
  *   value={password}
- *   prefix={<Button icon={<LockIcon />} style="embed" />}
+ *   prefix={<Button icon={<LockIcon />} style="embedded" />}
  *   width="w-80"
  *   onChange={setPassword}
  * />
  *
  * @example
- * // Filled style input with embed button suffix
+ * // Filled style input with embedded button suffix
  * <TextField
  *   id="search"
  *   label="Search products"
  *   value={searchQuery}
  *   style="filled"
- *   suffix={<Button icon={<SearchIcon />} style="embed" onClick={handleSearch} />}
+ *   suffix={<Button icon={<SearchIcon />} style="embedded" onClick={handleSearch} />}
  *   width="w-96"
  *   onChange={setSearchQuery}
  * />

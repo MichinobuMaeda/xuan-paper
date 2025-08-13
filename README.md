@@ -4,15 +4,12 @@ Tailwind / React / Material design 3
 
 [Sample](https://xuan-paper.michinobu.jp)
 
-## Components
-
 [API](docs/components.md)
 
-![Components](docs/xuan-paper-components.png)
-
-## Color theme generator
-
-![Color theme generator](docs/xuan-paper-color-theme.png)
+![Green light](docs/green-light.png)
+![Green dark](docs/green-dark.png)
+![Blue light](docs/blue-light.png)
+![Blue dark](docs/blue-dark.png)
 
 ## Note
 

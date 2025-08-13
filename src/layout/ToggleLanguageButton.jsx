@@ -23,7 +23,7 @@ const ToggleLanguageButton = () => {
         let index = languages.indexOf(i18n.language);
         i18n.changeLanguage(languages[++index < languages.length ? index : 0]);
       }}
-      style="embed"
+      style="embedded"
     />
   );
 };

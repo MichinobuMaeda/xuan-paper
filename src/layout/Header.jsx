@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import appLogo from "/favicon.svg";
 
-function Header({ title, suffix, bottom }) {
+function Header({ title, center, suffix, bottom }) {
   return (
     <div className="flex flex-col sticky top-0 w-full z-10">
       <div
@@ -12,7 +12,7 @@ function Header({ title, suffix, bottom }) {
       >
         <img src={appLogo} className="size-8" alt={`${title} logo`} />
         <h1 className="text-2xl">{title}</h1>
-        <div className="flex grow"></div>
+        <div className="flex flex-row grow">{center}</div>
         {suffix}
       </div>
       {bottom}
@@ -22,6 +22,7 @@ function Header({ title, suffix, bottom }) {
 
 Header.propTypes = {
   title: PropTypes.string,
+  center: PropTypes.node,
   suffix: PropTypes.node,
   bottom: PropTypes.node,
 };

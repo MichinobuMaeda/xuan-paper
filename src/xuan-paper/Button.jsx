@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
  * @param {string} [props.id] - Unique identifier for the button element
  * @param {React.ReactNode} [props.icon] - Icon element to display alongside or instead of label
  * @param {string} [props.label] - Text content to display in the button
- * @param {('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embed')} [props.style='filled'] - Visual style variant of the button
+ * @param {('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embedded')} [props.style='filled'] - Visual style variant of the button
  * @param {Function} [props.onClick] - Click event handler function
  * @param {boolean} [props.disabled=false] - Whether the button is disabled
  * @param {string} [props.rounded='rounded-full'] - Tailwind CSS class for border radius
@@ -50,7 +50,7 @@ function Button({
   size = "sm",
   width = "w-fit",
 }) {
-  if (style === "embed") {
+  if (style === "embedded") {
     size = "xs";
   }
   return (
@@ -73,7 +73,9 @@ ${
   disabled
     ? `opacity-50 text-light-on-surface dark:text-dark-on-surface
       ${
-        style === "text" ? "" : "bg-light-surface-dim dark:bg-dark-surface-dim"
+        style === "text" || style === "embedded"
+          ? ""
+          : "bg-light-surface-dim dark:bg-dark-surface-dim"
       }`
     : `cursor-pointer transition-colors duration-150
 ${(() => {
@@ -99,14 +101,15 @@ ${(() => {
       return `text-light-primary dark:text-dark-primary
               active:bg-light-primary/10 dark:active:bg-dark-primary/10
               hover:bg-light-primary/5 dark:hover:bg-dark-primary/5`;
+    case "embedded":
+      return `active:bg-light-primary/10 dark:active:bg-dark-primary/10
+              hover:bg-light-primary/5 dark:hover:bg-dark-primary/5`;
     case "danger":
     case "error":
       return `bg-light-error dark:bg-dark-error
               text-light-on-error dark:text-dark-on-error
               active:bg-light-error/80 dark:active:bg-dark-error/80
               hover:bg-light-error/90 dark:hover:bg-dark-error/90`;
-    case "embed":
-      return "";
     default:
       return `bg-light-primary dark:bg-dark-primary
                text-light-on-primary dark:text-dark-on-primary
@@ -137,7 +140,7 @@ Button.propTypes = {
     "text",
     "danger",
     "error",
-    "embed",
+    "embedded",
   ]),
   onClick: PropTypes.func,
   disabled: PropTypes.bool,

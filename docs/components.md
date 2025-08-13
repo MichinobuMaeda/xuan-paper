@@ -27,7 +27,7 @@ A versatile button component with multiple styles, sizes, and configurations.
 | props.id *(optional)* | `string` | Unique identifier for the button element |
 | props.icon *(optional)* | `React.ReactNode` | Icon element to display alongside or instead of label |
 | props.label *(optional)* | `string` | Text content to display in the button |
-| props.style='filled' *(optional)* | `('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embed')` | Visual style variant of the button |
+| props.style='filled' *(optional)* | `('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embedded')` | Visual style variant of the button |
 | props.onClick *(optional)* | `Function` | Click event handler function |
 | props.disabled=false *(optional)* | `boolean` | Whether the button is disabled |
 | props.rounded='rounded-full' *(optional)* | `string` | Tailwind CSS class for border radius |
@@ -567,8 +567,8 @@ A versatile text input field component with floating labels,
 | props.label *(optional)* | `string` | Floating label text that appears above the input when focused or filled |
 | props.message *(optional)* | `string` | Helper text displayed below the input field |
 | props.error *(optional)* | `string` | Error message that overrides the helper text and applies error styling |
-| props.prefix *(optional)* | `React.ReactNode` | Element to display at the start of the input. Typically uses Button component with style="embed" for interactive elements |
-| props.suffix *(optional)* | `React.ReactNode` | Element to display at the end of the input. Typically uses Button component with style="embed" for interactive elements |
+| props.prefix *(optional)* | `React.ReactNode` | Element to display at the start of the input. Typically uses Button component with style="embedded" for interactive elements |
+| props.suffix *(optional)* | `React.ReactNode` | Element to display at the end of the input. Typically uses Button component with style="embedded" for interactive elements |
 | props.style *(optional)* | `string` | Visual style variant, use "filled" for filled background style |
 | props.width='w-48' *(optional)* | `string` | Tailwind CSS width class for the input field |
 | props.fontFamily='font-sans' *(optional)* | `string` | Tailwind CSS font family class |
@@ -614,13 +614,13 @@ Rendered text field component
 #### Example 3
 
 ```jsx
-// Password field with embed button prefix
+// Password field with embedded button prefix
 <TextField
   id="password"
   type="password"
   label="Password"
   value={password}
-  prefix={<Button icon={<LockIcon />} style="embed" />}
+  prefix={<Button icon={<LockIcon />} style="embedded" />}
   width="w-80"
   onChange={setPassword}
 />
@@ -629,13 +629,13 @@ Rendered text field component
 #### Example 4
 
 ```jsx
-// Filled style input with embed button suffix
+// Filled style input with embedded button suffix
 <TextField
   id="search"
   label="Search products"
   value={searchQuery}
   style="filled"
-  suffix={<Button icon={<SearchIcon />} style="embed" onClick={handleSearch} />}
+  suffix={<Button icon={<SearchIcon />} style="embedded" onClick={handleSearch} />}
   width="w-96"
   onChange={setSearchQuery}
 />

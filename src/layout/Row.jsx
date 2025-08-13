@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const Row = ({ children }) => {
   return (
-    <div className={`flex flex-wrap px-4 gap-4 justify-start items-start`}>
+    <div className={`flex flex-wrap px-4 gap-4 justify-start items-center`}>
       {children}
     </div>
   );

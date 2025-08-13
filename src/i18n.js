@@ -7,9 +7,7 @@ export const translations = {
       "offline ready": "App ready to work offline",
       "update app": "New app available, click on reload button to update.",
       components: "Components",
-      "color theme": "Color theme",
-      hue: "Hue",
-      contrast: "Contrast",
+      "theme color": "Theme color",
     },
   },
   ja: {
@@ -18,9 +16,7 @@ export const translations = {
       "update app":
         "新しいアプリがあります。更新するには再読み込みボタンをクリックしてください。",
       components: "コンポーネント",
-      "color theme": "カラーテーマ",
-      hue: "色相",
-      contrast: "コントラスト",
+      "theme color": "テーマカラー",
     },
   },
 };

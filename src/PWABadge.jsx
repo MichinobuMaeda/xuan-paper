@@ -59,8 +59,8 @@ function PWABadge() {
   ) : offlineReady ? (
     <div
       className={`flex flex-row py-1 px-2 h-12 items-center gap-2
-        bg-light-secondary-container dark:bg-dark-secondary-container
-        text-light-on-secondary-container dark:text-dark-on-secondary-container`}
+        bg-light-primary-container dark:bg-dark-primary-container
+        text-light-on-primary-container dark:text-dark-on-primary-container`}
     >
       <div className="flex flex-row grow">{t("offline ready")}</div>
       <Button
