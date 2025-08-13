@@ -27,11 +27,11 @@ A versatile button component with multiple styles, sizes, and configurations.
 | props.id *(optional)* | `string` | Unique identifier for the button element |
 | props.icon *(optional)* | `React.ReactNode` | Icon element to display alongside or instead of label |
 | props.label *(optional)* | `string` | Text content to display in the button |
-| props.style='filled' *(optional)* | `('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embedded')` | Visual style variant of the button |
+| props.style='filled' *(optional)* | `('filled'\|'tonal'\|'outlined'\|'elevated'\|'text'\|'danger'\|'error'\|'embedded')` | Visual style variant of the button |
 | props.onClick *(optional)* | `Function` | Click event handler function |
 | props.disabled=false *(optional)* | `boolean` | Whether the button is disabled |
 | props.rounded='rounded-full' *(optional)* | `string` | Tailwind CSS class for border radius |
-| props.size='sm' *(optional)* | `('xs'|'sm'|'md')` | Size variant of the button |
+| props.size='sm' *(optional)* | `('xs'\|'sm'\|'md')` | Size variant of the button |
 | props.width='w-fit' *(optional)* | `string` | Tailwind CSS class for button width |
 
 ### Returns
@@ -85,12 +85,12 @@ A button group component that renders a collection of related buttons with singl
 |------|------|-------------|
 | **props** | `Object` | The props object |
 | **props.name** | `string` | Unique name identifier for the button group (used for DOM IDs) |
-| props.value *(optional)* | `string|Array<string>` | Currently selected button value(s). String for single select, Array for multi-select |
+| props.value *(optional)* | `string\|Array<string>` | Currently selected button value(s). String for single select, Array for multi-select |
 | props.items *(optional)* | `Array<Object>` | Array of button configuration objects |
 | props.multiSelect=false *(optional)* | `boolean` | Whether multiple buttons can be selected simultaneously |
 | props.onChange *(optional)* | `Function` | Callback function called when button selection changes |
 | props.disabled=false *(optional)* | `boolean` | When true, disables the input field entirely (prevents interaction) |
-| props.size='sm' *(optional)* | `('xs'|'sm'|'md')` | Size variant applied to all buttons in the group |
+| props.size='sm' *(optional)* | `('xs'\|'sm'\|'md')` | Size variant applied to all buttons in the group |
 
 ### Returns
 
@@ -337,7 +337,7 @@ A radio button group component that allows single selection
 | props.value *(optional)* | `string` | Currently selected radio button value |
 | props.items *(optional)* | `Array<Object>` | Array of radio button option objects |
 | props.onChange *(optional)* | `Function` | Callback function called when a radio button is selected |
-| props.layout='horizontal' *(optional)* | `('vertical'|'horizontal')` | Layout direction for the radio buttons |
+| props.layout='horizontal' *(optional)* | `('vertical'\|'horizontal')` | Layout direction for the radio buttons |
 
 ### Returns
 
@@ -411,7 +411,7 @@ An interactive slider component with drag functionality and responsive design.
 | props.id *(optional)* | `string` | Unique identifier for the slider element (auto-generated if not provided) |
 | props.value=0 *(optional)* | `number` | Current value of the slider. For continuous mode (count=1): 0-1 range. For discrete mode: 0 to count |
 | props.count=1 *(optional)* | `number` | Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider |
-| props.size='xs' *(optional)* | `('xs'|'sm'|'md')` | Visual size variant affecting track height and thumb size |
+| props.size='xs' *(optional)* | `('xs'\|'sm'\|'md')` | Visual size variant affecting track height and thumb size |
 | props.width='w-48' *(optional)* | `string` | Tailwind CSS width class for the slider container |
 | props.onChange *(optional)* | `Function` | Callback function called when slider value changes |
 
@@ -562,8 +562,8 @@ A versatile text input field component with floating labels,
 |------|------|-------------|
 | **props** | `Object` | The props object |
 | props.id *(optional)* | `string` | Unique identifier for the input element |
-| props.type='text' *(optional)* | `('text'|'email'|'password'|'number')` | HTML input type |
-| props.value *(optional)* | `string|number` | Current value of the input field |
+| props.type='text' *(optional)* | `('text'\|'email'\|'password'\|'number')` | HTML input type |
+| props.value *(optional)* | `string\|number` | Current value of the input field |
 | props.label *(optional)* | `string` | Floating label text that appears above the input when focused or filled |
 | props.message *(optional)* | `string` | Helper text displayed below the input field |
 | props.error *(optional)* | `string` | Error message that overrides the helper text and applies error styling |

@@ -43,6 +43,7 @@ function extractJSDoc(filePath) {
       ),
     ];
     const params = paramMatches.map((match) => ({
+      // Leave the original type as is - we'll escape when generating markdown
       type: match[1],
       name: match[2],
       description: match[3].trim(),
@@ -88,6 +89,17 @@ function extractJSDoc(filePath) {
 }
 
 /**
+ * Escapes special characters for markdown tables
+ * @param {string} text - Text to escape
+ * @returns {string} Escaped text safe for markdown tables
+ */
+function escapeMarkdownTableText(text) {
+  if (!text) return '';
+  // Escape pipe characters which would break table formatting
+  return text.replace(/\|/g, '\\|');
+}
+
+/**
  * Generates markdown documentation for a component
  * @param {Object} componentDoc - Component documentation object
  * @returns {string} Markdown formatted documentation
@@ -111,7 +123,12 @@ function generateMarkdown(componentDoc) {
       const name = param.name.replace(/\[|\]/g, "");
       const isOptional = param.name.includes("[");
       const displayName = isOptional ? `${name} *(optional)*` : `**${name}**`;
-      md += `| ${displayName} | \`${param.type}\` | ${param.description} |\n`;
+      
+      // Escape pipe characters in all fields to prevent breaking markdown tables
+      const escapedType = escapeMarkdownTableText(param.type);
+      const escapedDescription = escapeMarkdownTableText(param.description);
+      
+      md += `| ${displayName} | \`${escapedType}\` | ${escapedDescription} |\n`;
     });
     md += "\n";
   }
@@ -119,8 +136,13 @@ function generateMarkdown(componentDoc) {
   // Return type section
   if (componentDoc.returns) {
     md += `### Returns\n\n`;
-    md += `**Type:** \`${componentDoc.returns.type}\`\n\n`;
-    md += `${componentDoc.returns.description}\n\n`;
+    // Escape pipe characters in return type
+    const escapedReturnType = escapeMarkdownTableText(componentDoc.returns.type);
+    md += `**Type:** \`${escapedReturnType}\`\n\n`;
+    
+    // Escape pipe characters in description
+    const escapedReturnDescription = escapeMarkdownTableText(componentDoc.returns.description);
+    md += `${escapedReturnDescription}\n\n`;
   }
 
   // Examples section
