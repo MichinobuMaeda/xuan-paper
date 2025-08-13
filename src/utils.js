@@ -1,24 +1,4 @@
 /**
- * Toggles between supported languages in the internationalization system.
- * Cycles through the provided languages array in order, wrapping back to the first
- * language when reaching the end of the array.
- *
- * @param {Object} i18n - The i18next instance with language switching capability
- * @param {string[]} languages - Array of supported language codes to cycle through
- * @returns {void}
- *
- * @example
- * // Toggle between Japanese and English
- * import { useTranslation } from 'react-i18next';
- * const { i18n } = useTranslation();
- * toggleLanguage(i18n, ['ja', 'en']); // Switches from 'ja' to 'en' or 'en' to 'ja'
- */
-export const toggleLanguage = (i18n, languages) => {
-  let index = languages.indexOf(i18n.language);
-  i18n.changeLanguage(languages[++index < languages.length ? index : 0]);
-};
-
-/**
  * Converts HSL (Hue, Saturation, Lightness) color values to hexadecimal format.
  * Uses the HSL color model to generate web-compatible hex color codes.
  *

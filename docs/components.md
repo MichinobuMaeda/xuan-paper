@@ -1,6 +1,6 @@
 # Xuan-Paper Components Documentation
 
-Generated on: 2025-08-12
+Generated on: 2025-08-13
 
 ## Components
 

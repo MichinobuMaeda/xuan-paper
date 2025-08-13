@@ -1,7 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-export const resources = {
+export const translations = {
   en: {
     translation: {
       "offline ready": "App ready to work offline",
@@ -26,7 +26,7 @@ export const resources = {
 };
 
 i18n.use(initReactI18next).init({
-  resources,
+  resources: translations,
   lng: "ja",
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default

@@ -3,7 +3,7 @@ import appLogo from "/favicon.svg";
 
 function Header({ suffix, bottom }) {
   return (
-    <div className="flex flex-col sticky top-0 w-full z-10">
+    <div className="flex flex-col sticky top-0 w-full z-10 gap-2">
       <div
         className="flex flex-row h-10
         bg-light-primary dark:bg-dark-primary
@@ -12,6 +12,7 @@ function Header({ suffix, bottom }) {
       >
         <img src={appLogo} className="size-8" alt="Xuan paper logo" />
         <h1 className="text-2xl">Xuan paper</h1>
+        <div className="flex grow"></div>
         {suffix}
       </div>
       {bottom}
