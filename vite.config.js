@@ -32,9 +32,9 @@ export default defineConfig({
       },
 
       manifest: {
-        name: "xuan-paper",
-        short_name: "xuan-paper",
-        description: "xuan-paper",
+        name: "Xuan Paper",
+        short_name: "Xuan Paper",
+        description: "Xuan Paper",
         theme_color: "#6B9E6D",
       },
 

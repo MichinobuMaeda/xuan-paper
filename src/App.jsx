@@ -10,7 +10,7 @@ import ColorThemeGenerator from "./ColorThemeGenerator.jsx";
 function App() {
   return (
     <div className="flex flex-col items-center">
-      <Header suffix={<ToggleLanguageButton />} bottom={<PWABadge />} />
+      <Header title="Xuan Paper" suffix={<ToggleLanguageButton />} bottom={<PWABadge />} />
       <main
         className={`flex flex-col pt-2 pb-6 gap-2 w-full sm:max-w-[1024px]
           bg-light-form dark:bg-dark-form
