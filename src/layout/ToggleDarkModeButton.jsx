@@ -5,9 +5,14 @@ import Button from "../xuan-paper/Button.jsx";
 const modeSystem = "system";
 const modeLight = "light";
 const modeDark = "dark";
+const STORAGE_KEY = "xuan-paper-theme-mode";
 
 const ToggleDarkModeButton = () => {
-  const [brightnessSetting, setBrightnessSetting] = useState(modeSystem);
+  // Initialize state from localStorage or default to system
+  const [brightnessSetting, setBrightnessSetting] = useState(() => {
+    const savedMode = localStorage.getItem(STORAGE_KEY);
+    return savedMode || modeSystem;
+  });
   const [systemMode, setSystemMode] = useState("light");
 
   // Compute theme mode from app settings and system mode
@@ -25,6 +30,9 @@ const ToggleDarkModeButton = () => {
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
+    // Set initial value
+    setSystemMode(mediaQuery.matches ? modeDark : modeLight);
+
     const handleChange = (event) => {
       setSystemMode(event.matches ? modeDark : modeLight);
     };
@@ -34,7 +42,12 @@ const ToggleDarkModeButton = () => {
     return () => {
       mediaQuery.removeEventListener("change", handleChange);
     };
-  });
+  }, []);
+
+  // Save mode preference to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, brightnessSetting);
+  }, [brightnessSetting]);
 
   // Apply mode changes
   useEffect(() => {

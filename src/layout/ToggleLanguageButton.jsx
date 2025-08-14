@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../xuan-paper/Button.jsx";
 import { useTranslation } from "react-i18next";
 import { translations } from "../i18n.js";
 
+const STORAGE_KEY = "xuan-paper-language";
+
 const ToggleLanguageButton = () => {
   const { i18n } = useTranslation();
+  
+  // Initialize language from localStorage on component mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem(STORAGE_KEY);
+    if (savedLanguage && Object.keys(translations).includes(savedLanguage)) {
+      i18n.changeLanguage(savedLanguage);
+    }
+  }, []);
 
   return (
     <Button
@@ -21,7 +31,13 @@ const ToggleLanguageButton = () => {
       onClick={() => {
         const languages = Object.keys(translations);
         let index = languages.indexOf(i18n.language);
-        i18n.changeLanguage(languages[++index < languages.length ? index : 0]);
+        const newLanguage = languages[++index < languages.length ? index : 0];
+        
+        // Save the selected language to localStorage
+        localStorage.setItem(STORAGE_KEY, newLanguage);
+        
+        // Change the language
+        i18n.changeLanguage(newLanguage);
       }}
       style="embedded"
     />

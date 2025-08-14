@@ -21,18 +21,18 @@ A versatile button component with multiple styles, sizes, and configurations.
 
 ### Props
 
-| Name                                      | Type                                                                                 | Description                                           |
-| ----------------------------------------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------- |
-| **props**                                 | `Object`                                                                             | The props object                                      |
-| props.id _(optional)_                     | `string`                                                                             | Unique identifier for the button element              |
-| props.icon _(optional)_                   | `React.ReactNode`                                                                    | Icon element to display alongside or instead of label |
-| props.label _(optional)_                  | `string`                                                                             | Text content to display in the button                 |
-| props.style='filled' _(optional)_         | `('filled'\|'tonal'\|'outlined'\|'elevated'\|'text'\|'danger'\|'error'\|'embedded')` | Visual style variant of the button                    |
-| props.onClick _(optional)_                | `Function`                                                                           | Click event handler function                          |
-| props.disabled=false _(optional)_         | `boolean`                                                                            | Whether the button is disabled                        |
-| props.rounded='rounded-full' _(optional)_ | `string`                                                                             | Tailwind CSS class for border radius                  |
-| props.size='sm' _(optional)_              | `('xs'\|'sm'\|'md')`                                                                 | Size variant of the button                            |
-| props.width='w-fit' _(optional)_          | `string`                                                                             | Tailwind CSS class for button width                   |
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | The props object |
+| props.id *(optional)* | `string` | Unique identifier for the button element |
+| props.icon *(optional)* | `React.ReactNode` | Icon element to display alongside or instead of label |
+| props.label *(optional)* | `string` | Text content to display in the button |
+| props.style='filled' *(optional)* | `('filled'\|'tonal'\|'outlined'\|'elevated'\|'text'\|'danger'\|'error'\|'embedded')` | Visual style variant of the button |
+| props.onClick *(optional)* | `Function` | Click event handler function |
+| props.disabled=false *(optional)* | `boolean` | Whether the button is disabled |
+| props.rounded='rounded-full' *(optional)* | `string` | Tailwind CSS class for border radius |
+| props.size='sm' *(optional)* | `('xs'\|'sm'\|'md')` | Size variant of the button |
+| props.width='w-fit' *(optional)* | `string` | Tailwind CSS class for button width |
 
 ### Returns
 
@@ -46,14 +46,19 @@ Rendered button component
 
 ```jsx
 // Basic filled button
-<Button label="Click Me" onClick={() => console.log("clicked")} />
+<Button label="Click Me" onClick={() => console.log('clicked')} />
 ```
 
 #### Example 2
 
 ```jsx
 // Icon button with custom styling
-<Button icon={<SomeIcon />} style="outlined" size="md" rounded="rounded-lg" />
+<Button
+  icon={<SomeIcon />}
+  style="outlined"
+  size="md"
+  rounded="rounded-lg"
+/>
 ```
 
 #### Example 3
@@ -61,10 +66,10 @@ Rendered button component
 ```jsx
 // Danger button with label
 <Button
-    label="Delete"
-    style="danger"
-    onClick={handleDelete}
-    disabled={isLoading}
+  label="Delete"
+  style="danger"
+  onClick={handleDelete}
+  disabled={isLoading}
 />
 ```
 
@@ -76,16 +81,16 @@ A button group component that renders a collection of related buttons with singl
 
 ### Props
 
-| Name                                 | Type                    | Description                                                                          |
-| ------------------------------------ | ----------------------- | ------------------------------------------------------------------------------------ |
-| **props**                            | `Object`                | The props object                                                                     |
-| **props.name**                       | `string`                | Unique name identifier for the button group (used for DOM IDs)                       |
-| props.value _(optional)_             | `string\|Array<string>` | Currently selected button value(s). String for single select, Array for multi-select |
-| props.items _(optional)_             | `Array<Object>`         | Array of button configuration objects                                                |
-| props.multiSelect=false _(optional)_ | `boolean`               | Whether multiple buttons can be selected simultaneously                              |
-| props.onChange _(optional)_          | `Function`              | Callback function called when button selection changes                               |
-| props.disabled=false _(optional)_    | `boolean`               | When true, disables the input field entirely (prevents interaction)                  |
-| props.size='sm' _(optional)_         | `('xs'\|'sm'\|'md')`    | Size variant applied to all buttons in the group                                     |
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | The props object |
+| **props.name** | `string` | Unique name identifier for the button group (used for DOM IDs) |
+| props.value *(optional)* | `string\|Array<string>` | Currently selected button value(s). String for single select, Array for multi-select |
+| props.items *(optional)* | `Array<Object>` | Array of button configuration objects |
+| props.multiSelect=false *(optional)* | `boolean` | Whether multiple buttons can be selected simultaneously |
+| props.onChange *(optional)* | `Function` | Callback function called when button selection changes |
+| props.disabled=false *(optional)* | `boolean` | When true, disables the input field entirely (prevents interaction) |
+| props.size='sm' *(optional)* | `('xs'\|'sm'\|'md')` | Size variant applied to all buttons in the group |
 
 ### Returns
 
@@ -100,14 +105,14 @@ Rendered button group component
 ```jsx
 // Basic horizontal button group (single select)
 <ButtonGroup
-    name="viewMode"
-    value={currentView}
-    items={[
-        { value: "grid", label: "Grid View" },
-        { value: "list", label: "List View" },
-        { value: "card", label: "Card View" },
-    ]}
-    onChange={(value) => setCurrentView(value)}
+  name="viewMode"
+  value={currentView}
+  items={[
+    { value: 'grid', label: 'Grid View' },
+    { value: 'list', label: 'List View' },
+    { value: 'card', label: 'Card View' }
+  ]}
+  onChange={(value) => setCurrentView(value)}
 />
 ```
 
@@ -116,15 +121,15 @@ Rendered button group component
 ```jsx
 // Vertical layout button group
 <ButtonGroup
-    name="sidebar"
-    value={activeSidebar}
-    layout="vertical"
-    items={[
-        { value: "files", icon: <FilesIcon />, label: "Files" },
-        { value: "search", icon: <SearchIcon />, label: "Search" },
-        { value: "git", icon: <GitIcon />, label: "Source Control" },
-    ]}
-    onChange={setActiveSidebar}
+  name="sidebar"
+  value={activeSidebar}
+  layout="vertical"
+  items={[
+    { value: 'files', icon: <FilesIcon />, label: 'Files' },
+    { value: 'search', icon: <SearchIcon />, label: 'Search' },
+    { value: 'git', icon: <GitIcon />, label: 'Source Control' }
+  ]}
+  onChange={setActiveSidebar}
 />
 ```
 
@@ -133,15 +138,15 @@ Rendered button group component
 ```jsx
 // Multi-select horizontal button group
 <ButtonGroup
-    name="filters"
-    value={selectedFilters}
-    multiSelect={true}
-    items={[
-        { value: "new", label: "New" },
-        { value: "popular", label: "Popular" },
-        { value: "sale", label: "On Sale" },
-    ]}
-    onChange={setSelectedFilters}
+  name="filters"
+  value={selectedFilters}
+  multiSelect={true}
+  items={[
+    { value: 'new', label: 'New' },
+    { value: 'popular', label: 'Popular' },
+    { value: 'sale', label: 'On Sale' }
+  ]}
+  onChange={setSelectedFilters}
 />
 ```
 
@@ -150,15 +155,15 @@ Rendered button group component
 ```jsx
 // Icon-only buttons with custom size
 <ButtonGroup
-    name="tools"
-    value={selectedTool}
-    size="md"
-    items={[
-        { value: "select", icon: <SelectIcon /> },
-        { value: "pen", icon: <PenIcon /> },
-        { value: "eraser", icon: <EraserIcon /> },
-    ]}
-    onChange={setSelectedTool}
+  name="tools"
+  value={selectedTool}
+  size="md"
+  items={[
+    { value: 'select', icon: <SelectIcon /> },
+    { value: 'pen', icon: <PenIcon /> },
+    { value: 'eraser', icon: <EraserIcon /> }
+  ]}
+  onChange={setSelectedTool}
 />
 ```
 
@@ -170,15 +175,15 @@ A customizable checkbox component with label support, theming,
 
 ### Props
 
-| Name                              | Type       | Description                                                  |
-| --------------------------------- | ---------- | ------------------------------------------------------------ |
-| **props**                         | `Object`   | The props object                                             |
-| props.id _(optional)_             | `string`   | Unique identifier for the checkbox input element             |
-| **props.value**                   | `boolean`  | Current checked state of the checkbox (controlled component) |
-| props.label _(optional)_          | `string`   | Text label to display next to the checkbox                   |
-| props.style _(optional)_          | `string`   | Visual style variant, use "danger" for error states          |
-| props.onChange _(optional)_       | `Function` | Callback function called when checkbox state changes         |
-| props.disabled=false _(optional)_ | `boolean`  | Whether the checkbox is disabled                             |
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | The props object |
+| props.id *(optional)* | `string` | Unique identifier for the checkbox input element |
+| **props.value** | `boolean` | Current checked state of the checkbox (controlled component) |
+| props.label *(optional)* | `string` | Text label to display next to the checkbox |
+| props.style *(optional)* | `string` | Visual style variant, use "danger" for error states |
+| props.onChange *(optional)* | `Function` | Callback function called when checkbox state changes |
+| props.disabled=false *(optional)* | `boolean` | Whether the checkbox is disabled |
 
 ### Returns
 
@@ -193,9 +198,9 @@ Rendered checkbox component
 ```jsx
 // Basic checkbox with label
 <CheckBox
-    value={isChecked}
-    label="Accept terms and conditions"
-    onChange={(checked) => setIsChecked(checked)}
+  value={isChecked}
+  label="Accept terms and conditions"
+  onChange={(checked) => setIsChecked(checked)}
 />
 ```
 
@@ -204,11 +209,11 @@ Rendered checkbox component
 ```jsx
 // Checkbox with danger/error styling
 <CheckBox
-    id="error-checkbox"
-    value={hasError}
-    label="This has an error"
-    style="danger"
-    onChange={setHasError}
+  id="error-checkbox"
+  value={hasError}
+  label="This has an error"
+  style="danger"
+  onChange={setHasError}
 />
 ```
 
@@ -217,10 +222,10 @@ Rendered checkbox component
 ```jsx
 // Disabled checkbox
 <CheckBox
-    value={readOnlyValue}
-    label="Read-only option"
-    disabled={true}
-    onChange={() => {}} // No-op for disabled state
+  value={readOnlyValue}
+  label="Read-only option"
+  disabled={true}
+  onChange={() => {}} // No-op for disabled state
 />
 ```
 
@@ -229,9 +234,9 @@ Rendered checkbox component
 ```jsx
 // Checkbox without label (icon only)
 <CheckBox
-    id="standalone-checkbox"
-    value={isSelected}
-    onChange={handleSelection}
+  id="standalone-checkbox"
+  value={isSelected}
+  onChange={handleSelection}
 />
 ```
 
@@ -243,18 +248,18 @@ A specialized password input field with visibility toggle functionality.
 
 ### Props
 
-| Name                                      | Type       | Description                                                             |
-| ----------------------------------------- | ---------- | ----------------------------------------------------------------------- |
-| **props**                                 | `Object`   | The props object                                                        |
-| props.id _(optional)_                     | `string`   | Unique identifier for the password input element                        |
-| props.value='' _(optional)_               | `string`   | Current value of the password field                                     |
-| props.label _(optional)_                  | `string`   | Floating label text that appears above the input when focused or filled |
-| props.message _(optional)_                | `string`   | Helper text displayed below the input field                             |
-| props.error _(optional)_                  | `string`   | Error message that overrides helper text and applies error styling      |
-| props.style _(optional)_                  | `string`   | Visual style variant, use "filled" for filled background style          |
-| props.width='w-48' _(optional)_           | `string`   | Tailwind CSS width class for the input field                            |
-| props.fontFamily='font-mono' _(optional)_ | `string`   | Tailwind CSS font family class (monospace by default for passwords)     |
-| props.onChange _(optional)_               | `Function` | Callback function called when password value changes                    |
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | The props object |
+| props.id *(optional)* | `string` | Unique identifier for the password input element |
+| props.value='' *(optional)* | `string` | Current value of the password field |
+| props.label *(optional)* | `string` | Floating label text that appears above the input when focused or filled |
+| props.message *(optional)* | `string` | Helper text displayed below the input field |
+| props.error *(optional)* | `string` | Error message that overrides helper text and applies error styling |
+| props.style *(optional)* | `string` | Visual style variant, use "filled" for filled background style |
+| props.width='w-48' *(optional)* | `string` | Tailwind CSS width class for the input field |
+| props.fontFamily='font-mono' *(optional)* | `string` | Tailwind CSS font family class (monospace by default for passwords) |
+| props.onChange *(optional)* | `Function` | Callback function called when password value changes |
 
 ### Returns
 
@@ -269,9 +274,9 @@ Rendered password field component with visibility toggle
 ```jsx
 // Basic password field
 <PasswordField
-    label="Password"
-    value={password}
-    onChange={(value) => setPassword(value)}
+  label="Password"
+  value={password}
+  onChange={(value) => setPassword(value)}
 />
 ```
 
@@ -280,13 +285,13 @@ Rendered password field component with visibility toggle
 ```jsx
 // Password field with validation and custom width
 <PasswordField
-    id="user-password"
-    label="Enter Password"
-    value={password}
-    error={passwordError}
-    message="Must be at least 8 characters"
-    width="w-80"
-    onChange={setPassword}
+  id="user-password"
+  label="Enter Password"
+  value={password}
+  error={passwordError}
+  message="Must be at least 8 characters"
+  width="w-80"
+  onChange={setPassword}
 />
 ```
 
@@ -295,11 +300,11 @@ Rendered password field component with visibility toggle
 ```jsx
 // Filled style password field
 <PasswordField
-    label="Confirm Password"
-    value={confirmPassword}
-    style="filled"
-    fontFamily="font-sans"
-    onChange={setConfirmPassword}
+  label="Confirm Password"
+  value={confirmPassword}
+  style="filled"
+  fontFamily="font-sans"
+  onChange={setConfirmPassword}
 />
 ```
 
@@ -308,12 +313,12 @@ Rendered password field component with visibility toggle
 ```jsx
 // Password field in registration form
 <PasswordField
-    id="new-password"
-    label="Create Password"
-    value={newPassword}
-    error={validationError}
-    width="w-full"
-    onChange={handlePasswordChange}
+  id="new-password"
+  label="Create Password"
+  value={newPassword}
+  error={validationError}
+  width="w-full"
+  onChange={handlePasswordChange}
 />
 ```
 
@@ -325,14 +330,14 @@ A radio button group component that allows single selection
 
 ### Props
 
-| Name                                   | Type                         | Description                                                                 |
-| -------------------------------------- | ---------------------------- | --------------------------------------------------------------------------- |
-| **props**                              | `Object`                     | The props object                                                            |
-| **props.name**                         | `string`                     | Unique name for the radio group (required for proper radio button grouping) |
-| props.value _(optional)_               | `string`                     | Currently selected radio button value                                       |
-| props.items _(optional)_               | `Array<Object>`              | Array of radio button option objects                                        |
-| props.onChange _(optional)_            | `Function`                   | Callback function called when a radio button is selected                    |
-| props.layout='horizontal' _(optional)_ | `('vertical'\|'horizontal')` | Layout direction for the radio buttons                                      |
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | The props object |
+| **props.name** | `string` | Unique name for the radio group (required for proper radio button grouping) |
+| props.value *(optional)* | `string` | Currently selected radio button value |
+| props.items *(optional)* | `Array<Object>` | Array of radio button option objects |
+| props.onChange *(optional)* | `Function` | Callback function called when a radio button is selected |
+| props.layout='horizontal' *(optional)* | `('vertical'\|'horizontal')` | Layout direction for the radio buttons |
 
 ### Returns
 
@@ -347,14 +352,14 @@ Rendered radio group component (React Fragment containing radio buttons)
 ```jsx
 // Basic radio group for size selection
 <RadioGroup
-    name="size"
-    value={selectedSize}
-    items={[
-        { value: "small", label: "Small" },
-        { value: "medium", label: "Medium" },
-        { value: "large", label: "Large" },
-    ]}
-    onChange={(value) => setSelectedSize(value)}
+  name="size"
+  value={selectedSize}
+  items={[
+    { value: 'small', label: 'Small' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'large', label: 'Large' }
+  ]}
+  onChange={(value) => setSelectedSize(value)}
 />
 ```
 
@@ -363,14 +368,14 @@ Rendered radio group component (React Fragment containing radio buttons)
 ```jsx
 // Radio group for theme preferences
 <RadioGroup
-    name="theme"
-    value={currentTheme}
-    items={[
-        { value: "light", label: "Light Mode" },
-        { value: "dark", label: "Dark Mode" },
-        { value: "auto", label: "System Default" },
-    ]}
-    onChange={handleThemeChange}
+  name="theme"
+  value={currentTheme}
+  items={[
+    { value: 'light', label: 'Light Mode' },
+    { value: 'dark', label: 'Dark Mode' },
+    { value: 'auto', label: 'System Default' }
+  ]}
+  onChange={handleThemeChange}
 />
 ```
 
@@ -379,16 +384,16 @@ Rendered radio group component (React Fragment containing radio buttons)
 ```jsx
 // Radio group for payment methods with Horizontal layout for compact display
 <RadioGroup
-    name="payment"
-    value={paymentMethod}
-    layout="horizontal"
-    items={[
-        { value: "credit", label: "Credit Card" },
-        { value: "debit", label: "Debit Card" },
-        { value: "paypal", label: "PayPal" },
-        { value: "bank", label: "Bank Transfer" },
-    ]}
-    onChange={setPaymentMethod}
+  name="payment"
+  value={paymentMethod}
+  layout="horizontal"
+  items={[
+    { value: 'credit', label: 'Credit Card' },
+    { value: 'debit', label: 'Debit Card' },
+    { value: 'paypal', label: 'PayPal' },
+    { value: 'bank', label: 'Bank Transfer' }
+  ]}
+  onChange={setPaymentMethod}
 />
 ```
 
@@ -400,15 +405,15 @@ An interactive slider component with drag functionality and responsive design.
 
 ### Props
 
-| Name                            | Type                 | Description                                                                                          |
-| ------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- |
-| **props**                       | `Object`             | The props object                                                                                     |
-| props.id _(optional)_           | `string`             | Unique identifier for the slider element (auto-generated if not provided)                            |
-| props.value=0 _(optional)_      | `number`             | Current value of the slider. For continuous mode (count=1): 0-1 range. For discrete mode: 0 to count |
-| props.count=1 _(optional)_      | `number`             | Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider                         |
-| props.size='xs' _(optional)_    | `('xs'\|'sm'\|'md')` | Visual size variant affecting track height and thumb size                                            |
-| props.width='w-48' _(optional)_ | `string`             | Tailwind CSS width class for the slider container                                                    |
-| props.onChange _(optional)_     | `Function`           | Callback function called when slider value changes                                                   |
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | The props object |
+| props.id *(optional)* | `string` | Unique identifier for the slider element (auto-generated if not provided) |
+| props.value=0 *(optional)* | `number` | Current value of the slider. For continuous mode (count=1): 0-1 range. For discrete mode: 0 to count |
+| props.count=1 *(optional)* | `number` | Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider |
+| props.size='xs' *(optional)* | `('xs'\|'sm'\|'md')` | Visual size variant affecting track height and thumb size |
+| props.width='w-48' *(optional)* | `string` | Tailwind CSS width class for the slider container |
+| props.onChange *(optional)* | `Function` | Callback function called when slider value changes |
 
 ### Returns
 
@@ -423,10 +428,10 @@ Rendered interactive slider component
 ```jsx
 // Continuous slider (0-1 range)
 <Slider
-    value={volume}
-    onChange={(newValue) => setVolume(newValue)}
-    width="w-64"
-    size="sm"
+  value={volume}
+  onChange={(newValue) => setVolume(newValue)}
+  width="w-64"
+  size="sm"
 />
 ```
 
@@ -435,12 +440,12 @@ Rendered interactive slider component
 ```jsx
 // Discrete step slider (0-10 range)
 <Slider
-    id="rating-slider"
-    value={rating}
-    count={10}
-    onChange={(newRating) => setRating(newRating)}
-    size="md"
-    width="w-80"
+  id="rating-slider"
+  value={rating}
+  count={10}
+  onChange={(newRating) => setRating(newRating)}
+  size="md"
+  width="w-80"
 />
 ```
 
@@ -449,10 +454,10 @@ Rendered interactive slider component
 ```jsx
 // Progress indicator (read-only)
 <Slider
-    value={downloadProgress}
-    size="xs"
-    width="w-full"
-    // No onChange = read-only mode
+  value={downloadProgress}
+  size="xs"
+  width="w-full"
+  // No onChange = read-only mode
 />
 ```
 
@@ -461,15 +466,15 @@ Rendered interactive slider component
 ```jsx
 // Temperature control with custom sizing
 <Slider
-    id="temperature"
-    value={currentTemp}
-    count={100}
-    size="md"
-    width="w-96"
-    onChange={(temp) => {
-        setCurrentTemp(temp);
-        adjustTemperature(temp);
-    }}
+  id="temperature"
+  value={currentTemp}
+  count={100}
+  size="md"
+  width="w-96"
+  onChange={(temp) => {
+    setCurrentTemp(temp);
+    adjustTemperature(temp);
+  }}
 />
 ```
 
@@ -481,13 +486,13 @@ A toggle switch component that provides an intuitive on/off control interface.
 
 ### Props
 
-| Name                              | Type       | Description                                                               |
-| --------------------------------- | ---------- | ------------------------------------------------------------------------- |
-| **props**                         | `Object`   | The props object                                                          |
-| props.id _(optional)_             | `string`   | Unique identifier for the switch input element                            |
-| **props.value**                   | `boolean`  | Current state of the switch (true for on/enabled, false for off/disabled) |
-| props.onChange _(optional)_       | `Function` | Callback function called when switch state changes                        |
-| props.disabled=false _(optional)_ | `boolean`  | Whether the switch is disabled and non-interactive                        |
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | The props object |
+| props.id *(optional)* | `string` | Unique identifier for the switch input element |
+| **props.value** | `boolean` | Current state of the switch (true for on/enabled, false for off/disabled) |
+| props.onChange *(optional)* | `Function` | Callback function called when switch state changes |
+| props.disabled=false *(optional)* | `boolean` | Whether the switch is disabled and non-interactive |
 
 ### Returns
 
@@ -502,9 +507,9 @@ Rendered switch component
 ```jsx
 // Basic switch for notifications
 <Switch
-    id="notifications"
-    value={notificationsEnabled}
-    onChange={(enabled) => setNotificationsEnabled(enabled)}
+  id="notifications"
+  value={notificationsEnabled}
+  onChange={(enabled) => setNotificationsEnabled(enabled)}
 />
 ```
 
@@ -513,10 +518,10 @@ Rendered switch component
 ```jsx
 // Switch with disabled state
 <Switch
-    id="premium-feature"
-    value={premiumEnabled}
-    onChange={setPremiumEnabled}
-    disabled={!isPremiumUser}
+  id="premium-feature"
+  value={premiumEnabled}
+  onChange={setPremiumEnabled}
+  disabled={!isPremiumUser}
 />
 ```
 
@@ -525,12 +530,12 @@ Rendered switch component
 ```jsx
 // Dark mode toggle switch
 <Switch
-    id="dark-mode"
-    value={isDarkMode}
-    onChange={(enabled) => {
-        setIsDarkMode(enabled);
-        document.documentElement.classList.toggle("dark", enabled);
-    }}
+  id="dark-mode"
+  value={isDarkMode}
+  onChange={(enabled) => {
+    setIsDarkMode(enabled);
+    document.documentElement.classList.toggle('dark', enabled);
+  }}
 />
 ```
 
@@ -539,9 +544,9 @@ Rendered switch component
 ```jsx
 // Auto-save setting switch
 <Switch
-    id="auto-save"
-    value={autoSaveEnabled}
-    onChange={handleAutoSaveToggle}
+  id="auto-save"
+  value={autoSaveEnabled}
+  onChange={handleAutoSaveToggle}
 />
 ```
 
@@ -553,23 +558,23 @@ A versatile text input field component with floating labels,
 
 ### Props
 
-| Name                                      | Type                                      | Description                                                                                                                  |
-| ----------------------------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **props**                                 | `Object`                                  | The props object                                                                                                             |
-| props.id _(optional)_                     | `string`                                  | Unique identifier for the input element                                                                                      |
-| props.type='text' _(optional)_            | `('text'\|'email'\|'password'\|'number')` | HTML input type                                                                                                              |
-| props.value _(optional)_                  | `string\|number`                          | Current value of the input field                                                                                             |
-| props.label _(optional)_                  | `string`                                  | Floating label text that appears above the input when focused or filled                                                      |
-| props.message _(optional)_                | `string`                                  | Helper text displayed below the input field                                                                                  |
-| props.error _(optional)_                  | `string`                                  | Error message that overrides the helper text and applies error styling                                                       |
-| props.prefix _(optional)_                 | `React.ReactNode`                         | Element to display at the start of the input. Typically uses Button component with style="embedded" for interactive elements |
-| props.suffix _(optional)_                 | `React.ReactNode`                         | Element to display at the end of the input. Typically uses Button component with style="embedded" for interactive elements   |
-| props.style _(optional)_                  | `string`                                  | Visual style variant, use "filled" for filled background style                                                               |
-| props.width='w-48' _(optional)_           | `string`                                  | Tailwind CSS width class for the input field                                                                                 |
-| props.fontFamily='font-sans' _(optional)_ | `string`                                  | Tailwind CSS font family class                                                                                               |
-| props.onChange _(optional)_               | `Function`                                | Callback function called when input value changes                                                                            |
-| props.readonly=false _(optional)_         | `boolean`                                 | When true, makes the input read-only (allows selection but prevents editing)                                                 |
-| props.disabled=false _(optional)_         | `boolean`                                 | When true, disables the input field entirely (prevents interaction)                                                          |
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | The props object |
+| props.id *(optional)* | `string` | Unique identifier for the input element |
+| props.type='text' *(optional)* | `('text'\|'email'\|'password'\|'number')` | HTML input type |
+| props.value *(optional)* | `string\|number` | Current value of the input field |
+| props.label *(optional)* | `string` | Floating label text that appears above the input when focused or filled |
+| props.message *(optional)* | `string` | Helper text displayed below the input field |
+| props.error *(optional)* | `string` | Error message that overrides the helper text and applies error styling |
+| props.prefix *(optional)* | `React.ReactNode` | Element to display at the start of the input. Typically uses Button component with style="embedded" for interactive elements |
+| props.suffix *(optional)* | `React.ReactNode` | Element to display at the end of the input. Typically uses Button component with style="embedded" for interactive elements |
+| props.style *(optional)* | `string` | Visual style variant, use "filled" for filled background style |
+| props.width='w-48' *(optional)* | `string` | Tailwind CSS width class for the input field |
+| props.fontFamily='font-sans' *(optional)* | `string` | Tailwind CSS font family class |
+| props.onChange *(optional)* | `Function` | Callback function called when input value changes |
+| props.readonly=false *(optional)* | `boolean` | When true, makes the input read-only (allows selection but prevents editing) |
+| props.disabled=false *(optional)* | `boolean` | When true, disables the input field entirely (prevents interaction) |
 
 ### Returns
 
@@ -584,10 +589,10 @@ Rendered text field component
 ```jsx
 // Basic text input with floating label
 <TextField
-    id="username"
-    label="Username"
-    value={username}
-    onChange={(value) => setUsername(value)}
+  id="username"
+  label="Username"
+  value={username}
+  onChange={(value) => setUsername(value)}
 />
 ```
 
@@ -596,13 +601,13 @@ Rendered text field component
 ```jsx
 // Email input with validation and helper text
 <TextField
-    id="email"
-    type="email"
-    label="Email Address"
-    value={email}
-    message="We'll never share your email"
-    error={emailError}
-    onChange={setEmail}
+  id="email"
+  type="email"
+  label="Email Address"
+  value={email}
+  message="We'll never share your email"
+  error={emailError}
+  onChange={setEmail}
 />
 ```
 
@@ -611,13 +616,13 @@ Rendered text field component
 ```jsx
 // Password field with embedded button prefix
 <TextField
-    id="password"
-    type="password"
-    label="Password"
-    value={password}
-    prefix={<Button icon={<LockIcon />} style="embedded" />}
-    width="w-80"
-    onChange={setPassword}
+  id="password"
+  type="password"
+  label="Password"
+  value={password}
+  prefix={<Button icon={<LockIcon />} style="embedded" />}
+  width="w-80"
+  onChange={setPassword}
 />
 ```
 
@@ -626,15 +631,13 @@ Rendered text field component
 ```jsx
 // Filled style input with embedded button suffix
 <TextField
-    id="search"
-    label="Search products"
-    value={searchQuery}
-    style="filled"
-    suffix={
-        <Button icon={<SearchIcon />} style="embedded" onClick={handleSearch} />
-    }
-    width="w-96"
-    onChange={setSearchQuery}
+  id="search"
+  label="Search products"
+  value={searchQuery}
+  style="filled"
+  suffix={<Button icon={<SearchIcon />} style="embedded" onClick={handleSearch} />}
+  width="w-96"
+  onChange={setSearchQuery}
 />
 ```
 
@@ -643,15 +646,16 @@ Rendered text field component
 ```jsx
 // Number input for currency with prefix/suffix
 <TextField
-    id="price"
-    type="number"
-    label="Price"
-    value={price}
-    prefix="$"
-    suffix=".00"
-    error={priceError}
-    onChange={setPrice}
+  id="price"
+  type="number"
+  label="Price"
+  value={price}
+  prefix="$"
+  suffix=".00"
+  error={priceError}
+  onChange={setPrice}
 />
 ```
 
 ---
+
