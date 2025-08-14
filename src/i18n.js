@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 
 export const translations = {
   en: {
+    label: "En",
     translation: {
       "offline ready": "App ready to work offline",
       "update app": "New app available, click on reload button to update.",
@@ -11,6 +12,7 @@ export const translations = {
     },
   },
   ja: {
+    label: "日",
     translation: {
       "offline ready": "オフラインで利用可能です",
       "update app":
