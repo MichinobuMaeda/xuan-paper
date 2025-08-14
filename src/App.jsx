@@ -9,6 +9,7 @@ import "./App.css";
 import PWABadge from "./PWABadge.jsx";
 
 import ToggleLanguageButton from "./layout/ToggleLanguageButton.jsx";
+import ToggleDarkModeButton from "./layout/ToggleDarkModeButton.jsx";
 import Header from "./layout/Header.jsx";
 import Footer from "./layout/Footer.jsx";
 
@@ -26,16 +27,17 @@ function App() {
   const [contrast, setContrast] = useState(iniContrast);
   const [schema, setSchema] = useState([]);
 
+  const seedColor = useMemo(() => hslToHex(Math.round(hue * 360)));
+
   const resetColorThemeParameters = () => {
     setHue(iniHue);
     setContrast(iniContrast);
   };
-  const hexColor = useMemo(() => hslToHex(Math.round(hue * 360)));
 
   // Generate color schema async
   useEffect(() => {
     generateScheme(
-      hexColor,
+      seedColor,
       Number(Math.round(contrast * 100) / 100).toFixed(2),
     ).then((ret) => setSchema(ret));
   }, [hue, contrast]);
@@ -85,8 +87,8 @@ function App() {
                 onClick={downloadThemeCss}
               />
             </div>
-
             <ToggleLanguageButton />
+            <ToggleDarkModeButton />
           </div>
         }
         bottom={

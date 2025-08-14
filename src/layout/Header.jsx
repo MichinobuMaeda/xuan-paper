@@ -11,7 +11,7 @@ function Header({ title, center, suffix, bottom }) {
           justify-start items-center gap-2 px-1`}
       >
         <img src={appLogo} className="size-8" alt={`${title} logo`} />
-        <h1 className="text-2xl">{title}</h1>
+        <h1 className="text-xl sm:text-2xl">{title}</h1>
         <div className="flex flex-row grow">{center}</div>
         {suffix}
       </div>
