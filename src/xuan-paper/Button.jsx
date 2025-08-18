@@ -71,7 +71,7 @@ ${rounded}
 text-base
 ${
   disabled
-    ? `opacity-50 text-light-on-surface dark:text-dark-on-surface
+    ? `text-light-on-surface/40 dark:text-dark-on-surface/40
       ${
         style === "text" || style === "embedded"
           ? ""

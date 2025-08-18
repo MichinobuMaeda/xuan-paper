@@ -1,11 +1,47 @@
 import { useState, useMemo, useEffect } from "react";
 
-import Button from "../xuan-paper/Button.jsx";
+import AppBarItem from "./AppBarItem.jsx";
 
 const modeSystem = "system";
 const modeLight = "light";
 const modeDark = "dark";
 const STORAGE_KEY = "xuan-paper-theme-mode";
+
+/**
+ * A toggle button component that cycles between light mode,
+ * dark mode, and system preference.
+ * Automatically detects system preference via media queries
+ * and persists user's choice in localStorage.
+ *
+ * The component cycles through the following states:
+ * 1. System preference (default) - uses the device's color scheme preference
+ * 2. Light mode - forces light theme regardless of system preference
+ * 3. Dark mode - forces dark theme regardless of system preference
+ *
+ * To apply dark mode styles in your app, add the following to your CSS:
+ * ```css
+ * @custom-variant dark (&:where(.dark, .dark *));
+ * ```
+ *
+ * The component adds/removes the "dark" class on the documentElement (html)
+ * automatically.
+ *
+ * @returns {JSX.Element} A button with icon that changes based on current mode
+ *
+ * @example
+ * // Basic usage in a header component
+ * import ToggleDarkModeButton from '../xuan-paper/ToggleDarkModeButton';
+ *
+ * const Header = () => (
+ *   <header className="flex justify-between items-center p-4">
+ *     <h1>My App</h1>
+ *     <div className="flex gap-2">
+ *       <ToggleDarkModeButton />
+ *       <UserMenuButton />
+ *     </div>
+ *   </header>
+ * );
+ */
 
 const ToggleDarkModeButton = () => {
   // Initialize state from localStorage or default to system
@@ -55,7 +91,7 @@ const ToggleDarkModeButton = () => {
   }, [darkTheme]);
 
   return (
-    <Button
+    <AppBarItem
       icon={
         brightnessSetting === modeSystem ? (
           /* Material icon 'Reset brightness' */
@@ -86,7 +122,6 @@ const ToggleDarkModeButton = () => {
           </svg>
         )
       }
-      style="embedded"
       onClick={() =>
         setBrightnessSetting(
           brightnessSetting === modeSystem

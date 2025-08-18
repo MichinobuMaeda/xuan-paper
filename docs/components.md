@@ -1,17 +1,125 @@
 # Xuan-Paper Components Documentation
 
-Generated on: 2025-08-14
+Generated on: 2025-08-18
 
 ## Components
 
+- [AppBar](#appbar)
+- [AppBarItem](#appbaritem)
 - [Button](#button)
 - [ButtonGroup](#buttongroup)
 - [CheckBox](#checkbox)
+- [CommonTitle](#commontitle)
+- [NavigationBar](#navigationbar)
+- [NavigationDrawer](#navigationdrawer)
+- [NavigationRail](#navigationrail)
+- [PWABadge](#pwabadge)
 - [PasswordField](#passwordfield)
 - [RadioGroup](#radiogroup)
 - [Slider](#slider)
 - [Switch](#switch)
 - [TextField](#textfield)
+- [ToggleDarkModeButton](#toggledarkmodebutton)
+- [ToggleLanguageButton](#togglelanguagebutton)
+- [material-theme.js](#material-theme.js)
+
+---
+
+## AppBar
+
+AppBar component that implements a Material Design 3 styled top app bar.
+
+### Props
+
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | Component props |
+| props.backArrow *(optional)* | `React.ReactNode` | Icon/component for the back navigation button |
+| props.navigationDrawer *(optional)* | `React.ReactNode` | Icon/component for the navigation drawer toggle |
+| props.appLogo *(optional)* | `React.ReactNode` | App logo component or image |
+| props.appName *(optional)* | `string` | Name of the application to display |
+| props.suffix *(optional)* | `React.ReactNode[]` | Array of action items to display on the right side |
+
+### Returns
+
+**Type:** `JSX.Element`
+
+AppBar component
+
+### Examples
+
+#### Example 1
+
+```jsx
+// Basic usage with app name and actions
+import { SvgMenu, SvgSettings } from '../icons';
+
+<AppBar 
+  navigationDrawer={<SvgMenu onClick={toggleDrawer} />}
+  appName="My Application"
+  suffix={[<SvgSettings onClick={openSettings} />]} 
+/>
+```
+
+#### Example 2
+
+```jsx
+// With back navigation and custom styling
+import { SvgArrowBackIos } from '../icons';
+
+<AppBar 
+  backArrow={<SvgArrowBackIos onClick={goBack} />}
+  appName="Details Page"
+  suffix={[]}
+  optionalClass="sticky top-0 w-full h-16 shadow-md" 
+/>
+```
+
+---
+
+## AppBarItem
+
+AppBarItem component that represents an action button in the AppBar.
+
+### Props
+
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | Component props |
+| **props.icon** | `React.ReactNode` | The icon to display within the button (required) |
+| props.disabled=false *(optional)* | `boolean` | Whether the button is disabled |
+
+### Returns
+
+**Type:** `JSX.Element`
+
+AppBarItem button component
+
+### Examples
+
+#### Example 1
+
+```jsx
+// Basic usage with an icon
+import { SvgSettings } from '../icons';
+
+<AppBarItem 
+  icon={<SvgSettings />} 
+  onClick={() => console.log('Settings clicked')} 
+/>
+```
+
+#### Example 2
+
+```jsx
+// Disabled state
+import { SvgDownload } from '../icons';
+
+<AppBarItem 
+  icon={<SvgDownload />} 
+  disabled={true}
+/>
+```
 
 ---
 
@@ -237,6 +345,117 @@ Rendered checkbox component
   id="standalone-checkbox"
   value={isSelected}
   onChange={handleSelection}
+/>
+```
+
+---
+
+## CommonTitle
+
+ActionItem component that provides a standardized container for action elements
+
+### Props
+
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | Component props |
+| **props.children** | `React.ReactNode` | The content to render within the action item container (required) |
+
+### Returns
+
+**Type:** `JSX.Element`
+
+ActionItem component
+
+### Examples
+
+#### Example 1
+
+```jsx
+// Basic usage with an icon
+import { SvgMenu } from '../icons';
+
+<ActionItem>
+  <SvgMenu onClick={toggleDrawer} />
+</ActionItem>
+```
+
+---
+
+## NavigationBar
+
+---
+
+## NavigationDrawer
+
+Navigation item component used within the NavigationDrawer.
+
+### Props
+
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | Component props |
+| props.icon *(optional)* | `React.ReactNode` | Icon element displayed on the left side |
+| props.label *(optional)* | `string` | Text label for the navigation item |
+| props.badge *(optional)* | `React.ReactNode` | Optional badge/indicator displayed on the right side |
+| props.active=false *(optional)* | `boolean` | Whether the navigation item is currently active/selected |
+| props.disabled=false *(optional)* | `boolean` | Whether the navigation item is disabled |
+
+### Returns
+
+**Type:** `JSX.Element`
+
+NavItem component or divider
+
+---
+
+## NavigationRail
+
+---
+
+## PWABadge
+
+PWA status notification component that displays offline readiness and update prompts.
+
+### Props
+
+| Name | Type | Description |
+|------|------|-------------|
+| **props** | `Object` | Component props |
+| props.checkForUpdateInterval=60*60*1000 *(optional)* | `number` | Interval in milliseconds to check for PWA updates (default: 1 hour) |
+
+### Returns
+
+**Type:** `JSX.Element\|null`
+
+A notification badge or null if no notifications
+
+### Examples
+
+#### Example 1
+
+```jsx
+// Basic usage in a layout component
+import PWABadge from '../components/PWABadge';
+
+function Layout() {
+  return (
+    <header>
+      <h1>My PWA App</h1>
+      <PWABadge />
+    </header>
+  );
+}
+```
+
+#### Example 2
+
+```jsx
+// With custom messages and update interval
+<PWABadge
+  checkForUpdateInterval={30 * 60 * 1000}
+  offlineReadyMessage="Your app is now available offline!"
+  needRefreshMessage="Update available! Click to refresh."
 />
 ```
 
@@ -655,6 +874,145 @@ Rendered text field component
   error={priceError}
   onChange={setPrice}
 />
+```
+
+---
+
+## ToggleDarkModeButton
+
+A toggle button component that cycles between light mode,
+
+### Returns
+
+**Type:** `JSX.Element`
+
+A button with icon that changes based on current mode
+
+### Examples
+
+#### Example 1
+
+```jsx
+// Basic usage in a header component
+import ToggleDarkModeButton from '../xuan-paper/ToggleDarkModeButton';
+
+const Header = () => (
+  <header className="flex justify-between items-center p-4">
+    <h1>My App</h1>
+    <div className="flex gap-2">
+      <ToggleDarkModeButton />
+      <UserMenuButton />
+    </div>
+  </header>
+);
+```
+
+---
+
+## ToggleLanguageButton
+
+A button component that toggles the application's language
+
+### Returns
+
+**Type:** `JSX.Element`
+
+A button displaying the current language label or a language icon
+
+### Examples
+
+#### Example 1
+
+```jsx
+// Basic usage in a header component
+import ToggleLanguageButton from '../xuan-paper/ToggleLanguageButton';
+
+const Header = () => (
+  <header className="flex justify-between items-center p-4">
+    <h1>My App</h1>
+    <div className="flex gap-2">
+      <ToggleLanguageButton />
+      <SettingsButton />
+    </div>
+  </header>
+);
+```
+
+#### Example 2
+
+```jsx
+// Example i18n.js file with exported resources object
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+export const resources = {
+  en: {
+    label: "En",
+    translation: {
+      // English translations
+    }
+  },
+  ja: {
+    label: "日",
+    translation: {
+      // Japanese translations
+    }
+  },
+  // Additional languages...
+};
+
+// The i18n instance must use the same resources object that is exported
+i18n.use(initReactI18next).init({
+  resources, // Use the exported resources
+  lng: "en",
+  interpolation: {
+    escapeValue: false // not needed for react as it escapes by default
+  }
+});
+
+export default i18n;
+```
+
+---
+
+## material-theme.js
+
+Generates a comprehensive Material Design color scheme from a seed color.
+
+### Props
+
+| Name | Type | Description |
+|------|------|-------------|
+| **seedColor** | `string` | Hex color code (e.g., "#FF5722") to use as the base for generating the entire color scheme |
+| **contrast** | `number` | Contrast level for the scheme (typically -1 to 1, where 0 is standard contrast) |
+
+### Examples
+
+#### Example 1
+
+```jsx
+// Generate a blue-based theme with standard contrast
+const scheme = await generateScheme("#1976D2", 0);
+// Returns: [
+//   ["light", [["primary", "#1976D2"], ["onPrimary", "#FFFFFF"], ...]],
+//   ["dark", [["primary", "#90CAF9"], ["onPrimary", "#003258"], ...]]
+// ]
+```
+
+#### Example 2
+
+```jsx
+// Generate a high-contrast green theme
+const highContrastScheme = await generateScheme("#4CAF50", 0.5);
+```
+
+#### Example 3
+
+```jsx
+// Generate theme for brand colors
+const brandColor = "#E91E63"; // Brand pink
+const themeData = await generateScheme(brandColor, 0);
+const [lightTheme, darkTheme] = themeData;
 ```
 
 ---

@@ -6,12 +6,19 @@ Tailwind / React / Material design 3
 
 [API](docs/components.md)
 
-Note: add System -> Dark -> Light toggle button (2025-08-14)
-
 ![Green light](docs/green-light.png)
 ![Green dark](docs/green-dark.png)
 ![Blue light](docs/blue-light.png)
 ![Blue dark](docs/blue-dark.png)
+
+<img src="docs/narrow-nav-rail.png" alt="Narrow navigation rail" style="height: 240px">
+<p style="float: left">
+<img src="docs/nav-bar.png" alt="Navigation bar" style="height: 240px">
+<img src="docs/nav-bar-narrow.png" alt="Navigation bar narrow" style="height: 240px">
+</p>
+
+![Drawer open](docs/drawer-open.png)
+![Drawer fixed](docs/drawer-fixed.png)
 
 ## Note
 

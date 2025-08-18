@@ -1,38 +1,49 @@
-import { useMemo } from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
+import { useAtom, useSetAtom, useAtomValue } from "jotai";
+import { hueAtom, contrastAtom, seedColorAtom, schemeAtom } from "./state.js";
 
 import Slider from "./xuan-paper/Slider.jsx";
 import SvgContrast from "./icons/SvgContrast.jsx";
+import {
+  generateScheme,
+  applyColorScheme,
+} from "./xuan-paper/material-theme.js";
+import { isDarkBackground } from "./utils.js";
 
-import { hslToHex, isDarkBackground } from "./utils.js";
+const ColorThemeParameters = () => {
+  const [hue, setHue] = useAtom(hueAtom);
+  const [contrast, setContrast] = useAtom(contrastAtom);
+  const seedColor = useAtomValue(seedColorAtom);
+  const setScheme = useSetAtom(schemeAtom);
 
-const ColorThemeParameters = ({ hue, contrast, onChange }) => {
-  const hexColor = useMemo(() => hslToHex(Math.round(hue * 360)));
+  useEffect(() => {
+    generateScheme(seedColor, contrast).then((scheme) => {
+      setScheme(scheme);
+      applyColorScheme(scheme);
+    });
+  }, [seedColor, contrast]);
 
   return (
     <div
-      className={`flex flex-wrap px-2 py-2 gap-1 w-full justify-center
-        bg-light-background dark:bg-dark-background
-        text-light-on-background dark:text-dark-on-background`}
+      className={`flex flex-wrap px-2 gap-1 w-full justify-center
+        bg-light-surface-container-lowest dark:bg-dark-surface-container-lowest
+        text-light-on-surface dark:text-dark-on-surface`}
     >
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-2 items-center">
         <span
-          className={`flex h-12 w-24 justify-center items-center
+          className={`flex h-12 w-22 sm:w-24 justify-center items-center
             rounded-md gap-2 font-mono
-            ${isDarkBackground(hexColor) ? "text-light-form" : "text-dark-form"}
+            ${isDarkBackground(seedColor) ? "text-light-form" : "text-dark-form"}
           `}
-          style={{ backgroundColor: hexColor }}
+          style={{ backgroundColor: seedColor }}
         >
-          {hexColor}
+          {seedColor}
         </span>
-        <Slider
-          value={hue}
-          onChange={(v) => onChange({ hue: v, contrast })}
-          width="w-56 md:w-64 lg:w-96"
-        />
+        <Slider value={hue} onChange={setHue} width="w-56 md:w-64 lg:w-84" />
       </div>
       <div className="flex flex-row gap-2">
-        <div className="flex flex-row w-24 items-center gap-2 justify-end">
+        <div className="flex flex-row w-22 sm:w-24 items-center gap-2 justify-end">
           <span className="flex size-8">
             <SvgContrast />
           </span>
@@ -40,8 +51,8 @@ const ColorThemeParameters = ({ hue, contrast, onChange }) => {
         </div>
         <Slider
           value={contrast}
-          onChange={(v) => onChange({ hue, contrast: v })}
-          width="w-56 md:w-64 lg:w-96"
+          onChange={setContrast}
+          width="w-56 md:w-64 lg:w-84"
         />
       </div>
     </div>

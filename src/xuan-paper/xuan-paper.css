@@ -1,0 +1,8 @@
+/* for ToggleDarkModeButton */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Divider */
+hr {
+  @apply border-1
+    border-light-outline-variant dark:border-dark-outline-variant;
+}

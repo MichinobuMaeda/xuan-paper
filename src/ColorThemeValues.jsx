@@ -1,16 +1,19 @@
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
+import { useAtomValue } from "jotai";
+import { schemeAtom } from "./state.js";
 
 import { isDarkBackground } from "./utils.js";
 
-const ColorThemeValues = ({ schema }) => {
+const ColorThemeValues = () => {
   const { t } = useTranslation();
+  const scheme = useAtomValue(schemeAtom);
 
   return (
     <>
       <h2>{t("theme color")}</h2>
       <div className="flex flex-col md:flex-row sm:px-2 py-2 gap-2 w-full justify-center">
-        {schema.map(([brightness, colors]) => (
+        {scheme.map(([brightness, colors]) => (
           <div className="flex flex-col gap-0" key={brightness}>
             {colors.map(([key, hex]) => (
               <div

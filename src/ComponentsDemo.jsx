@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useAtom } from "jotai";
+import { demoValueResetAtom } from "./state.js";
 
 import Button from "./xuan-paper/Button.jsx";
 import CheckBox from "./xuan-paper/CheckBox.jsx";
@@ -11,16 +13,29 @@ import TextField from "./xuan-paper/TextField.jsx";
 import PasswordField from "./xuan-paper/PasswordField.jsx";
 import Slider from "./xuan-paper/Slider.jsx";
 
-import SvgUndo from "./icons/SvgUndo.jsx";
 import SvgInfo from "./icons/SvgInfo.jsx";
 import SvgClose from "./icons/SvgClose.jsx";
 import SvgDirectionsCar from "./icons/SvgDirectionsCar.jsx";
 import SvgDirectionsWalk from "./icons/SvgDirectionsWalk.jsx";
 
-import Row from "./layout/Row.jsx";
+const Row = ({ children }) => {
+  return (
+    <div
+      className={`flex flex-wrap justify-start items-center
+        px-2 sm:px-4 md:px-6 lg:px-8 gap-4`}
+    >
+      {children}
+    </div>
+  );
+};
+
+Row.propTypes = {
+  children: PropTypes.node,
+};
 
 const ComponentsDemo = () => {
   const { t } = useTranslation();
+  const [demoValueReset, setDemoValueReset] = useAtom(demoValueResetAtom);
 
   const [chk01a, setChk01a] = useState(false);
   const [chk01b, setChk01b] = useState(true);
@@ -46,57 +61,86 @@ const ComponentsDemo = () => {
   const [sld01, setSld01] = useState(0.5);
   const [sld02, setSld02] = useState(5);
 
-  const changed = () =>
-    chk01a !== false ||
-    chk01b !== true ||
-    chk02a !== false ||
-    chk02b !== true ||
-    chk03a !== false ||
-    chk03b !== true ||
-    swt01a !== false ||
-    swt01b !== true ||
-    swt02a !== false ||
-    swt02b !== true ||
-    radio01 !== "Item 01" ||
-    btns01 !== "Car" ||
-    btns02.length !== ["A", "C"].length ||
-    ["A", "C"].some((v) => !btns02.includes(v)) ||
-    txt01 !== "" ||
-    txt02 !== "Input 02" ||
-    txt03 !== 0 ||
-    txt11 !== "" ||
-    txt12 !== "Input 12" ||
-    txt13 !== 0 ||
-    pwd01 !== "P@ssw0rd" ||
-    pwd11 !== "P@ssw0rd" ||
-    sld01 !== 0.5 ||
-    sld02 !== 5;
+  useEffect(() => {
+    setDemoValueReset(
+      chk01a === false &&
+        chk01b === true &&
+        chk02a === false &&
+        chk02b === true &&
+        chk03a === false &&
+        chk03b === true &&
+        swt01a === false &&
+        swt01b === true &&
+        swt02a === false &&
+        swt02b === true &&
+        radio01 === "Item 01" &&
+        btns01 === "Car" &&
+        btns02.length === ["A", "C"].length &&
+        ["A", "C"].every((v) => btns02.includes(v)) &&
+        txt01 === "" &&
+        txt02 === "Input 02" &&
+        txt03 === 0 &&
+        txt11 === "" &&
+        txt12 === "Input 12" &&
+        txt13 === 0 &&
+        pwd01 === "P@ssw0rd" &&
+        pwd11 === "P@ssw0rd" &&
+        sld01 === 0.5 &&
+        sld02 === 5,
+    );
+  }, [
+    chk01a,
+    chk01b,
+    chk02a,
+    chk02b,
+    chk03a,
+    chk03b,
+    swt01a,
+    swt01b,
+    swt02a,
+    swt02b,
+    radio01,
+    btns01,
+    btns02,
+    txt01,
+    txt02,
+    txt03,
+    txt11,
+    txt12,
+    txt13,
+    pwd01,
+    pwd11,
+    sld01,
+    sld02,
+  ]);
 
-  const reset = () => {
-    setChk01a(false);
-    setChk01b(true);
-    setChk02a(false);
-    setChk02b(true);
-    setChk03a(false);
-    setChk03b(true);
-    setSwt01a(false);
-    setSwt01b(true);
-    setSwt02a(false);
-    setSwt02b(true);
-    setRadio01("Item 01");
-    setBtns01("Car");
-    setBtns02(["A", "C"]);
-    setTxt01("");
-    setTxt02("Input 02");
-    setTxt03(0);
-    setTxt11("");
-    setTxt12("Input 12");
-    setTxt13(0);
-    setPWd01("P@ssw0rd");
-    setPWd11("P@ssw0rd");
-    setSld01(0.5);
-    setSld02(5);
-  };
+  useEffect(() => {
+    if (demoValueReset) {
+      setChk01a(false);
+      setChk01b(true);
+      setChk02a(false);
+      setChk02b(true);
+      setChk03a(false);
+      setChk03b(true);
+      setSwt01a(false);
+      setSwt01b(true);
+      setSwt02a(false);
+      setSwt02b(true);
+      setRadio01("Item 01");
+      setBtns01("Car");
+      setBtns02(["A", "C"]);
+      setTxt01("");
+      setTxt02("Input 02");
+      setTxt03(0);
+      setTxt11("");
+      setTxt12("Input 12");
+      setTxt13(0);
+      setPWd01("P@ssw0rd");
+      setPWd11("P@ssw0rd");
+      setSld01(0.5);
+      setSld02(5);
+    }
+  }, [demoValueReset]);
 
   const ItemGroup = ({ children }) => {
     return (
@@ -114,13 +158,6 @@ const ComponentsDemo = () => {
     <div className="flex flex-col gap-4">
       <h2>
         <div className="flex grow">{t("components")}</div>
-        <Button
-          icon={<SvgUndo />}
-          style="text"
-          size="xs"
-          onClick={reset}
-          disabled={!changed()}
-        />
       </h2>
       <Row>
         <Button label="Filled" style="filled" />
@@ -425,7 +462,7 @@ const ComponentsDemo = () => {
 };
 
 ComponentsDemo.propTypes = {
-  changed: PropTypes.bool.isRequired,
+  valueChanged: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

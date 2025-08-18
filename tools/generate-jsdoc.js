@@ -94,9 +94,9 @@ function extractJSDoc(filePath) {
  * @returns {string} Escaped text safe for markdown tables
  */
 function escapeMarkdownTableText(text) {
-  if (!text) return '';
+  if (!text) return "";
   // Escape pipe characters which would break table formatting
-  return text.replace(/\|/g, '\\|');
+  return text.replace(/\|/g, "\\|");
 }
 
 /**
@@ -123,11 +123,11 @@ function generateMarkdown(componentDoc) {
       const name = param.name.replace(/\[|\]/g, "");
       const isOptional = param.name.includes("[");
       const displayName = isOptional ? `${name} *(optional)*` : `**${name}**`;
-      
+
       // Escape pipe characters in all fields to prevent breaking markdown tables
       const escapedType = escapeMarkdownTableText(param.type);
       const escapedDescription = escapeMarkdownTableText(param.description);
-      
+
       md += `| ${displayName} | \`${escapedType}\` | ${escapedDescription} |\n`;
     });
     md += "\n";
@@ -137,11 +137,15 @@ function generateMarkdown(componentDoc) {
   if (componentDoc.returns) {
     md += `### Returns\n\n`;
     // Escape pipe characters in return type
-    const escapedReturnType = escapeMarkdownTableText(componentDoc.returns.type);
+    const escapedReturnType = escapeMarkdownTableText(
+      componentDoc.returns.type,
+    );
     md += `**Type:** \`${escapedReturnType}\`\n\n`;
-    
+
     // Escape pipe characters in description
-    const escapedReturnDescription = escapeMarkdownTableText(componentDoc.returns.description);
+    const escapedReturnDescription = escapeMarkdownTableText(
+      componentDoc.returns.description,
+    );
     md += `${escapedReturnDescription}\n\n`;
   }
 
@@ -196,7 +200,11 @@ async function generateDocumentation(config) {
     // Get all component files
     const componentFiles = fs
       .readdirSync(config.componentsDir)
-      .filter((file) => file.endsWith(".jsx") && file !== "Style.js")
+      .filter(
+        (file) =>
+          (file.endsWith(".js") || file.endsWith(".jsx")) &&
+          file !== "Style.js",
+      )
       .map((file) => path.join(config.componentsDir, file));
 
     console.log(`📋 Found ${componentFiles.length} component files`);
@@ -251,7 +259,10 @@ function jsdocPlugin(config) {
     },
     // Also generate docs when files change in development
     handleHotUpdate({ file }) {
-      if (file.includes("/xuan-paper/") && file.endsWith(".jsx")) {
+      if (
+        file.includes("/xuan-paper/") &&
+        (file.endsWith(".js") || file.endsWith(".jsx"))
+      ) {
         console.log(
           `📝 Component changed: ${file.split("/").pop()}, regenerating docs...`,
         );

@@ -1,18 +1,20 @@
 {
   "name": "xuan-paper",
   "private": true,
-  "version": "1.1.1",
+  "version": "1.2.0",
   "type": "module",
   "scripts": {
     "start": "vite --port 8000",
     "build": "vite build",
     "lint": "eslint .",
+    "deploy": "npm run build && cd dist && tar -czvf xuan-paper.tar.gz * && mv xuan-paper.tar.gz .. && cd .. && scp xuan-paper.tar.gz $TARGET_HOME:~/ && ssh $TARGET_HOME tar xzvf xuan-paper.tar.gz --cd $TARGET_PATH && rm xuan-paper.tar.gz && ssh $TARGET_HOME ls -al $TARGET_PATH",
     "preview": "vite preview"
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0",
     "@tailwindcss/vite": "^4.1.11",
     "i18next": "^25.3.4",
+    "jotai": "^2.13.1",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
