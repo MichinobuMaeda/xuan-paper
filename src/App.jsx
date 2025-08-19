@@ -45,26 +45,33 @@ const cssFileName = "theme.css";
 function App() {
   const { t } = useTranslation();
 
+  // Set up state management with Jotai for theme customization
   const setHue = useSetAtom(hueAtom);
   const [contrast, setContrast] = useAtom(contrastAtom);
   const seedColor = useAtomValue(seedColorAtom);
   const scheme = useAtomValue(schemeAtom);
   const colorChanged = useAtomValue(colorChangedAtom);
 
+  // Reset theme colors to initial values
   const resetColor = () => {
     setHue(iniHue);
     setContrast(iniContrast);
   };
 
+  // Generate and download theme CSS file
   const downloadThemeCss = () =>
     downloadFile(cssFileName, generateThemeCss(scheme, seedColor, contrast));
 
+  // State for resetting demo component values
   const [demoValueReset, setDemoValueReset] = useAtom(demoValueResetAtom);
 
+  // State for scroll-based UI behavior (hide/show app bar and navigation)
   const [scrollDirection, setScrollDirection] = useState(0);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  // Set up scroll listener for auto-hiding UI elements
   window.addEventListener("scroll", () => {
+    // Only update if we've scrolled significantly (1/8 of viewport height)
     if (Math.abs(window.scrollY - lastScrollY) > window.innerHeight / 8) {
       if (lastScrollY !== 0) {
         setScrollDirection(window.scrollY - lastScrollY);
@@ -73,23 +80,30 @@ function App() {
     }
   });
 
+  // Dynamic classes for header that hides when scrolling down
   const headerOptionalClass = `sticky top-0
     transition-all duration-500 z-30
     ${scrollDirection > 0 ? `-translate-y-14 3xl:translate-0` : ""}`;
 
+  // Apply header behavior to app bar
   const appBarOptionalClass = `h-14 w-full ${headerOptionalClass}`;
 
+  // Dynamic classes for footer that hides when scrolling up
   const footerOptionalClass = `sticky bottom-0 h-16 w-full
     transition-all duration-500 z-30
     ${scrollDirection < 0 ? `translate-y-16 3xl:translate-0` : ""}`;
 
+  // Toggle between horizontal (bottom bar) and vertical (side rail) navigation
   const [navVertical, setNavVertical] = useState(false);
 
+  // Classes for vertical navigation rail positioning
   const navRailOptionalClass = `h-full w-24 lg:w-56 fixed top-0 pt-20 pb-20`;
 
+  // Navigation drawer state management
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerKeep, setDrawerKeep] = useState(false);
 
+  // Define navigation items for bottom bar, navigation rail, and drawer
   const navItems = [
     drawerOpen
       ? drawerKeep

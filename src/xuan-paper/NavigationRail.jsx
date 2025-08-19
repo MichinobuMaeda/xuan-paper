@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 /**
  * A vertical navigation rail component implementing Material Design 3 guidelines.
  * Displays a column of navigation items with icons and labels along the side of the screen.
- * 
+ *
  * The NavigationRail is designed for tablet and desktop layouts as a space-efficient
  * alternative to a full navigation drawer. It provides quick access to top-level
  * destinations while taking up minimal horizontal space.
@@ -58,7 +58,7 @@ import PropTypes from "prop-types";
  *     }
  *   ]}
  * />
- * 
+ *
  * @example
  * // With custom positioning and width
  * <NavigationRail
@@ -101,10 +101,12 @@ const NavigationRail = ({
                   ? `text-light-on-surface/40 dark:text-dark-on-surface/40`
                   : item.active
                     ? `bg-light-secondary-container dark:bg-dark-secondary-container
-                    hover:brightness-95 hover:dark:brightness-110
-                    text-light-on-secondary-container dark:text-dark-on-secondary-container`
-                    : `hover:bg-light-on-secondary-container/10 hover:dark:bg-dark-on-secondary-container/10
-                    text-light-on-surface-variant dark:text-dark-on-surface-variant`
+                    text-light-on-secondary-container dark:text-dark-on-secondary-container
+                    active:brightness-95 active:dark:brightness-120
+                    hover:brightness-97 hover:dark:brightness-110`
+                    : `text-light-on-surface-variant dark:text-dark-on-surface-variant
+                    active:bg-light-on-secondary-container/10 active:dark:bg-dark-on-secondary-container/10
+                    hover:bg-light-on-secondary-container/5 hover:dark:bg-dark-on-secondary-container/5`
               }
               lg:bg-transparent lg:dark:bg-transparent
               lg:hover:bg-transparent lg:dark:hover:bg-transparent`}

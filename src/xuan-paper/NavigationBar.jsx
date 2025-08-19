@@ -56,7 +56,7 @@ import PropTypes from "prop-types";
  *     }
  *   ]}
  * />
- * 
+ *
  * @example
  * // With custom positioning as a top navigation bar
  * <NavigationBar
@@ -99,10 +99,12 @@ const NavigationBar = ({
                   ? `text-light-on-surface/40 dark:text-dark-on-surface/40`
                   : item.active
                     ? `bg-light-secondary-container dark:bg-dark-secondary-container
-                    hover:brightness-95 hover:dark:brightness-110
-                    text-light-on-secondary-container dark:text-dark-on-secondary-container`
-                    : `hover:bg-light-on-secondary-container/10 hover:dark:bg-dark-on-secondary-container/10
-                    text-light-on-surface-variant dark:text-dark-on-surface-variant`
+                    text-light-on-secondary-container dark:text-dark-on-secondary-container
+                    active:brightness-95 active:dark:brightness-120
+                    hover:brightness-97 hover:dark:brightness-110`
+                    : `text-light-on-surface-variant dark:text-dark-on-surface-variant
+                    active:bg-light-on-secondary-container/10 active:dark:bg-dark-on-secondary-container/10
+                    hover:bg-light-on-secondary-container/5 hover:dark:bg-dark-on-secondary-container/5`
               }
               md:bg-transparent md:dark:bg-transparent
               md:hover:bg-transparent md:dark:hover:bg-transparent`}

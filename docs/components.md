@@ -103,9 +103,9 @@ AppBarItem button component
 // Basic usage with an icon
 import { SvgSettings } from '../icons';
 
-<AppBarItem 
-  icon={<SvgSettings />} 
-  onClick={() => console.log('Settings clicked')} 
+<AppBarItem
+  icon={<SvgSettings />}
+  onClick={() => console.log('Settings clicked')}
 />
 ```
 
@@ -115,8 +115,8 @@ import { SvgSettings } from '../icons';
 // Disabled state
 import { SvgDownload } from '../icons';
 
-<AppBarItem 
-  icon={<SvgDownload />} 
+<AppBarItem
+  icon={<SvgDownload />}
   disabled={true}
 />
 ```

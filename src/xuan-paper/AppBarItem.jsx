@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
  * AppBarItem component that represents an action button in the AppBar.
  * This component renders a circular button with an icon, following Material Design 3 guidelines
  * for top app bar action items.
- * 
+ *
  * The button has hover effects and can be disabled. When disabled, it appears with reduced
  * opacity and doesn't respond to click events.
- * 
+ *
  * Each AppBarItem is designed to be used within the suffix array of the AppBar component
  * to create action buttons on the right side of the app bar.
  *
@@ -17,22 +17,22 @@ import PropTypes from "prop-types";
  * @param {boolean} [props.disabled=false] - Whether the button is disabled
  * @param {Function} [props.onClick=() => {}] - Click handler function
  * @returns {JSX.Element} AppBarItem button component
- * 
+ *
  * @example
  * // Basic usage with an icon
  * import { SvgSettings } from '../icons';
- * 
- * <AppBarItem 
- *   icon={<SvgSettings />} 
- *   onClick={() => console.log('Settings clicked')} 
+ *
+ * <AppBarItem
+ *   icon={<SvgSettings />}
+ *   onClick={() => console.log('Settings clicked')}
  * />
- * 
+ *
  * @example
  * // Disabled state
  * import { SvgDownload } from '../icons';
- * 
- * <AppBarItem 
- *   icon={<SvgDownload />} 
+ *
+ * <AppBarItem
+ *   icon={<SvgDownload />}
  *   disabled={true}
  * />
  */
@@ -45,7 +45,8 @@ const AppBarItem = ({ icon, disabled = false, onClick = () => {} }) => {
           disabled
             ? "text-light-on-surface/40 dark:text-dark-on-surface/40"
             : `text-light-on-surface dark:text-dark-on-surface
-            hover:bg-light-primary/5 dark:hover:bg-dark-primary/5`
+            active:bg-light-on-surface/6 dark:active:bg-dark-on-surface/30
+            hover:bg-light-on-surface/3 dark:hover:bg-dark-on-surface/15`
         }`}
       onClick={disabled ? () => {} : onClick}
     >

@@ -38,10 +38,12 @@ const NavItem = ({
               ? `text-light-on-surface/40 dark:text-dark-on-surface/40`
               : active
                 ? `bg-light-secondary-container dark:bg-dark-secondary-container
-                    hover:brightness-95 hover:dark:brightness-110
-                    text-light-on-secondary-container dark:text-dark-on-secondary-container`
-                : `hover:bg-light-on-secondary-container/10 hover:dark:bg-dark-on-secondary-container/10
-                    text-light-on-surface-variant dark:text-dark-on-surface-variant`
+                text-light-on-secondary-container dark:text-dark-on-secondary-container
+                active:brightness-95 active:dark:brightness-120
+                hover:brightness-97 hover:dark:brightness-110`
+                : `text-light-on-surface-variant dark:text-dark-on-surface-variant
+                active:bg-light-on-secondary-container/10 active:dark:bg-dark-on-secondary-container/10
+                hover:bg-light-on-secondary-container/5 hover:dark:bg-dark-on-secondary-container/5`
           }`}
       onClick={disabled ? () => {} : onClick}
     >
@@ -67,7 +69,7 @@ NavItem.propTypes = {
  * Navigation drawer component implementing Material Design 3 navigation drawer pattern.
  * Provides a sliding drawer interface for application navigation with support for
  * persistent (keep) and temporary modes.
- * 
+ *
  * The drawer includes a header area with app identity elements and a scrollable
  * content area containing navigation items. In temporary mode, it displays a
  * semi-transparent overlay that dismisses the drawer when clicked.
@@ -84,11 +86,11 @@ NavItem.propTypes = {
  * @param {boolean} [props.open=false] - Whether the drawer is currently open (for temporary mode)
  * @param {Function} [props.onClose=() => {}] - Callback when drawer should close (temporary mode)
  * @returns {JSX.Element} NavigationDrawer component
- * 
+ *
  * @example
  * // Basic usage with temporary drawer
  * import { SvgHome, SvgSettings, SvgLogout } from '../icons';
- * 
+ *
  * <NavigationDrawer
  *   appName="My Application"
  *   open={drawerOpen}
@@ -113,7 +115,7 @@ NavItem.propTypes = {
  *     }
  *   ]}
  * />
- * 
+ *
  * @example
  * // Persistent drawer (always visible)
  * <NavigationDrawer

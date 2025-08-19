@@ -83,24 +83,26 @@ ${(() => {
     case "tonal":
       return `bg-light-secondary-container dark:bg-dark-secondary-container
               text-light-on-secondary-container dark:text-dark-on-secondary-container
-              active:bg-light-secondary-container/80 dark:active:bg-dark-secondary-container/80
-              hover:bg-light-secondary-container/90 dark:hover:bg-dark-secondary-container/90`;
+              active:brightness-104 dark:active:brightness-90
+              hover:brightness-102 dark:hover:brightness-95`;
     case "outlined":
       return `outline-1
               bg-light-form dark:bg-dark-form
+              text-light-primary dark:text-dark-primary
               outline-light-outline-variant dark:outline-dark-outline-variant
-              active:bg-light-on-surface/10 dark:active:bg-dark-on-surface/10
-              hover:bg-light-on-surface/5 dark:hover:bg-dark-on-surface/5`;
+              active:brightness-96 dark:active:brightness-120
+              hover:brightness-98 dark:hover:brightness-110`;
     case "elevated":
       return `text-light-primary dark:text-dark-primary
               bg-light-surface-container-low dark:bg-dark-surface-container-low
               shadow-2xs shadow-light-shadow dark:shadow-dark-shadow
-              active:bg-light-surface-container dark:active:bg-dark-surface-container
-              hover:shadow-xs`;
+              active:brightness-104 dark:active:brightness-80
+              hover:brightness-102 dark:hover:brightness-90`;
     case "text":
-      return `text-light-primary dark:text-dark-primary
-              active:bg-light-primary/10 dark:active:bg-dark-primary/10
-              hover:bg-light-primary/5 dark:hover:bg-dark-primary/5`;
+      return `bg-light-form dark:bg-dark-form
+              text-light-primary dark:text-dark-primary
+              active:brightness-96 dark:active:brightness-120
+              hover:brightness-98 dark:hover:brightness-110`;
     case "embedded":
       return `active:bg-light-primary/10 dark:active:bg-dark-primary/10
               hover:bg-light-primary/5 dark:hover:bg-dark-primary/5`;
@@ -108,13 +110,13 @@ ${(() => {
     case "error":
       return `bg-light-error dark:bg-dark-error
               text-light-on-error dark:text-dark-on-error
-              active:bg-light-error/80 dark:active:bg-dark-error/80
-              hover:bg-light-error/90 dark:hover:bg-dark-error/90`;
+              active:brightness-120 dark:active:brightness-90
+              hover:brightness-110 dark:hover:brightness-95`;
     default:
       return `bg-light-primary dark:bg-dark-primary
-               text-light-on-primary dark:text-dark-on-primary
-               active:bg-light-primary/80 dark:active:bg-dark-primary/80
-               hover:bg-light-primary/90 dark:hover:bg-dark-primary/90`;
+              text-light-on-primary dark:text-dark-on-primary
+              active:brightness-120 dark:active:brightness-90
+              hover:brightness-110 dark:hover:brightness-95`;
   }
 })()}`
 }
