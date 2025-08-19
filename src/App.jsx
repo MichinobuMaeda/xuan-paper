@@ -65,10 +65,12 @@ function App() {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   window.addEventListener("scroll", () => {
-    if (lastScrollY !== 0) {
-      setScrollDirection(window.scrollY - lastScrollY);
+    if (Math.abs(window.scrollY - lastScrollY) > 32) {
+      if (lastScrollY !== 0) {
+        setScrollDirection(window.scrollY - lastScrollY);
+      }
+      setLastScrollY(window.scrollY);
     }
-    setLastScrollY(window.scrollY);
   });
 
   const headerOptionalClass = `sticky top-0
