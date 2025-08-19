@@ -6,3 +6,8 @@ hr {
   @apply border-1
     border-light-outline-variant dark:border-dark-outline-variant;
 }
+
+a {
+  @apply underline underline-offset-2
+    text-light-link dark:text-dark-link;
+}
