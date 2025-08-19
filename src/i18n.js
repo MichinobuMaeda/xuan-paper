@@ -5,8 +5,8 @@ export const resources = {
   en: {
     label: "En",
     translation: {
-      "offline ready": "App ready to work offline",
-      "need refresh": "New app available, click on reload button to update.",
+      "offline ready": "You can install this app for offline use.",
+      "need refresh": "A new app is available. Click to refresh.",
       components: "Components",
       "theme color": "Theme color",
       "reset color": "Reset color",
@@ -17,7 +17,8 @@ export const resources = {
   ja: {
     label: "日",
     translation: {
-      "offline ready": "オフラインで利用可能です",
+      "offline ready":
+        "このアプリはオフラインで使用するためにインストールできます。",
       "need refresh":
         "新しいアプリがあります。ボタンをクリックして更新してください。",
       components: "コンポーネント",
