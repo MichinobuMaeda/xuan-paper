@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import AppBarItem from "./AppBarItem.jsx";
 import CommonTitle from "./CommonTitle.jsx";
 
+const bgColor =
+  "bg-light-surface-container-low dark:bg-dark-surface-container-low";
+
 /**
  * Navigation item component used within the NavigationDrawer.
  * Renders a clickable navigation item with icon, label, and optional badge.
@@ -39,11 +42,12 @@ const NavItem = ({
               : active
                 ? `bg-light-secondary-container dark:bg-dark-secondary-container
                 text-light-on-secondary-container dark:text-dark-on-secondary-container
-                active:brightness-95 active:dark:brightness-120
-                hover:brightness-97 hover:dark:brightness-110`
-                : `text-light-on-surface-variant dark:text-dark-on-surface-variant
-                active:bg-light-on-secondary-container/10 active:dark:bg-dark-on-secondary-container/10
-                hover:bg-light-on-secondary-container/5 hover:dark:bg-dark-on-secondary-container/5`
+                active:brightness-95 active:dark:brightness-140
+                hover:brightness-97 hover:dark:brightness-120`
+                : `${bgColor}
+                text-light-on-surface-variant dark:text-dark-on-surface-variant
+                active:brightness-90 active:dark:brightness-140
+                hover:brightness-95 hover:dark:brightness-120`
           }`}
       onClick={disabled ? () => {} : onClick}
     >
@@ -143,7 +147,7 @@ const NavigationDrawer = ({
       <div
         className={`flex flex-col w-84 max-w-84 min-w-84 h-full
         ${keep ? "" : "rounded-r-2xl"} gap-4 ${keep ? "pt-18" : ""}
-        bg-light-surface-container-low dark:bg-dark-surface-container-low`}
+        ${bgColor}`}
       >
         {!keep && (
           <div

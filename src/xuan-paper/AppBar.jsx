@@ -9,7 +9,7 @@ import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
  *
  * The AppBar combines branding elements (logo, app name) with navigation controls
  * (back arrow, navigation drawer toggle) and action items (suffix).
- * 
+ *
  * By default, it's positioned fixed at the top of the viewport, but this behavior
  * can be customized via the optionalClass prop.
  *
@@ -22,26 +22,26 @@ import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
  * @param {React.ReactNode[]} [props.suffix] - Array of action items to display on the right side
  * @param {string} [props.optionalClass="fixed top-0 w-full h-14"] - Additional CSS classes for positioning and styling
  * @returns {JSX.Element} AppBar component
- * 
+ *
  * @example
  * // Basic usage with app name and actions
  * import { SvgMenu, SvgSettings } from '../icons';
- * 
- * <AppBar 
+ *
+ * <AppBar
  *   navigationDrawer={<SvgMenu onClick={toggleDrawer} />}
  *   appName="My Application"
- *   suffix={[<SvgSettings onClick={openSettings} />]} 
+ *   suffix={[<SvgSettings onClick={openSettings} />]}
  * />
- * 
+ *
  * @example
  * // With back navigation and custom styling
  * import { SvgArrowBackIos } from '../icons';
- * 
- * <AppBar 
+ *
+ * <AppBar
  *   backArrow={<SvgArrowBackIos onClick={goBack} />}
  *   appName="Details Page"
  *   suffix={[]}
- *   optionalClass="sticky top-0 w-full h-16 shadow-md" 
+ *   optionalClass="sticky top-0 w-full h-16 shadow-md"
  * />
  */
 const AppBar = ({
@@ -51,11 +51,12 @@ const AppBar = ({
   appName,
   suffix,
   optionalClass = "fixed top-0 w-full h-14",
+  bgColor = "bg-light-surface dark:bg-dark-surface",
 }) => {
   return (
     <div
       className={`flex flex-row
-        bg-light-surface dark:bg-dark-surface
+        ${bgColor}
         text-light-on-surface dark:text-dark-on-surface
         items-center gap-1 px-0 sm:px-1
         ${optionalClass}`}
@@ -82,6 +83,7 @@ AppBar.propTypes = {
   appName: PropTypes.string,
   suffix: PropTypes.arrayOf(PropTypes.node),
   optionalClass: PropTypes.string,
+  bgColor: PropTypes.string,
 };
 
 export default AppBar;

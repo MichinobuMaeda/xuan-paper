@@ -54,10 +54,10 @@ AppBar component
 // Basic usage with app name and actions
 import { SvgMenu, SvgSettings } from '../icons';
 
-<AppBar 
+<AppBar
   navigationDrawer={<SvgMenu onClick={toggleDrawer} />}
   appName="My Application"
-  suffix={[<SvgSettings onClick={openSettings} />]} 
+  suffix={[<SvgSettings onClick={openSettings} />]}
 />
 ```
 
@@ -67,11 +67,11 @@ import { SvgMenu, SvgSettings } from '../icons';
 // With back navigation and custom styling
 import { SvgArrowBackIos } from '../icons';
 
-<AppBar 
+<AppBar
   backArrow={<SvgArrowBackIos onClick={goBack} />}
   appName="Details Page"
   suffix={[]}
-  optionalClass="sticky top-0 w-full h-16 shadow-md" 
+  optionalClass="sticky top-0 w-full h-16 shadow-md"
 />
 ```
 

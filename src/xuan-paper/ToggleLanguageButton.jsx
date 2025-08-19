@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { resources } from "../i18n.js";
 
@@ -73,7 +74,9 @@ const STORAGE_KEY = "xuan-paper-language";
  * export default i18n;
  */
 
-const ToggleLanguageButton = () => {
+const ToggleLanguageButton = ({
+  bgColor = "bg-light-surface dark:bg-dark-surface",
+}) => {
   const { i18n } = useTranslation();
 
   const [label, setLabel] = useState(resources[i18n.language]?.label);
@@ -121,9 +124,13 @@ const ToggleLanguageButton = () => {
         i18n.changeLanguage(newLanguage);
         setLabel(resources[newLanguage]?.label);
       }}
-      style="embedded"
+      bgColor={bgColor}
     />
   );
+};
+
+ToggleLanguageButton.propTypes = {
+  bgColor: PropTypes.string,
 };
 
 export default ToggleLanguageButton;

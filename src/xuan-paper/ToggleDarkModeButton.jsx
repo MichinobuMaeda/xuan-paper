@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
+import PropTypes from "prop-types";
 
 import AppBarItem from "./AppBarItem.jsx";
 
@@ -43,7 +44,9 @@ const STORAGE_KEY = "xuan-paper-theme-mode";
  * );
  */
 
-const ToggleDarkModeButton = () => {
+const ToggleDarkModeButton = ({
+  bgColor = "bg-light-surface dark:bg-dark-surface",
+}) => {
   // Initialize state from localStorage or default to system
   const [brightnessSetting, setBrightnessSetting] = useState(() => {
     const savedMode = localStorage.getItem(STORAGE_KEY);
@@ -137,8 +140,13 @@ const ToggleDarkModeButton = () => {
                 : modeLight,
         )
       }
+      bgColor={bgColor}
     />
   );
+};
+
+ToggleDarkModeButton.propTypes = {
+  bgColor: PropTypes.string,
 };
 
 export default ToggleDarkModeButton;

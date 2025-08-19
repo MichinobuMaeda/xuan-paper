@@ -36,17 +36,24 @@ import PropTypes from "prop-types";
  *   disabled={true}
  * />
  */
-const AppBarItem = ({ icon, disabled = false, onClick = () => {} }) => {
+const AppBarItem = ({
+  icon,
+  disabled = false,
+  onClick = () => {},
+  bgColor = "bg-light-surface dark:bg-dark-surface",
+}) => {
   return (
     <button
       className={`flex flex-row  w-10 h-10 justify-center items-center
         rounded-full mx-1
-        ${disabled ? "" : "cursor-pointer"} ${
+        ${disabled ? "" : "cursor-pointer"}
+        ${bgColor}
+        ${
           disabled
             ? "text-light-on-surface/40 dark:text-dark-on-surface/40"
             : `text-light-on-surface dark:text-dark-on-surface
-            active:bg-light-on-surface/6 dark:active:bg-dark-on-surface/30
-            hover:bg-light-on-surface/3 dark:hover:bg-dark-on-surface/15`
+            active:brightness-95 active:dark:brightness-140
+            hover:brightness-97 hover:dark:brightness-120`
         }`}
       onClick={disabled ? () => {} : onClick}
     >
@@ -59,6 +66,7 @@ AppBarItem.propTypes = {
   icon: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
+  bgColor: PropTypes.string,
 };
 
 export default AppBarItem;
