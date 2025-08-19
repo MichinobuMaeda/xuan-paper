@@ -65,7 +65,7 @@ function App() {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   window.addEventListener("scroll", () => {
-    if (Math.abs(window.scrollY - lastScrollY) > 64) {
+    if (Math.abs(window.scrollY - lastScrollY) > window.innerHeight / 16) {
       if (lastScrollY !== 0) {
         setScrollDirection(window.scrollY - lastScrollY);
       }
