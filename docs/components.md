@@ -1,6 +1,6 @@
 # Xuan-Paper Components Documentation
 
-Generated on: 2025-08-19
+Generated on: 2025-08-20
 
 ## Components
 
@@ -39,6 +39,8 @@ AppBar component that implements a Material Design 3 styled top app bar.
 | props.appLogo *(optional)* | `React.ReactNode` | App logo component or image |
 | props.appName *(optional)* | `string` | Name of the application to display |
 | props.suffix *(optional)* | `React.ReactNode[]` | Array of action items to display on the right side |
+| props.height=14 *(optional)* | `number` | Height of the app bar in Tailwind CSS height units (e.g., 14 = h-14 = 3.5rem = 56px) |
+| props.bgColor="bg-light *(optional)* | `string` | surface dark:bg-dark-surface"] - Background color CSS classes with light/dark mode variants |
 
 ### Returns
 
@@ -71,7 +73,9 @@ import { SvgArrowBackIos } from '../icons';
   backArrow={<SvgArrowBackIos onClick={goBack} />}
   appName="Details Page"
   suffix={[]}
-  optionalClass="sticky top-0 w-full h-16 shadow-md"
+  optionalClass="sticky top-0 shadow-md"
+  height={16}
+  bgColor="bg-light-primary-container dark:bg-dark-primary-container"
 />
 ```
 

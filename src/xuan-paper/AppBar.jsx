@@ -8,10 +8,14 @@ import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
  * containing navigation controls, app identity elements, and action items.
  *
  * The AppBar combines branding elements (logo, app name) with navigation controls
- * (back arrow, navigation drawer toggle) and action items (suffix).
+ * (back arrow, navigation drawer toggle) and action items (suffix). It respects
+ * safe area insets for proper display on devices with notches or rounded corners
+ * using the `pt-safe` class from tailwindcss-safe-area plugin.
  *
  * By default, it's positioned fixed at the top of the viewport, but this behavior
- * can be customized via the optionalClass prop.
+ * can be customized via the optionalClass prop. The component's height and background
+ * color are also configurable to accommodate different design requirements and
+ * theming options.
  *
  * @component
  * @param {Object} props - Component props
@@ -20,7 +24,9 @@ import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
  * @param {React.ReactNode} [props.appLogo] - App logo component or image
  * @param {string} [props.appName] - Name of the application to display
  * @param {React.ReactNode[]} [props.suffix] - Array of action items to display on the right side
- * @param {string} [props.optionalClass="fixed top-0 w-full h-14"] - Additional CSS classes for positioning and styling
+ * @param {string} [props.optionalClass="fixed top-0"] - Additional CSS classes for positioning and styling
+ * @param {number} [props.height=14] - Height of the app bar in Tailwind CSS height units (e.g., 14 = h-14 = 3.5rem = 56px)
+ * @param {string} [props.bgColor="bg-light-surface dark:bg-dark-surface"] - Background color CSS classes with light/dark mode variants
  * @returns {JSX.Element} AppBar component
  *
  * @example
@@ -41,7 +47,9 @@ import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
  *   backArrow={<SvgArrowBackIos onClick={goBack} />}
  *   appName="Details Page"
  *   suffix={[]}
- *   optionalClass="sticky top-0 w-full h-16 shadow-md"
+ *   optionalClass="sticky top-0 shadow-md"
+ *   height={16}
+ *   bgColor="bg-light-primary-container dark:bg-dark-primary-container"
  * />
  */
 const AppBar = ({
@@ -50,27 +58,31 @@ const AppBar = ({
   appLogo,
   appName,
   suffix,
-  optionalClass = "fixed top-0 w-full h-14",
+  optionalClass = "fixed top-0",
+  height = 14,
   bgColor = "bg-light-surface dark:bg-dark-surface",
 }) => {
   return (
     <div
-      className={`flex flex-row
+      className={`flex flex-row w-full pt-safe items-start px-0 sm:px-1 z-20
         ${bgColor}
         text-light-on-surface dark:text-dark-on-surface
-        items-center gap-1 px-0 sm:px-1
         ${optionalClass}`}
     >
-      <CommonTitle
-        backArrow={backArrow}
-        navigationDrawer={navigationDrawer}
-        appLogo={appLogo}
-        appName={appName}
-      />
-      <div className="flex flex-row grow justify-end items-center">
-        {suffix.map((item, index) => (
-          <ActionItem key={index}>{item}</ActionItem>
-        ))}
+      <div
+        className={`flex flex-row items-center h-${height} w-full gap-1 px-0 sm:px-1`}
+      >
+        <CommonTitle
+          backArrow={backArrow}
+          navigationDrawer={navigationDrawer}
+          appLogo={appLogo}
+          appName={appName}
+        />
+        <div className="flex flex-row grow justify-end items-center">
+          {suffix.map((item, index) => (
+            <ActionItem key={index}>{item}</ActionItem>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -83,6 +95,7 @@ AppBar.propTypes = {
   appName: PropTypes.string,
   suffix: PropTypes.arrayOf(PropTypes.node),
   optionalClass: PropTypes.string,
+  height: PropTypes.number,
   bgColor: PropTypes.string,
 };
 

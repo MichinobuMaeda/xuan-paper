@@ -17,15 +17,18 @@ import PropTypes from "prop-types";
  *
  * Supports active states, disabled states, and hover effects that adapt to screen size.
  * Follows Material Design 3 theming guidelines with proper light/dark mode support.
+ * Includes safe area padding for devices with rounded corners or notches (e.g., iPhone).
  *
  * The component automatically handles different visual states:
  * - Active items are highlighted with container colors and primary text
+ * - Active items show background highlighting on mobile, pill shape on desktop
  * - Disabled items appear with reduced opacity and are non-interactive
- * - Hover effects are applied differently for mobile and desktop views
+ * - Hover/active effects adapt between mobile and desktop views
+ * - Provides enhanced touch feedback with active states for mobile interactions
  *
  * @param {Object} props - Component props
  * @param {Array<NavigationBarItem>} props.items - Array of navigation items to display
- * @param {string} [props.optionalClass="h-16 w-full fixed bottom-0"] - Additional CSS classes for positioning and styling
+ * @param {string} [props.optionalClass="fixed bottom-0"] - Additional CSS classes for positioning and styling
  * @returns {JSX.Element} Rendered navigation bar component
  *
  * @example
@@ -61,25 +64,23 @@ import PropTypes from "prop-types";
  * // With custom positioning as a top navigation bar
  * <NavigationBar
  *   items={navigationItems}
- *   optionalClass="h-16 w-full sticky top-0 shadow-lg"
+ *   optionalClass="sticky top-0 shadow-lg"
  * />
  */
 
-const NavigationBar = ({
-  items = [],
-  optionalClass = "h-16 w-full fixed bottom-0",
-}) => {
+const NavigationBar = ({ items = [], optionalClass = "fixed bottom-0" }) => {
   return (
     <div
-      className={`flex flex-row items-center justify-evenly
-        py-1.5 z-20 ${optionalClass}
+      className={`flex flex-row items-start w-full z-30
+        pb-safe ${optionalClass}
         bg-light-surface-container dark:bg-dark-surface-container
         shadow-sm shadow-light-shadow dark:shadow-dark-shadow`}
     >
-      {items.map((item, index) => (
-        <button
-          key={index}
-          className={`flex flex-col md:flex-row gap-1 items-center
+      <div className="flex flex-row items-center justify-evenly py-1.5 h-16 w-full">
+        {items.map((item, index) => (
+          <button
+            key={index}
+            className={`flex flex-col md:flex-row gap-1 items-center
             md:h-10 md:px-5 md:rounded-full
             ${item.disabled ? "" : "cursor-pointer"} ${
               item.disabled
@@ -90,10 +91,10 @@ const NavigationBar = ({
                   md:hover:brightness-95 md:hover:dark:brightness-110`
                   : `md:hover:bg-light-on-secondary-container/10 md:hover:dark:bg-dark-on-secondary-container/10`
             }`}
-          onClick={item.onClick}
-        >
-          <div
-            className={`flex flex-row justify-center items-center
+            onClick={item.onClick}
+          >
+            <div
+              className={`flex flex-row justify-center items-center
               w-14 md:w-fit h-8 md:h-fit rounded-full ${
                 item.disabled
                   ? `text-light-on-surface/40 dark:text-dark-on-surface/40`
@@ -108,22 +109,23 @@ const NavigationBar = ({
               }
               md:bg-transparent md:dark:bg-transparent
               md:hover:bg-transparent md:dark:hover:bg-transparent`}
-          >
-            <div className={`size-6`}>{item.icon}</div>
-          </div>
-          <div
-            className={`text-xs ${
-              item.disabled
-                ? `text-light-on-surface/40 dark:text-dark-on-surface/40`
-                : item.active
-                  ? `text-light-secondary dark:text-dark-secondary`
-                  : `text-light-on-surface-variant dark:text-dark-on-surface-variant`
-            }`}
-          >
-            {item.label}
-          </div>
-        </button>
-      ))}
+            >
+              <div className={`size-6`}>{item.icon}</div>
+            </div>
+            <div
+              className={`text-xs ${
+                item.disabled
+                  ? `text-light-on-surface/40 dark:text-dark-on-surface/40`
+                  : item.active
+                    ? `text-light-secondary dark:text-dark-secondary`
+                    : `text-light-on-surface-variant dark:text-dark-on-surface-variant`
+              }`}
+            >
+              {item.label}
+            </div>
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

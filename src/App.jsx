@@ -81,16 +81,11 @@ function App() {
   });
 
   // Dynamic classes for header that hides when scrolling down
-  const headerOptionalClass = `sticky top-0
-    transition-all duration-500 z-30
+  const headerOptionalClass = `sticky top-0 transition-all duration-500
     ${scrollDirection > 0 ? `-translate-y-14 3xl:translate-0` : ""}`;
 
-  // Apply header behavior to app bar
-  const appBarOptionalClass = `h-14 w-full ${headerOptionalClass}`;
-
   // Dynamic classes for footer that hides when scrolling up
-  const footerOptionalClass = `sticky bottom-0 h-16 w-full
-    transition-all duration-500 z-30
+  const footerOptionalClass = `sticky bottom-0 transition-all duration-500
     ${scrollDirection < 0 ? `translate-y-16 3xl:translate-0` : ""}`;
 
   // Toggle between horizontal (bottom bar) and vertical (side rail) navigation
@@ -185,7 +180,8 @@ function App() {
           <ToggleLanguageButton key="toggle-language" />,
           <ToggleDarkModeButton key="toggle-dark-mode" />,
         ]}
-        optionalClass={appBarOptionalClass}
+        optionalClass={headerOptionalClass}
+        height={14} // Default
       />
 
       <main
@@ -193,7 +189,8 @@ function App() {
           ${drawerKeep ? "pl-84" : navVertical ? "pl-24 lg:pl-56" : ""}`}
       >
         <div
-          className={`flex flex-col w-full top-14 ${headerOptionalClass}
+          className={`flex flex-col w-full top-safe-offset-14 z-30
+            ${headerOptionalClass}
             shadow-xs shadow-light-shadow/50 dark:shadow-dark-shadow/50`}
         >
           <PWABadge
