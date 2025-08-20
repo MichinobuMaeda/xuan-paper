@@ -181,7 +181,7 @@ function App() {
           <ToggleDarkModeButton key="toggle-dark-mode" />,
         ]}
         optionalClass={headerOptionalClass}
-        height={14} // Default
+        height="h-14" // Default
       />
 
       <main

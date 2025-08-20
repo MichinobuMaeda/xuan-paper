@@ -13,9 +13,12 @@ import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
  * using the `pt-safe` class from tailwindcss-safe-area plugin.
  *
  * By default, it's positioned fixed at the top of the viewport, but this behavior
- * can be customized via the optionalClass prop. The component's height and background
- * color are also configurable to accommodate different design requirements and
- * theming options.
+ * can be customized via the optionalClass prop. The component's height (as a complete
+ * Tailwind class like "h-14") and background color are also configurable to accommodate
+ * different design requirements and theming options.
+ *
+ * The component includes responsive padding that adapts to screen sizes, with tighter
+ * spacing on mobile devices and more generous spacing on larger screens.
  *
  * @component
  * @param {Object} props - Component props
@@ -25,7 +28,7 @@ import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
  * @param {string} [props.appName] - Name of the application to display
  * @param {React.ReactNode[]} [props.suffix] - Array of action items to display on the right side
  * @param {string} [props.optionalClass="fixed top-0"] - Additional CSS classes for positioning and styling
- * @param {number} [props.height=14] - Height of the app bar in Tailwind CSS height units (e.g., 14 = h-14 = 3.5rem = 56px)
+ * @param {string} [props.height="h-14"] - Height of the app bar as Tailwind CSS class (e.g., "h-14" = 3.5rem = 56px)
  * @param {string} [props.bgColor="bg-light-surface dark:bg-dark-surface"] - Background color CSS classes with light/dark mode variants
  * @returns {JSX.Element} AppBar component
  *
@@ -48,7 +51,7 @@ import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
  *   appName="Details Page"
  *   suffix={[]}
  *   optionalClass="sticky top-0 shadow-md"
- *   height={16}
+ *   height="h-16"
  *   bgColor="bg-light-primary-container dark:bg-dark-primary-container"
  * />
  */
@@ -59,7 +62,7 @@ const AppBar = ({
   appName,
   suffix,
   optionalClass = "fixed top-0",
-  height = 14,
+  height = "h-14",
   bgColor = "bg-light-surface dark:bg-dark-surface",
 }) => {
   return (
@@ -70,7 +73,7 @@ const AppBar = ({
         ${optionalClass}`}
     >
       <div
-        className={`flex flex-row items-center h-${height} w-full gap-1 px-0 sm:px-1`}
+        className={`flex flex-row items-center ${height} w-full gap-1 px-0 sm:px-1`}
       >
         <CommonTitle
           backArrow={backArrow}
@@ -95,7 +98,7 @@ AppBar.propTypes = {
   appName: PropTypes.string,
   suffix: PropTypes.arrayOf(PropTypes.node),
   optionalClass: PropTypes.string,
-  height: PropTypes.number,
+  height: PropTypes.string,
   bgColor: PropTypes.string,
 };
 
