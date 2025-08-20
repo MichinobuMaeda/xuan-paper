@@ -71,16 +71,15 @@ import PropTypes from "prop-types";
 const NavigationBar = ({ items = [], optionalClass = "fixed bottom-0" }) => {
   return (
     <div
-      className={`flex flex-row items-start w-full z-30
-        pb-safe ${optionalClass}
+      className={`flex flex-row w-full ${optionalClass} z-30
+        pt-1.5 md:pt-3 pb-safe-or-2 md:pb-safe-or-3 items-start justify-evenly
         bg-light-surface-container dark:bg-dark-surface-container
         shadow-sm shadow-light-shadow dark:shadow-dark-shadow`}
     >
-      <div className="flex flex-row items-center justify-evenly py-1.5 h-16 w-full">
-        {items.map((item, index) => (
-          <button
-            key={index}
-            className={`flex flex-col md:flex-row gap-1 items-center
+      {items.map((item, index) => (
+        <button
+          key={index}
+          className={`flex flex-col md:flex-row gap-1 items-center
             md:h-10 md:px-5 md:rounded-full
             ${item.disabled ? "" : "cursor-pointer"} ${
               item.disabled
@@ -91,10 +90,10 @@ const NavigationBar = ({ items = [], optionalClass = "fixed bottom-0" }) => {
                   md:hover:brightness-95 md:hover:dark:brightness-110`
                   : `md:hover:bg-light-on-secondary-container/10 md:hover:dark:bg-dark-on-secondary-container/10`
             }`}
-            onClick={item.onClick}
-          >
-            <div
-              className={`flex flex-row justify-center items-center
+          onClick={item.onClick}
+        >
+          <div
+            className={`flex flex-row justify-center items-center
               w-14 md:w-fit h-8 md:h-fit rounded-full ${
                 item.disabled
                   ? `text-light-on-surface/40 dark:text-dark-on-surface/40`
@@ -109,23 +108,22 @@ const NavigationBar = ({ items = [], optionalClass = "fixed bottom-0" }) => {
               }
               md:bg-transparent md:dark:bg-transparent
               md:hover:bg-transparent md:dark:hover:bg-transparent`}
-            >
-              <div className={`size-6`}>{item.icon}</div>
-            </div>
-            <div
-              className={`text-xs ${
-                item.disabled
-                  ? `text-light-on-surface/40 dark:text-dark-on-surface/40`
-                  : item.active
-                    ? `text-light-secondary dark:text-dark-secondary`
-                    : `text-light-on-surface-variant dark:text-dark-on-surface-variant`
-              }`}
-            >
-              {item.label}
-            </div>
-          </button>
-        ))}
-      </div>
+          >
+            <div className={`size-6`}>{item.icon}</div>
+          </div>
+          <div
+            className={`text-xs ${
+              item.disabled
+                ? `text-light-on-surface/40 dark:text-dark-on-surface/40`
+                : item.active
+                  ? `text-light-secondary dark:text-dark-secondary`
+                  : `text-light-on-surface-variant dark:text-dark-on-surface-variant`
+            }`}
+          >
+            {item.label}
+          </div>
+        </button>
+      ))}
     </div>
   );
 };
