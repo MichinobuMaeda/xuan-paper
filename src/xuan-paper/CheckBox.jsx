@@ -96,6 +96,7 @@ ${
           disabled={disabled}
         />
         {value && (
+          /* Material icons 'Check' https://fonts.google.com/icons */
           <svg
             className={`absolute inset-0 pointer-events-none size-5 ${
               disabled

@@ -84,7 +84,7 @@ function PWABadge({
       <div className="flex flex-row grow">{needRefreshMessage}</div>
       <Button
         icon={
-          /* Material icon 'Refresh' */
+          /* Material icons 'Refresh' https://fonts.google.com/icons */
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -960 960 960"
@@ -107,7 +107,7 @@ function PWABadge({
       <div className="flex flex-row grow">{offlineReadyMessage}</div>
       <Button
         icon={
-          /* Material icon 'Close' */
+          /* Material icons 'Close' https://fonts.google.com/icons */
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -960 960 960"

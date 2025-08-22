@@ -67,7 +67,7 @@ const AppBar = ({
 }) => {
   return (
     <div
-      className={`flex flex-row w-full pt-safe items-start px-0 sm:px-1 z-20
+      className={`flex flex-row w-full pt-safe items-start px-0 sm:px-1 z-30
         ${bgColor}
         text-light-on-surface dark:text-dark-on-surface
         ${optionalClass}`}

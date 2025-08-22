@@ -17,6 +17,7 @@ import AppBarItem from "./xuan-paper/AppBarItem.jsx";
 import NavigationDrawer from "./xuan-paper/NavigationDrawer.jsx";
 import NavigationRail from "./xuan-paper/NavigationRail.jsx";
 import NavigationBar from "./xuan-paper/NavigationBar.jsx";
+import Fab from "./xuan-paper/Fab.jsx";
 import ToggleLanguageButton from "./xuan-paper/ToggleLanguageButton.jsx";
 import ToggleDarkModeButton from "./xuan-paper/ToggleDarkModeButton.jsx";
 import { generateThemeCss } from "./xuan-paper/material-theme.js";
@@ -29,6 +30,7 @@ import SvgUndo from "./icons/SvgUndo.jsx";
 import SvgKeep from "./icons/SvgKeep.jsx";
 import SvgKeepOff from "./icons/SvgKeepOff.jsx";
 import SvgInfo from "./icons/SvgInfo.jsx";
+import SvgEdit from "./icons/SvgEdit.jsx";
 
 import "./App.css";
 import PWABadge from "./xuan-paper/PWABadge.jsx";
@@ -103,16 +105,16 @@ function App() {
     drawerOpen
       ? drawerKeep
         ? {
-            icon: <SvgKeep />,
-            label: "Wide fixed layout",
+            icon: <SvgKeepOff />,
+            label: "Narrow floating layout",
             active: true,
             onClick: () => {
               setDrawerKeep(false);
             },
           }
         : {
-            icon: <SvgKeepOff />,
-            label: "Narrow floating layout",
+            icon: <SvgKeep />,
+            label: "Wide fixed layout",
             active: true,
             onClick: () => {
               setDrawerKeep(true);
@@ -155,7 +157,7 @@ function App() {
           !drawerKeep && (
             <AppBarItem
               icon={
-                /* Material icon 'Menu' */
+                /* Material icons 'Menu' https://fonts.google.com/icons */
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
@@ -256,6 +258,26 @@ function App() {
               "Without Icon, with long label text that should be truncated",
           },
         ]}
+      />
+      <Fab
+        icon={<SvgEdit />}
+        items={[
+          {
+            icon: <SvgInfo />,
+            label: "Menu item #1",
+            onClick: () => {},
+          },
+          {
+            icon: <SvgInfo />,
+            onClick: () => {},
+          },
+          {
+            label: "Menu item #3",
+            onClick: () => {},
+            disabled: true,
+          },
+        ]}
+        position={`fixed bottom-safe ${navVertical ? "mb-4" : "mb-20"} right-4 z-40`}
       />
     </>
   );

@@ -68,18 +68,6 @@ import PropTypes from "prop-types";
  *   width="w-96"
  *   onChange={setSearchQuery}
  * />
- *
- * @example
- * // Number input for currency with prefix/suffix
- * <TextField
- *   id="price"
- *   type="number"
- *   label="Price"
- *   value={price}
- *   prefix="$"
- *   suffix=".00"
- *   error={priceError}
- *   onChange={setPrice}
  * />
  */
 

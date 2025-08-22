@@ -312,7 +312,7 @@ const ComponentsDemo = () => {
           prefix={
             <Button
               icon={<SvgInfo />}
-              style="text"
+              style="embedded"
               size="xs"
               onClick={() => {}}
             />
@@ -321,7 +321,7 @@ const ComponentsDemo = () => {
             txt02 !== "Input 02" && (
               <Button
                 icon={<SvgClose />}
-                style="text"
+                style="embedded"
                 size="xs"
                 onClick={() => setTxt02("Input 02")}
               />
@@ -375,7 +375,7 @@ const ComponentsDemo = () => {
           prefix={
             <Button
               icon={<SvgInfo />}
-              style="text"
+              style="embedded"
               size="xs"
               onClick={() => {}}
             />

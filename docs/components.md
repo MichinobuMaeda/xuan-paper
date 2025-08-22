@@ -1,6 +1,6 @@
 # Xuan-Paper Components Documentation
 
-Generated on: 2025-08-20
+Generated on: 2025-08-22
 
 ## Components
 
@@ -10,6 +10,7 @@ Generated on: 2025-08-20
 - [ButtonGroup](#buttongroup)
 - [CheckBox](#checkbox)
 - [CommonTitle](#commontitle)
+- [Fab](#fab)
 - [NavigationBar](#navigationbar)
 - [NavigationDrawer](#navigationdrawer)
 - [NavigationRail](#navigationrail)
@@ -383,6 +384,10 @@ import { SvgMenu } from '../icons';
   <SvgMenu onClick={toggleDrawer} />
 </ActionItem>
 ```
+
+---
+
+## Fab
 
 ---
 
@@ -862,21 +867,6 @@ Rendered text field component
   width="w-96"
   onChange={setSearchQuery}
 />
-```
-
-#### Example 5
-
-```jsx
-// Number input for currency with prefix/suffix
-<TextField
-  id="price"
-  type="number"
-  label="Price"
-  value={price}
-  prefix="$"
-  suffix=".00"
-  error={priceError}
-  onChange={setPrice}
 />
 ```
 

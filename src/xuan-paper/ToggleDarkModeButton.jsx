@@ -97,7 +97,7 @@ const ToggleDarkModeButton = ({
     <AppBarItem
       icon={
         brightnessSetting === modeSystem ? (
-          /* Material icon 'Reset brightness' */
+          /* Material icons 'Reset brightness' https://fonts.google.com/icons */
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -960 960 960"
@@ -106,7 +106,7 @@ const ToggleDarkModeButton = ({
             <path d="M480-28 346-160H160v-186L28-480l132-134v-186h186l134-132 134 132h186v186l132 134-132 134v186H614L480-28Zm0-252q83 0 141.5-58.5T680-480q0-83-58.5-141.5T480-680v400Zm0 140 100-100h140v-140l100-100-100-100v-140H580L480-820 380-720H240v140L140-480l100 100v140h140l100 100Zm0-340Z" />
           </svg>
         ) : brightnessSetting === modeLight ? (
-          /* Material icon 'Light mode' */
+          /* Material icons 'Light mode' https://fonts.google.com/icons */
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -960 960 960"
@@ -115,7 +115,7 @@ const ToggleDarkModeButton = ({
             <path d="M480-360q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0 80q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Zm326-268Z" />
           </svg>
         ) : (
-          /* Material icon 'Dark mode' */
+          /* Material icons 'Dark mode' https://fonts.google.com/icons */
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -960 960 960"
