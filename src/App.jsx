@@ -35,6 +35,7 @@ import SvgEdit from "./icons/SvgEdit.jsx";
 import "./App.css";
 import PWABadge from "./xuan-paper/PWABadge.jsx";
 import appLogo from "/favicon.svg";
+import version from "./version.js";
 
 import ColorThemeParameters from "./ColorThemeParameters.jsx";
 import ComponentsDemo from "./ComponentsDemo.jsx";
@@ -211,11 +212,9 @@ function App() {
         </div>
         <ComponentsDemo />
         <ColorThemeValues />
-        <div className="flex flex-row justify-center p-4 w-full">
-          <a
-            className="text-sm text-light-link dark:text-dark-link"
-            href="https://github.com/MichinobuMaeda/xuan-paper"
-          >
+        <div className="flex flex-col items-center p-2 w-full">
+          Ver. {version}
+          <a href="https://github.com/MichinobuMaeda/xuan-paper">
             https://github.com/MichinobuMaeda/xuan-paper
           </a>
         </div>

@@ -4,7 +4,7 @@ Tailwind / React / Material design 3
 
 [Sample](https://xuan-paper.michinobu.jp)
 
-[API](docs/components.md)
+[API](docs/api.md)
 
 ![Green light](docs/green-light.png)
 ![Green dark](docs/green-dark.png)

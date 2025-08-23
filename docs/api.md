@@ -1,34 +1,22 @@
-# Xuan-Paper Components Documentation
+# Xuan-Paper Documentation
 
-Generated on: 2025-08-22
+Generated on: 2025-08-23
+
+## Table of Contents
+
+- [Components](#components)
+- [Modules & Functions](#modules--functions)
+  - [material-theme](#material-theme)
+  - [generate-jsdoc](#generate-jsdoc)
+  - [generate-version](#generate-version)
 
 ## Components
-
-- [AppBar](#appbar)
-- [AppBarItem](#appbaritem)
-- [Button](#button)
-- [ButtonGroup](#buttongroup)
-- [CheckBox](#checkbox)
-- [CommonTitle](#commontitle)
-- [Fab](#fab)
-- [NavigationBar](#navigationbar)
-- [NavigationDrawer](#navigationdrawer)
-- [NavigationRail](#navigationrail)
-- [PWABadge](#pwabadge)
-- [PasswordField](#passwordfield)
-- [RadioGroup](#radiogroup)
-- [Slider](#slider)
-- [Switch](#switch)
-- [TextField](#textfield)
-- [ToggleDarkModeButton](#toggledarkmodebutton)
-- [ToggleLanguageButton](#togglelanguagebutton)
-- [material-theme.js](#material-theme.js)
-
----
 
 ## AppBar
 
 AppBar component that implements a Material Design 3 styled top app bar.
+
+*Source: `src/xuan-paper/AppBar.jsx`*
 
 ### Props
 
@@ -86,6 +74,8 @@ import { SvgArrowBackIos } from '../icons';
 
 AppBarItem component that represents an action button in the AppBar.
 
+*Source: `src/xuan-paper/AppBarItem.jsx`*
+
 ### Props
 
 | Name | Type | Description |
@@ -131,6 +121,8 @@ import { SvgDownload } from '../icons';
 ## Button
 
 A versatile button component with multiple styles, sizes, and configurations.
+
+*Source: `src/xuan-paper/Button.jsx`*
 
 ### Props
 
@@ -191,6 +183,8 @@ Rendered button component
 ## ButtonGroup
 
 A button group component that renders a collection of related buttons with single or multi-selection.
+
+*Source: `src/xuan-paper/ButtonGroup.jsx`*
 
 ### Props
 
@@ -286,6 +280,8 @@ Rendered button group component
 
 A customizable checkbox component with label support, theming,
 
+*Source: `src/xuan-paper/CheckBox.jsx`*
+
 ### Props
 
 | Name | Type | Description |
@@ -359,6 +355,8 @@ Rendered checkbox component
 
 ActionItem component that provides a standardized container for action elements
 
+*Source: `src/xuan-paper/CommonTitle.jsx`*
+
 ### Props
 
 | Name | Type | Description |
@@ -389,15 +387,21 @@ import { SvgMenu } from '../icons';
 
 ## Fab
 
+*Source: `src/xuan-paper/Fab.jsx`*
+
 ---
 
 ## NavigationBar
+
+*Source: `src/xuan-paper/NavigationBar.jsx`*
 
 ---
 
 ## NavigationDrawer
 
 Navigation item component used within the NavigationDrawer.
+
+*Source: `src/xuan-paper/NavigationDrawer.jsx`*
 
 ### Props
 
@@ -420,11 +424,15 @@ NavItem component or divider
 
 ## NavigationRail
 
+*Source: `src/xuan-paper/NavigationRail.jsx`*
+
 ---
 
 ## PWABadge
 
 PWA status notification component that displays offline readiness and update prompts.
+
+*Source: `src/xuan-paper/PWABadge.jsx`*
 
 ### Props
 
@@ -473,6 +481,8 @@ function Layout() {
 ## PasswordField
 
 A specialized password input field with visibility toggle functionality.
+
+*Source: `src/xuan-paper/PasswordField.jsx`*
 
 ### Props
 
@@ -556,6 +566,8 @@ Rendered password field component with visibility toggle
 
 A radio button group component that allows single selection
 
+*Source: `src/xuan-paper/RadioGroup.jsx`*
+
 ### Props
 
 | Name | Type | Description |
@@ -630,6 +642,8 @@ Rendered radio group component (React Fragment containing radio buttons)
 ## Slider
 
 An interactive slider component with drag functionality and responsive design.
+
+*Source: `src/xuan-paper/Slider.jsx`*
 
 ### Props
 
@@ -712,6 +726,8 @@ Rendered interactive slider component
 
 A toggle switch component that provides an intuitive on/off control interface.
 
+*Source: `src/xuan-paper/Switch.jsx`*
+
 ### Props
 
 | Name | Type | Description |
@@ -783,6 +799,8 @@ Rendered switch component
 ## TextField
 
 A versatile text input field component with floating labels,
+
+*Source: `src/xuan-paper/TextField.jsx`*
 
 ### Props
 
@@ -876,6 +894,8 @@ Rendered text field component
 
 A toggle button component that cycles between light mode,
 
+*Source: `src/xuan-paper/ToggleDarkModeButton.jsx`*
+
 ### Returns
 
 **Type:** `JSX.Element`
@@ -906,6 +926,8 @@ const Header = () => (
 ## ToggleLanguageButton
 
 A button component that toggles the application's language
+
+*Source: `src/xuan-paper/ToggleLanguageButton.jsx`*
 
 ### Returns
 
@@ -969,22 +991,39 @@ export default i18n;
 
 ---
 
-## material-theme.js
+## Modules & Functions
+
+### material-theme
 
 Generates a comprehensive Material Design color scheme from a seed color.
 
-### Props
+*Source: `src/xuan-paper/material-theme.js`*
+
+## applyColorScheme
+
+Generates a comprehensive Material Design color scheme from a seed color.
+
+*Source: `src/xuan-paper/material-theme.js`*
+
+### Parameters
 
 | Name | Type | Description |
 |------|------|-------------|
 | **seedColor** | `string` | Hex color code (e.g., "#FF5722") to use as the base for generating the entire color scheme |
 | **contrast** | `number` | Contrast level for the scheme (typically -1 to 1, where 0 is standard contrast) |
+| **scheme** | `Array<[string, Array<[string, string]>]>` | Color scheme data from generateScheme(): |
+
+### Returns
+
+**Type:** `void`
+
+This function does not return a value, it modifies the document directly
 
 ### Examples
 
 #### Example 1
 
-```jsx
+```js
 // Generate a blue-based theme with standard contrast
 const scheme = await generateScheme("#1976D2", 0);
 // Returns: [
@@ -995,19 +1034,312 @@ const scheme = await generateScheme("#1976D2", 0);
 
 #### Example 2
 
-```jsx
+```js
 // Generate a high-contrast green theme
 const highContrastScheme = await generateScheme("#4CAF50", 0.5);
 ```
 
 #### Example 3
 
-```jsx
+```js
 // Generate theme for brand colors
 const brandColor = "#E91E63"; // Brand pink
 const themeData = await generateScheme(brandColor, 0);
 const [lightTheme, darkTheme] = themeData;
 ```
+
+#### Example 4
+
+```js
+// Generate a theme and apply it immediately
+const scheme = await generateScheme("#1976D2", 0);
+applyColorScheme(scheme);
+```
+
+#### Example 5
+
+```js
+// Update theme dynamically based on user selection
+const userColor = getUserSelectedColor();
+const newScheme = await generateScheme(userColor, 0.2);
+applyColorScheme(newScheme);
+```
+
+---
+
+## generateThemeCss
+
+Converts a Material Design color scheme into CSS custom properties (CSS variables).
+
+*Source: `src/xuan-paper/material-theme.js`*
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| **schema** | `Array<[string, Array<[string, string]>]>` | Color scheme data from generateScheme(): |
+| **seedColor** | `string` | The original seed color used to generate the scheme |
+| **contrast** | `number` | The contrast level used when generating the scheme |
+
+### Returns
+
+**Type:** `string`
+
+CSS string containing @theme block with all color custom properties and generation metadata
+
+### Examples
+
+#### Example 1
+
+```js
+// Convert scheme to CSS
+const scheme = await generateScheme("#1976D2", 0);
+const cssTheme = generateThemeCss(scheme, "#1976D2", 0);
+// Returns CSS like:
+// "@theme {
+//   --color-light-primary: #1976D2;
+//   --color-light-on-primary: #FFFFFF;
+//   --color-dark-primary: #90CAF9;
+//   --color-dark-on-primary: #003258;
+//   ...
+// }"
+```
+
+---
+
+### generate-jsdoc
+
+Generates markdown documentation for all Xuan-Paper components using JSDoc comments.
+
+*Source: `tools/generate-jsdoc.js`*
+
+## extractJSDoc
+
+Generates markdown documentation for all Xuan-Paper components using JSDoc comments.
+
+*Source: `tools/generate-jsdoc.js`*
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| **filePath** | `string` | Path to the component or JS file |
+
+### Returns
+
+**Type:** `Object\|Object[]`
+
+Parsed JSDoc information for a component or array of functions
+
+---
+
+## escapeMarkdownTableText
+
+Extracts JSDoc for a component from JSX file
+
+*Source: `tools/generate-jsdoc.js`*
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| **filePath** | `string` | Path to the component file |
+| **content** | `string` | File content |
+| **filePath** | `string` | Path to the JS file |
+| **content** | `string` | File content |
+| **text** | `string` | Text to escape |
+
+### Returns
+
+**Type:** `Object\|null`
+
+Parsed component JSDoc information
+
+---
+
+## generateMarkdown
+
+Generates markdown documentation for a component or function
+
+*Source: `tools/generate-jsdoc.js`*
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| **docItem** | `Object` | Component or function documentation object |
+
+### Returns
+
+**Type:** `string`
+
+Markdown formatted documentation
+
+---
+
+## generateIndex
+
+Creates the documentation index with navigation
+
+*Source: `tools/generate-jsdoc.js`*
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| **components** | `Array` | Array of component documentation objects |
+
+### Returns
+
+**Type:** `string`
+
+Index markdown content
+
+---
+
+## jsdocPlugin
+
+Main function to generate documentation
+
+*Source: `tools/generate-jsdoc.js`*
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| **config** | `JSDocConfig` | Configuration for documentation generation |
+| **config** | `JSDocConfig` | Configuration for documentation generation |
+
+### Returns
+
+**Type:** `Promise<void>`
+
+A promise that resolves when documentation is generated
+
+### Examples
+
+#### Example 1
+
+```js
+// In vite.config.js
+import jsdocPlugin from './tools/generate-jsdoc.js';
+
+export default defineConfig({
+  plugins: [
+    jsdocPlugin({
+      inputs: [path.join('src', 'xuan-paper'), 'tools'],
+      output: path.join('docs', 'components.md')
+    })
+  ]
+});
+```
+
+---
+
+## handleHotUpdate
+
+Called when the build starts
+
+*Source: `tools/generate-jsdoc.js`*
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| **context** | `Object` | Hot update context |
+| **context.file** | `string` | The file that was changed |
+
+### Returns
+
+**Type:** `Promise<void>`
+
+
+
+---
+
+### generate-version
+
+Generate version file for Xuan-Paper
+
+*Source: `tools/generate-version.js`*
+
+## absolutePath
+
+Generate version file for Xuan-Paper
+
+*Source: `tools/generate-version.js`*
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| **relativePath** | `string` | The relative path to convert |
+
+### Returns
+
+**Type:** `string`
+
+The absolute path normalized for the current OS
+
+---
+
+## versionPlugin
+
+Generates a version file by extracting the version from a JSON file (typically package.json)
+
+*Source: `tools/generate-version.js`*
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| **options** | `VersionConfig` | The configuration options |
+| **config** | `VersionConfig` | The plugin configuration |
+
+### Returns
+
+**Type:** `Promise<void>`
+
+A promise that resolves when the file is written
+
+### Examples
+
+#### Example 1
+
+```js
+// In vite.config.js
+import versionPlugin from './tools/generate-version.js';
+
+export default defineConfig({
+  plugins: [
+    versionPlugin({
+      input: 'package.json',
+      output: path.join('src', 'version.js')
+    })
+  ]
+});
+```
+
+---
+
+## handleHotUpdate
+
+Called when the build starts
+
+*Source: `tools/generate-version.js`*
+
+### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| **context** | `Object` | Hot update context |
+| **context.file** | `string` | The file that was changed |
+
+### Returns
+
+**Type:** `Promise<void>`
+
+
 
 ---
 

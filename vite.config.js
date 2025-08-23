@@ -1,21 +1,21 @@
 import path from "path";
-import { fileURLToPath } from "url";
 import { VitePWA } from "vite-plugin-pwa";
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { jsdocPlugin } from "./tools/generate-jsdoc.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { versionPlugin } from "./tools/generate-version.js";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    versionPlugin({
+      input: path.join("package.json"),
+      output: path.join("src", "version.js"),
+    }),
     jsdocPlugin({
-      componentsDir: path.join(__dirname, "src", "xuan-paper"),
-      docsDir: path.join(__dirname, "docs"),
-      outputFile: "components.md",
+      inputs: [path.join("src", "xuan-paper"), "tools"],
+      output: path.join("docs", "api.md"),
     }),
     tailwindcss(),
     react(),
