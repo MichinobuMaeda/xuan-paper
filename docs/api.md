@@ -274,7 +274,6 @@ and persists the selection in localStorage.</p>
 <a name="module_generate-api-docs"></a>
 
 ## generate-api-docs
-
 Generate API documentation from JSDoc comments in JavaScript files
 
 This module extracts JSDoc comments from JavaScript source files and generates
@@ -287,56 +286,51 @@ return values, examples, and other JSDoc annotations. It's useful for creating
 comprehensive API documentation for libraries and components.
 
 Usage:
-
 - As a standalone function: Call generateApiDocs() with file paths and options
 - As a Vite plugin: Import apiDocsPlugin in vite.config.js
 
+
 * [generate-api-docs](#module_generate-api-docs)
-    - _static_
-        - [.absolutePath](#module_generate-api-docs.absolutePath) ⇒ <code>string</code>
-        - [.generateApiDocs](#module_generate-api-docs.generateApiDocs) ⇒ <code>Promise.&lt;void&gt;</code>
-        - [.apiDocsPlugin](#module_generate-api-docs.apiDocsPlugin) ⇒ <code>object</code>
-    - _inner_
-        - [~buildStart()](#module_generate-api-docs..buildStart) ⇒ <code>Promise.&lt;void&gt;</code>
-        - [~handleHotUpdate(context)](#module_generate-api-docs..handleHotUpdate) ⇒ <code>void</code>
-        - [~ApiDocsConfig](#module_generate-api-docs..ApiDocsConfig) : <code>object</code>
-        - [~ApiDocsPluginConfig](#module_generate-api-docs..ApiDocsPluginConfig) : <code>object</code>
+    * _static_
+        * [.absolutePath](#module_generate-api-docs.absolutePath) ⇒ <code>string</code>
+        * [.generateApiDocs](#module_generate-api-docs.generateApiDocs) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.apiDocsPlugin](#module_generate-api-docs.apiDocsPlugin) ⇒ <code>object</code>
+    * _inner_
+        * [~buildStart()](#module_generate-api-docs..buildStart) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [~handleHotUpdate(context)](#module_generate-api-docs..handleHotUpdate) ⇒ <code>void</code>
+        * [~ApiDocsConfig](#module_generate-api-docs..ApiDocsConfig) : <code>object</code>
+        * [~ApiDocsPluginConfig](#module_generate-api-docs..ApiDocsPluginConfig) : <code>object</code>
 
 <a name="module_generate-api-docs.absolutePath"></a>
 
 ### generate-api-docs.absolutePath ⇒ <code>string</code>
-
 Converts a relative path to an absolute normalized path
 
 This utility function takes a relative path and:
-
 1. Resolves it against the current working directory
 2. Normalizes it to ensure proper platform-specific separators
 3. Resolves any '..' or '.' segments
 
 Useful for ensuring consistent path handling across different platforms.
 
-**Kind**: static constant of [<code>generate-api-docs</code>](#module_generate-api-docs)
-**Returns**: <code>string</code> - The absolute path normalized for the current OS
+**Kind**: static constant of [<code>generate-api-docs</code>](#module_generate-api-docs)  
+**Returns**: <code>string</code> - The absolute path normalized for the current OS  
 
-| Param        | Type                | Description                  |
-| ------------ | ------------------- | ---------------------------- |
+| Param | Type | Description |
+| --- | --- | --- |
 | relativePath | <code>string</code> | The relative path to convert |
 
-**Example**
-
+**Example**  
 ```js
 // On Unix systems
-absolutePath("src/version.js"); // Returns '/path/to/project/src/version.js'
+absolutePath('src/version.js') // Returns '/path/to/project/src/version.js'
 
 // Works with paths containing . or ..
-absolutePath("./config/../src/version.js"); // Normalizes to '/path/to/project/src/version.js'
+absolutePath('./config/../src/version.js') // Normalizes to '/path/to/project/src/version.js'
 ```
-
 <a name="module_generate-api-docs.generateApiDocs"></a>
 
 ### generate-api-docs.generateApiDocs ⇒ <code>Promise.&lt;void&gt;</code>
-
 Generates API documentation from JavaScript files with JSDoc comments
 
 This function processes JavaScript source files to extract JSDoc comments
@@ -344,7 +338,6 @@ and generates markdown documentation using the jsdoc-to-markdown library.
 It automatically creates the output directory if it doesn't exist.
 
 The function:
-
 1. Renders JSDoc comments from the specified files into markdown format
 2. Creates the output directory structure if needed
 3. Writes the generated markdown to the specified output file
@@ -353,54 +346,49 @@ The generated documentation includes all exported functions, classes,
 modules, and their associated JSDoc annotations including parameters,
 return values, examples, and type information.
 
-**Kind**: static constant of [<code>generate-api-docs</code>](#module_generate-api-docs)
-**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when documentation is generated
+**Kind**: static constant of [<code>generate-api-docs</code>](#module_generate-api-docs)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when documentation is generated  
 **Throws**:
 
 - <code>Error</code> If files cannot be read or output cannot be written
 
-| Param            | Type                              | Description                                         |
-| ---------------- | --------------------------------- | --------------------------------------------------- |
-| config           | <code>ApiDocsConfig</code>        | The configuration object                            |
-| config.files     | <code>Array.&lt;string&gt;</code> | Array of file paths to process for JSDoc extraction |
-| config.output    | <code>string</code>               | Path where the generated markdown will be written   |
-| [config.options] | <code>object</code>               | Additional options passed to jsdoc-to-markdown      |
 
-**Example**
+| Param | Type | Description |
+| --- | --- | --- |
+| config | <code>ApiDocsConfig</code> | The configuration object |
+| config.files | <code>Array.&lt;string&gt;</code> | Array of file paths to process for JSDoc extraction |
+| config.output | <code>string</code> | Path where the generated markdown will be written |
+| [config.options] | <code>object</code> | Additional options passed to jsdoc-to-markdown |
 
+**Example**  
 ```js
 // Generate docs from specific files
 await generateApiDocs({
-    files: ["src/utils.js", "src/components.js"],
-    output: "docs/api.md",
-    title: "Xuan paper API Documentation",
-    options: { private: false },
+  files: ['src/utils.js', 'src/components.js'],
+  output: 'docs/api.md',
+  title: 'Xuan paper API Documentation',
+  options: { private: false }
 });
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Generate docs with custom options
 await generateApiDocs({
-    files: ["src/index.js", "src/lib.js"],
-    output: "docs/api.md",
-    options: {
-        template: "{{>main}}",
-        configure: "./jsdoc.conf.json",
-    },
+  files: ['src/index.js', 'src/lib.js'],
+  output: 'docs/api.md',
+  options: {
+    template: '{{>main}}',
+    configure: './jsdoc.conf.json'
+  }
 });
 ```
-
 <a name="module_generate-api-docs.apiDocsPlugin"></a>
 
 ### generate-api-docs.apiDocsPlugin ⇒ <code>object</code>
-
 Creates a Vite plugin that automatically generates API documentation
 during build and when source files change in development mode
 
 This plugin integrates with Vite's build process to:
-
 1. Generate API documentation at the beginning of each build
 2. Watch for changes to source files during development
 3. Automatically regenerate documentation when source files change
@@ -409,50 +397,45 @@ The plugin uses glob patterns to find source files and processes them
 through the generateApiDocs function. It properly normalizes all paths
 to work across different operating systems.
 
-**Kind**: static constant of [<code>generate-api-docs</code>](#module_generate-api-docs)
-**Returns**: <code>object</code> - A Vite plugin object with name, buildStart, and handleHotUpdate methods
+**Kind**: static constant of [<code>generate-api-docs</code>](#module_generate-api-docs)  
+**Returns**: <code>object</code> - A Vite plugin object with name, buildStart, and handleHotUpdate methods  
 
-| Param            | Type                              | Description                               |
-| ---------------- | --------------------------------- | ----------------------------------------- |
-| config           | <code>ApiDocsPluginConfig</code>  | The plugin configuration                  |
-| config.inputs    | <code>Array.&lt;string&gt;</code> | Array of glob patterns for input files    |
-| config.output    | <code>string</code>               | Path for the generated documentation file |
-| [config.options] | <code>object</code>               | Additional options (see ApiDocsConfig)    |
+| Param | Type | Description |
+| --- | --- | --- |
+| config | <code>ApiDocsPluginConfig</code> | The plugin configuration |
+| config.inputs | <code>Array.&lt;string&gt;</code> | Array of glob patterns for input files |
+| config.output | <code>string</code> | Path for the generated documentation file |
+| [config.options] | <code>object</code> | Additional options (see ApiDocsConfig) |
 
-**Example**
-
+**Example**  
 ```js
 // Basic usage in vite.config.js
-import { apiDocsPlugin } from "./tools/generate-api-docs.js";
+import { apiDocsPlugin } from './tools/generate-api-docs.js';
 
 export default defineConfig({
-    plugins: [
-        apiDocsPlugin({
-            inputs: ["src/xuan-paper/*.js"],
-            output: "docs/api.md",
-        }),
-    ],
+  plugins: [
+    apiDocsPlugin({
+      inputs: ['src/xuan-paper/*.js'],
+      output: 'docs/api.md'
+    })
+  ]
 });
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Advanced usage with options
 apiDocsPlugin({
-    inputs: ["src/utils.js", "src/components/*.js"],
-    output: "docs/api.md",
-    options: {
-        private: false,
-        template: "custom-template.hbs",
-    },
-});
+  inputs: ['src/utils.js', 'src/components/*.js'],
+  output: 'docs/api.md',
+  options: {
+    private: false,
+    template: 'custom-template.hbs'
+  }
+})
 ```
-
 <a name="module_generate-api-docs..buildStart"></a>
 
 ### generate-api-docs~buildStart() ⇒ <code>Promise.&lt;void&gt;</code>
-
 Called when the build starts
 Generates API documentation at the beginning of the build process
 
@@ -460,12 +443,11 @@ This method is invoked by Vite at the start of both development and production b
 It ensures that the API documentation is always up-to-date with the current source
 code by processing all matched files and generating fresh documentation.
 
-**Kind**: inner method of [<code>generate-api-docs</code>](#module_generate-api-docs)
-**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when documentation is generated
+**Kind**: inner method of [<code>generate-api-docs</code>](#module_generate-api-docs)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when documentation is generated  
 <a name="module_generate-api-docs..handleHotUpdate"></a>
 
 ### generate-api-docs~handleHotUpdate(context) ⇒ <code>void</code>
-
 Handles hot updates in development mode
 Regenerates API documentation if a source file changes
 
@@ -473,50 +455,47 @@ This method is called by Vite when any file in the project changes during develo
 It checks if the changed file is one of the source files being monitored for
 documentation generation and triggers a regeneration if it is.
 
-**Kind**: inner method of [<code>generate-api-docs</code>](#module_generate-api-docs)
+**Kind**: inner method of [<code>generate-api-docs</code>](#module_generate-api-docs)  
 
-| Param        | Type                | Description                                    |
-| ------------ | ------------------- | ---------------------------------------------- |
-| context      | <code>object</code> | Hot update context provided by Vite            |
+| Param | Type | Description |
+| --- | --- | --- |
+| context | <code>object</code> | Hot update context provided by Vite |
 | context.file | <code>string</code> | The absolute path of the file that was changed |
 
 <a name="module_generate-api-docs..ApiDocsConfig"></a>
 
 ### generate-api-docs~ApiDocsConfig : <code>object</code>
-
 Configuration for API documentation generation
 
-**Kind**: inner typedef of [<code>generate-api-docs</code>](#module_generate-api-docs)
+**Kind**: inner typedef of [<code>generate-api-docs</code>](#module_generate-api-docs)  
 **Properties**
 
-| Name                | Type                              | Default            | Description                                                                                                                     |
-| ------------------- | --------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| files               | <code>Array.&lt;string&gt;</code> |                    | Array of file paths to extract documentation from These files should contain JSDoc comments for functions, classes, and modules |
-| output              | <code>string</code>               |                    | The path to the output markdown file The generated documentation will be written to this file                                   |
-| [options]           | <code>object</code>               |                    | Additional options passed to jsdoc-to-markdown                                                                                  |
-| [options.private]   | <code>boolean</code>              | <code>false</code> | Whether to include private members                                                                                              |
-| [options.configure] | <code>Array.&lt;string&gt;</code> |                    | Path to JSDoc configuration file                                                                                                |
-| [options.template]  | <code>string</code>               |                    | Custom template for documentation generation                                                                                    |
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| files | <code>Array.&lt;string&gt;</code> |  | Array of file paths to extract documentation from   These files should contain JSDoc comments for functions, classes, and modules |
+| output | <code>string</code> |  | The path to the output markdown file   The generated documentation will be written to this file |
+| [options] | <code>object</code> |  | Additional options passed to jsdoc-to-markdown |
+| [options.private] | <code>boolean</code> | <code>false</code> | Whether to include private members |
+| [options.configure] | <code>Array.&lt;string&gt;</code> |  | Path to JSDoc configuration file |
+| [options.template] | <code>string</code> |  | Custom template for documentation generation |
 
 <a name="module_generate-api-docs..ApiDocsPluginConfig"></a>
 
 ### generate-api-docs~ApiDocsPluginConfig : <code>object</code>
-
 Plugin configuration for Vite integration
 
-**Kind**: inner typedef of [<code>generate-api-docs</code>](#module_generate-api-docs)
+**Kind**: inner typedef of [<code>generate-api-docs</code>](#module_generate-api-docs)  
 **Properties**
 
-| Name      | Type                              | Description                                                                                                 |
-| --------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| inputs    | <code>Array.&lt;string&gt;</code> | Array of glob patterns for input files Files matching these patterns will be processed for JSDoc extraction |
-| output    | <code>string</code>               | The path to the output markdown file                                                                        |
-| [options] | <code>object</code>               | Additional options (see ApiDocsConfig)                                                                      |
+| Name | Type | Description |
+| --- | --- | --- |
+| inputs | <code>Array.&lt;string&gt;</code> | Array of glob patterns for input files   Files matching these patterns will be processed for JSDoc extraction |
+| output | <code>string</code> | The path to the output markdown file |
+| [options] | <code>object</code> | Additional options (see ApiDocsConfig) |
 
 <a name="module_generate-version"></a>
 
 ## generate-version
-
 Generate version file for the app
 
 This module extracts the version from package.json and creates a JavaScript module
@@ -528,30 +507,28 @@ information to users or for telemetry purposes. The module automatically updates
 the version when package.json changes during development.
 
 Usage:
-
 - As a standalone function: Call generateVersionFile() with input/output paths and options
 - As a Vite plugin: Import versionPlugin in vite.config.js
 
+
 * [generate-version](#module_generate-version)
-    - _static_
-        - [.generateVersionFile(options)](#module_generate-version.generateVersionFile) ⇒ <code>Promise.&lt;string&gt;</code>
-        - [.absolutePath(relativePath)](#module_generate-version.absolutePath) ⇒ <code>string</code>
-        - [.versionPlugin(config)](#module_generate-version.versionPlugin) ⇒ <code>object</code>
-        - [.extractVersionInfo(filePath, [options])](#module_generate-version.extractVersionInfo) ⇒ <code>Promise.&lt;{version: string, source: string}&gt;</code>
-    - _inner_
-        - [~buildStart()](#module_generate-version..buildStart) ⇒ <code>Promise.&lt;void&gt;</code>
-        - [~handleHotUpdate(context)](#module_generate-version..handleHotUpdate) ⇒ <code>void</code>
-        - [~VersionConfig](#module_generate-version..VersionConfig) : <code>object</code>
+    * _static_
+        * [.generateVersionFile(options)](#module_generate-version.generateVersionFile) ⇒ <code>Promise.&lt;string&gt;</code>
+        * [.absolutePath(relativePath)](#module_generate-version.absolutePath) ⇒ <code>string</code>
+        * [.versionPlugin(config)](#module_generate-version.versionPlugin) ⇒ <code>object</code>
+        * [.extractVersionInfo(filePath, [options])](#module_generate-version.extractVersionInfo) ⇒ <code>Promise.&lt;{version: string, source: string}&gt;</code>
+    * _inner_
+        * [~buildStart()](#module_generate-version..buildStart) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [~handleHotUpdate(context)](#module_generate-version..handleHotUpdate) ⇒ <code>void</code>
+        * [~VersionConfig](#module_generate-version..VersionConfig) : <code>object</code>
 
 <a name="module_generate-version.generateVersionFile"></a>
 
 ### generate-version.generateVersionFile(options) ⇒ <code>Promise.&lt;string&gt;</code>
-
 Generates a version file by extracting the version from a JSON file
 (typically package.json) and writing it to a JavaScript module file
 
 This function:
-
 1. Reads the input JSON file (usually package.json)
 2. Extracts the "version" field
 3. Creates a JavaScript module file that exports this version
@@ -559,60 +536,55 @@ This function:
 The generated file will contain: `export default "x.y.z";`
 where x.y.z is the version from the input file.
 
-**Kind**: static method of [<code>generate-version</code>](#module_generate-version)
-**Returns**: <code>Promise.&lt;string&gt;</code> - A promise that resolves with the extracted version
+**Kind**: static method of [<code>generate-version</code>](#module_generate-version)  
+**Returns**: <code>Promise.&lt;string&gt;</code> - A promise that resolves with the extracted version  
 **Throws**:
 
 - <code>Error</code> If the input file cannot be read or doesn't contain a version field
 - <code>Error</code> If the output file cannot be written
 
-| Param             | Type                       | Description                               |
-| ----------------- | -------------------------- | ----------------------------------------- |
-| options           | <code>VersionConfig</code> | The configuration options                 |
-| options.input     | <code>string</code>        | Path to the input file containing version |
-| options.output    | <code>string</code>        | Path for the generated output file        |
-| [options.options] | <code>object</code>        | Additional options (see VersionConfig)    |
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>VersionConfig</code> | The configuration options |
+| options.input | <code>string</code> | Path to the input file containing version |
+| options.output | <code>string</code> | Path for the generated output file |
+| [options.options] | <code>object</code> | Additional options (see VersionConfig) |
 
 <a name="module_generate-version.absolutePath"></a>
 
 ### generate-version.absolutePath(relativePath) ⇒ <code>string</code>
-
 Converts a relative path to an absolute normalized path
 
 This utility function takes a relative path and:
-
 1. Resolves it against the current working directory
 2. Normalizes it to ensure proper platform-specific separators
 3. Resolves any '..' or '.' segments
 
 Useful for ensuring consistent path handling across different platforms.
 
-**Kind**: static method of [<code>generate-version</code>](#module_generate-version)
-**Returns**: <code>string</code> - The absolute path normalized for the current OS
+**Kind**: static method of [<code>generate-version</code>](#module_generate-version)  
+**Returns**: <code>string</code> - The absolute path normalized for the current OS  
 
-| Param        | Type                | Description                  |
-| ------------ | ------------------- | ---------------------------- |
+| Param | Type | Description |
+| --- | --- | --- |
 | relativePath | <code>string</code> | The relative path to convert |
 
-**Example**
-
+**Example**  
 ```js
 // On Unix systems
-absolutePath("src/version.js"); // Returns '/path/to/project/src/version.js'
+absolutePath('src/version.js') // Returns '/path/to/project/src/version.js'
 
 // Works with paths containing . or ..
-absolutePath("./config/../src/version.js"); // Normalizes to '/path/to/project/src/version.js'
+absolutePath('./config/../src/version.js') // Normalizes to '/path/to/project/src/version.js'
 ```
-
 <a name="module_generate-version.versionPlugin"></a>
 
 ### generate-version.versionPlugin(config) ⇒ <code>object</code>
-
 Creates a Vite plugin that automatically generates a version file
 during build and when the input file changes in development mode
 
 This plugin integrates with Vite's build process to:
-
 1. Generate the version file at the beginning of each build
 2. Watch for changes to the input file (e.g., package.json) during development
 3. Automatically regenerate the version file when the input file changes
@@ -620,109 +592,97 @@ This plugin integrates with Vite's build process to:
 The plugin uses the generateVersionFile function internally and properly
 normalizes all paths to work across different operating systems.
 
-**Kind**: static method of [<code>generate-version</code>](#module_generate-version)
-**Returns**: <code>object</code> - A Vite plugin object
+**Kind**: static method of [<code>generate-version</code>](#module_generate-version)  
+**Returns**: <code>object</code> - A Vite plugin object  
 
-| Param            | Type                       | Description                                          |
-| ---------------- | -------------------------- | ---------------------------------------------------- |
-| config           | <code>VersionConfig</code> | The plugin configuration                             |
-| config.input     | <code>string</code>        | Path to the input file (e.g., 'package.json')        |
-| config.output    | <code>string</code>        | Path for the generated file (e.g., 'src/version.js') |
-| [config.options] | <code>object</code>        | Additional options (see VersionConfig)               |
+| Param | Type | Description |
+| --- | --- | --- |
+| config | <code>VersionConfig</code> | The plugin configuration |
+| config.input | <code>string</code> | Path to the input file (e.g., 'package.json') |
+| config.output | <code>string</code> | Path for the generated file (e.g., 'src/version.js') |
+| [config.options] | <code>object</code> | Additional options (see VersionConfig) |
 
-**Example**
-
+**Example**  
 ```js
 // Basic usage in vite.config.js
-import { versionPlugin } from "./tools/generate-version.js";
-import path from "path";
+import { versionPlugin } from './tools/generate-version.js';
+import path from 'path';
 
 export default defineConfig({
-    plugins: [
-        versionPlugin({
-            input: "package.json",
-            output: path.join("src", "version.js"),
-        }),
-    ],
+  plugins: [
+    versionPlugin({
+      input: 'package.json',
+      output: path.join('src', 'version.js')
+    })
+  ]
 });
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Advanced usage with options
 versionPlugin({
-    input: "package.json",
-    output: path.join("src", "version.js"),
-    options: {
-        silent: false,
-        exportName: "VERSION",
-        template: `
+  input: 'package.json',
+  output: path.join('src', 'version.js'),
+  options: {
+    silent: false,
+    exportName: 'VERSION',
+    template: `
       // Auto-generated version file
       export default "{version}";
       export const BUILD_DATE = "${new Date().toISOString()}";
-    `,
-    },
-});
+    `
+  }
+})
 ```
-
 <a name="module_generate-version.extractVersionInfo"></a>
 
 ### generate-version.extractVersionInfo(filePath, [options]) ⇒ <code>Promise.&lt;{version: string, source: string}&gt;</code>
-
 Extracts version information from various package manager files
 
 This function supports extracting version information from different types of
 package configuration files including package.json, composer.json, and others.
 It automatically detects the file type and uses the appropriate extraction method.
 
-**Kind**: static method of [<code>generate-version</code>](#module_generate-version)
-**Returns**: <code>Promise.&lt;{version: string, source: string}&gt;</code> - Version information object
+**Kind**: static method of [<code>generate-version</code>](#module_generate-version)  
+**Returns**: <code>Promise.&lt;{version: string, source: string}&gt;</code> - Version information object  
 **Throws**:
 
 - <code>Error</code> If file doesn't exist or version cannot be extracted
 
-**See**: [https://semver.org/](https://semver.org/) Semantic Versioning specification
-**Since**: 1.1.0
-**Author**: Your Name
+**See**: [https://semver.org/](https://semver.org/) Semantic Versioning specification  
+**Since**: 1.1.0  
+**Author**: Your Name  
 
-| Param                  | Type                | Description                          |
-| ---------------------- | ------------------- | ------------------------------------ |
-| filePath               | <code>string</code> | Path to the package file             |
-| [options]              | <code>object</code> | Extraction options                   |
+| Param | Type | Description |
+| --- | --- | --- |
+| filePath | <code>string</code> | Path to the package file |
+| [options] | <code>object</code> | Extraction options |
 | [options.versionField] | <code>string</code> | Name of the version field to extract |
-| [options.fallback]     | <code>string</code> | Fallback version if extraction fails |
+| [options.fallback] | <code>string</code> | Fallback version if extraction fails |
 
-**Example**
-
+**Example**  
 ```js
 // Extract from package.json
-const info = await extractVersionInfo("./package.json");
+const info = await extractVersionInfo('./package.json');
 console.log(info.version); // "1.0.0"
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Extract with custom field name
-const info = await extractVersionInfo("./composer.json", {
-    versionField: "version",
+const info = await extractVersionInfo('./composer.json', {
+  versionField: 'version'
 });
 ```
-
-**Example**
-
+**Example**  
 ```js
 // With fallback version
-const info = await extractVersionInfo("./missing.json", {
-    fallback: "0.0.1",
+const info = await extractVersionInfo('./missing.json', {
+  fallback: '0.0.1'
 });
 ```
-
 <a name="module_generate-version..buildStart"></a>
 
 ### generate-version~buildStart() ⇒ <code>Promise.&lt;void&gt;</code>
-
 Called when the build starts
 Generates the version file at the beginning of the build process
 
@@ -733,12 +693,11 @@ from the input file (typically package.json).
 The method respects the silent option and provides appropriate console output
 including the extracted version number for better debugging and transparency.
 
-**Kind**: inner method of [<code>generate-version</code>](#module_generate-version)
-**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the version file is generated
+**Kind**: inner method of [<code>generate-version</code>](#module_generate-version)  
+**Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the version file is generated  
 <a name="module_generate-version..handleHotUpdate"></a>
 
 ### generate-version~handleHotUpdate(context) ⇒ <code>void</code>
-
 Handles hot updates in development mode
 Regenerates the version file if the input file changes
 
@@ -746,35 +705,33 @@ This method is called by Vite when any file in the project changes during develo
 It checks if the changed file is the input file (e.g., package.json) and triggers
 a regeneration of the version file if it is.
 
-**Kind**: inner method of [<code>generate-version</code>](#module_generate-version)
+**Kind**: inner method of [<code>generate-version</code>](#module_generate-version)  
 
-| Param        | Type                | Description                                    |
-| ------------ | ------------------- | ---------------------------------------------- |
-| context      | <code>object</code> | Hot update context provided by Vite            |
+| Param | Type | Description |
+| --- | --- | --- |
+| context | <code>object</code> | Hot update context provided by Vite |
 | context.file | <code>string</code> | The absolute path of the file that was changed |
 
 <a name="module_generate-version..VersionConfig"></a>
 
 ### generate-version~VersionConfig : <code>object</code>
-
 Configuration for version generation
 
-**Kind**: inner typedef of [<code>generate-version</code>](#module_generate-version)
+**Kind**: inner typedef of [<code>generate-version</code>](#module_generate-version)  
 **Properties**
 
-| Name                 | Type                 | Default                                      | Description                                                                                                                 |
-| -------------------- | -------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| input                | <code>string</code>  |                                              | The path to the input file (usually package.json) This file must contain a "version" field in valid JSON format             |
-| output               | <code>string</code>  |                                              | The path to the output version file The generated file will export the version as a string default export                   |
-| [options]            | <code>object</code>  |                                              | Additional configuration options                                                                                            |
-| [options.silent]     | <code>boolean</code> | <code>false</code>                           | Whether to suppress console output                                                                                          |
-| [options.exportName] | <code>string</code>  | <code>&quot;&#x27;version&#x27;&quot;</code> | Name to use for named exports                                                                                               |
-| [options.template]   | <code>string</code>  |                                              | Custom template for version file content Template should include "{version}" which will be replaced with the actual version |
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| input | <code>string</code> |  | The path to the input file (usually package.json)   This file must contain a "version" field in valid JSON format |
+| output | <code>string</code> |  | The path to the output version file   The generated file will export the version as a string default export |
+| [options] | <code>object</code> |  | Additional configuration options |
+| [options.silent] | <code>boolean</code> | <code>false</code> | Whether to suppress console output |
+| [options.exportName] | <code>string</code> | <code>&quot;&#x27;version&#x27;&quot;</code> | Name to use for named exports |
+| [options.template] | <code>string</code> |  | Custom template for version file content   Template should include "{version}" which will be replaced with the actual version |
 
 <a name="generateScheme"></a>
 
 ## generateScheme(seedColor, contrast) ⇒ <code>Promise.&lt;Array.&lt;ThemeObject&gt;&gt;</code>
-
 Generates a comprehensive Material Design color scheme from a seed color.
 Creates both light and dark theme variants with all standard Material Design
 color tokens including primary, secondary, tertiary, surface, and semantic colors.
@@ -788,20 +745,18 @@ The function creates separate tokens for key UI elements following Material Desi
 naming conventions like 'onPrimary' for text on primary surfaces and 'primaryContainer'
 for container elements with primary color associations.
 
-**Kind**: global function
+**Kind**: global function  
 **Returns**: <code>Promise.&lt;Array.&lt;ThemeObject&gt;&gt;</code> - Promise resolving to an array of theme objects:
-
 - Each theme contains: {brightness, colors}
 - brightness: "light" or "dark"
-- colors: Array of [tokenName, hexColor] pairs
+- colors: Array of [tokenName, hexColor] pairs  
 
-| Param     | Type                | Description                                                                                |
-| --------- | ------------------- | ------------------------------------------------------------------------------------------ |
+| Param | Type | Description |
+| --- | --- | --- |
 | seedColor | <code>string</code> | Hex color code (e.g., "#FF5722") to use as the base for generating the entire color scheme |
-| contrast  | <code>number</code> | Contrast level for the scheme (typically -1 to 1, where 0 is standard contrast)            |
+| contrast | <code>number</code> | Contrast level for the scheme (typically -1 to 1, where 0 is standard contrast) |
 
-**Example**
-
+**Example**  
 ```js
 // Generate a blue-based theme with standard contrast
 const scheme = await generateScheme("#1976D2", 0);
@@ -810,27 +765,21 @@ const scheme = await generateScheme("#1976D2", 0);
 //   {brightness: "dark", colors: [["primary", "#90CAF9"], ["onPrimary", "#003258"], ...]}
 // ]
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Generate a high-contrast green theme
 const highContrastScheme = await generateScheme("#4CAF50", 0.5);
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Generate theme for brand colors
 const brandColor = "#E91E63"; // Brand pink
 const themeData = await generateScheme(brandColor, 0);
 const [lightTheme, darkTheme] = themeData;
 ```
-
 <a name="convertToVariables"></a>
 
 ## convertToVariables(scheme) ⇒ <code>Array.&lt;Array.&lt;string&gt;&gt;</code>
-
 Converts a Material Design color scheme into CSS custom property format.
 This utility function transforms the theme object structure into a flat array
 of CSS variable name-value pairs, converting camelCase token names to kebab-case
@@ -841,32 +790,19 @@ CSS custom property names following the convention `--color-{brightness}-{token-
 It handles the conversion of Material Design token names (like 'primaryContainer')
 to CSS-compatible kebab-case names (like 'primary-container').
 
-**Kind**: global function
-**Returns**: <code>Array.&lt;Array.&lt;string&gt;&gt;</code> - Flat array of [cssVariableName, hexColor] pairs
+**Kind**: global function  
+**Returns**: <code>Array.&lt;Array.&lt;string&gt;&gt;</code> - Flat array of [cssVariableName, hexColor] pairs  
 
-| Param  | Type                                                   | Description                                                                                                                                                     |
-| ------ | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| scheme | [<code>Array.&lt;ThemeObject&gt;</code>](#ThemeObject) | Color scheme data from generateScheme(): - Array of {brightness, colors} objects - brightness: "light" or "dark" - colors: Array of [tokenName, hexColor] pairs |
+| Param | Type | Description |
+| --- | --- | --- |
+| scheme | [<code>Array.&lt;ThemeObject&gt;</code>](#ThemeObject) | Color scheme data from generateScheme():   - Array of {brightness, colors} objects   - brightness: "light" or "dark"   - colors: Array of [tokenName, hexColor] pairs |
 
-**Example**
-
+**Example**  
 ```js
 // Convert theme to CSS variables
 const scheme = [
-    {
-        brightness: "light",
-        colors: [
-            ["primary", "#1976D2"],
-            ["onPrimary", "#FFFFFF"],
-        ],
-    },
-    {
-        brightness: "dark",
-        colors: [
-            ["primary", "#90CAF9"],
-            ["onPrimary", "#003258"],
-        ],
-    },
+  {brightness: "light", colors: [["primary", "#1976D2"], ["onPrimary", "#FFFFFF"]]},
+  {brightness: "dark", colors: [["primary", "#90CAF9"], ["onPrimary", "#003258"]]}
 ];
 const variables = convertToVariables(scheme);
 // Returns: [
@@ -876,19 +812,11 @@ const variables = convertToVariables(scheme);
 //   ["--color-dark-on-primary", "#003258"]
 // ]
 ```
-
-**Example**
-
+**Example**  
 ```js
 // With complex token names
 const scheme = [
-    {
-        brightness: "light",
-        colors: [
-            ["primaryContainer", "#BBDEFB"],
-            ["surfaceContainerHighest", "#E8EAF6"],
-        ],
-    },
+  {brightness: "light", colors: [["primaryContainer", "#BBDEFB"], ["surfaceContainerHighest", "#E8EAF6"]]}
 ];
 const variables = convertToVariables(scheme);
 // Returns: [
@@ -896,11 +824,9 @@ const variables = convertToVariables(scheme);
 //   ["--color-light-surface-container-highest", "#E8EAF6"]
 // ]
 ```
-
 <a name="applyColorScheme"></a>
 
 ## applyColorScheme(scheme) ⇒ <code>void</code>
-
 Applies a Material Design color scheme directly to the document by setting
 CSS variables. This function takes a color scheme generated by generateScheme()
 and applies it to the current document by setting CSS custom properties
@@ -911,34 +837,29 @@ making it useful for runtime theme switching.
 It follows the same naming convention of
 `--color-{brightness}-{token-name}` for CSS variables.
 
-**Kind**: global function
-**Returns**: <code>void</code> - This function does not return a value, it modifies the document directly
+**Kind**: global function  
+**Returns**: <code>void</code> - This function does not return a value, it modifies the document directly  
 
-| Param  | Type                                                   | Description                                                                                                                                                     |
-| ------ | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| scheme | [<code>Array.&lt;ThemeObject&gt;</code>](#ThemeObject) | Color scheme data from generateScheme(): - Array of {brightness, colors} objects - brightness: "light" or "dark" - colors: Array of [tokenName, hexColor] pairs |
+| Param | Type | Description |
+| --- | --- | --- |
+| scheme | [<code>Array.&lt;ThemeObject&gt;</code>](#ThemeObject) | Color scheme data from generateScheme():   - Array of {brightness, colors} objects   - brightness: "light" or "dark"   - colors: Array of [tokenName, hexColor] pairs |
 
-**Example**
-
+**Example**  
 ```js
 // Generate a theme and apply it immediately
 const scheme = await generateScheme("#1976D2", 0);
 applyColorScheme(scheme);
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Update theme dynamically based on user selection
 const userColor = getUserSelectedColor();
 const newScheme = await generateScheme(userColor, 0.2);
 applyColorScheme(newScheme);
 ```
-
 <a name="generateThemeCss"></a>
 
 ## generateThemeCss(scheme, seedColor, contrast) ⇒ <code>string</code>
-
 Converts a Material Design color scheme into CSS custom properties (CSS variables).
 Transforms the color scheme data into a CSS @theme block with properly named
 CSS custom properties for both light and dark themes, plus additional
@@ -952,17 +873,16 @@ In addition to the colors from the schema, this function also adds supplementary
 for links and form elements that aren't directly provided by the Material Design scheme but
 are useful for web applications.
 
-**Kind**: global function
-**Returns**: <code>string</code> - CSS string containing @theme block with all color custom properties and generation metadata
+**Kind**: global function  
+**Returns**: <code>string</code> - CSS string containing @theme block with all color custom properties and generation metadata  
 
-| Param     | Type                                                   | Description                                                                                                                                                     |
-| --------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| scheme    | [<code>Array.&lt;ThemeObject&gt;</code>](#ThemeObject) | Color scheme data from generateScheme(): - Array of {brightness, colors} objects - brightness: "light" or "dark" - colors: Array of [tokenName, hexColor] pairs |
-| seedColor | <code>string</code>                                    | The original seed color used to generate the scheme                                                                                                             |
-| contrast  | <code>number</code>                                    | The contrast level used when generating the scheme                                                                                                              |
+| Param | Type | Description |
+| --- | --- | --- |
+| scheme | [<code>Array.&lt;ThemeObject&gt;</code>](#ThemeObject) | Color scheme data from generateScheme():   - Array of {brightness, colors} objects   - brightness: "light" or "dark"   - colors: Array of [tokenName, hexColor] pairs |
+| seedColor | <code>string</code> | The original seed color used to generate the scheme |
+| contrast | <code>number</code> | The contrast level used when generating the scheme |
 
-**Example**
-
+**Example**  
 ```js
 // Convert scheme to CSS
 const scheme = await generateScheme("#1976D2", 0);
@@ -976,11 +896,9 @@ const cssTheme = generateThemeCss(scheme, "#1976D2", 0);
 //   ...
 // }"
 ```
-
 <a name="AppBar"></a>
 
 ## AppBar(props) ⇒ <code>JSX.Element</code>
-
 AppBar component that implements a Material Design 3 styled top app bar.
 This component serves as the primary toolbar at the top of the application,
 containing navigation controls, app identity elements, and action items.
@@ -998,55 +916,50 @@ different design requirements and theming options.
 The component includes responsive padding that adapts to screen sizes, with tighter
 spacing on mobile devices and more generous spacing on larger screens.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - AppBar component
-**Component**:
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - AppBar component  
+**Component**:   
 
-| Param                    | Type                                       | Description                                                                |
-| ------------------------ | ------------------------------------------ | -------------------------------------------------------------------------- |
-| props                    | <code>object</code>                        | Component props                                                            |
-| [props.backArrow]        | <code>React.ReactNode</code>               | Icon/component for the back navigation button                              |
-| [props.navigationDrawer] | <code>React.ReactNode</code>               | Icon/component for the navigation drawer toggle                            |
-| [props.appLogo]          | <code>React.ReactNode</code>               | App logo component or image                                                |
-| [props.appName]          | <code>string</code>                        | Name of the application to display                                         |
-| [props.suffix]           | <code>Array.&lt;React.ReactNode&gt;</code> | Array of action items to display on the right side                         |
-| [props.optionalClass]    | <code>string</code>                        | Additional CSS classes for positioning and styling                         |
-| [props.height]           | <code>string</code>                        | Height of the app bar as Tailwind CSS class (e.g., "h-14" = 3.5rem = 56px) |
-| [props.bgColor]          | <code>string</code>                        | Background color CSS classes with light/dark mode variants                 |
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | Component props |
+| [props.backArrow] | <code>React.ReactNode</code> | Icon/component for the back navigation button |
+| [props.navigationDrawer] | <code>React.ReactNode</code> | Icon/component for the navigation drawer toggle |
+| [props.appLogo] | <code>React.ReactNode</code> | App logo component or image |
+| [props.appName] | <code>string</code> | Name of the application to display |
+| [props.suffix] | <code>Array.&lt;React.ReactNode&gt;</code> | Array of action items to display on the right side |
+| [props.optionalClass] | <code>string</code> | Additional CSS classes for positioning and styling |
+| [props.height] | <code>string</code> | Height of the app bar as Tailwind CSS class (e.g., "h-14" = 3.5rem = 56px) |
+| [props.bgColor] | <code>string</code> | Background color CSS classes with light/dark mode variants |
 
-**Example**
-
+**Example**  
 ```js
 // Basic usage with app name and actions
-import { SvgMenu, SvgSettings } from "../icons";
+import { SvgMenu, SvgSettings } from '../icons';
 
 <AppBar
-    navigationDrawer={<SvgMenu onClick={toggleDrawer} />}
-    appName="My Application"
-    suffix={[<SvgSettings onClick={openSettings} />]}
-/>;
+  navigationDrawer={<SvgMenu onClick={toggleDrawer} />}
+  appName="My Application"
+  suffix={[<SvgSettings onClick={openSettings} />]}
+/>
 ```
-
-**Example**
-
+**Example**  
 ```js
 // With back navigation and custom styling
-import { SvgArrowBackIos } from "../icons";
+import { SvgArrowBackIos } from '../icons';
 
 <AppBar
-    backArrow={<SvgArrowBackIos onClick={goBack} />}
-    appName="Details Page"
-    suffix={[]}
-    optionalClass="sticky top-0 shadow-md"
-    height="h-16"
-    bgColor="bg-light-primary-container dark:bg-dark-primary-container"
-/>;
+  backArrow={<SvgArrowBackIos onClick={goBack} />}
+  appName="Details Page"
+  suffix={[]}
+  optionalClass="sticky top-0 shadow-md"
+  height="h-16"
+  bgColor="bg-light-primary-container dark:bg-dark-primary-container"
+/>
 ```
-
 <a name="AppBarItem"></a>
 
 ## AppBarItem(props) ⇒ <code>JSX.Element</code>
-
 AppBarItem component that represents an action button in the AppBar.
 This component renders a circular button with an icon, following Material Design 3 guidelines
 for top app bar action items.
@@ -1057,254 +970,232 @@ opacity and doesn't respond to click events.
 Each AppBarItem is designed to be used within the suffix array of the AppBar component
 to create action buttons on the right side of the app bar.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - AppBarItem button component
-**Component**:
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - AppBarItem button component  
+**Component**:   
 
-| Param            | Type                         | Description                                      |
-| ---------------- | ---------------------------- | ------------------------------------------------ |
-| props            | <code>object</code>          | Component props                                  |
-| props.icon       | <code>React.ReactNode</code> | The icon to display within the button (required) |
-| [props.disabled] | <code>boolean</code>         | Whether the button is disabled                   |
-| [props.bgColor]  | <code>string</code>          | CSS classes for background color styling         |
-| [props.onClick]  | <code>function</code>        | Click handler function                           |
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | Component props |
+| props.icon | <code>React.ReactNode</code> | The icon to display within the button (required) |
+| [props.disabled] | <code>boolean</code> | Whether the button is disabled |
+| [props.bgColor] | <code>string</code> | CSS classes for background color styling |
+| [props.onClick] | <code>function</code> | Click handler function |
 
-**Example**
-
+**Example**  
 ```js
 // Basic usage with an icon
-import { SvgSettings } from "../icons";
+import { SvgSettings } from '../icons';
 
 <AppBarItem
-    icon={<SvgSettings />}
-    onClick={() => console.log("Settings clicked")}
-/>;
+  icon={<SvgSettings />}
+  onClick={() => console.log('Settings clicked')}
+/>
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Disabled state
-import { SvgDownload } from "../icons";
+import { SvgDownload } from '../icons';
 
-<AppBarItem icon={<SvgDownload />} disabled={true} />;
+<AppBarItem
+  icon={<SvgDownload />}
+  disabled={true}
+/>
 ```
-
 <a name="Button"></a>
 
 ## Button(props) ⇒ <code>JSX.Element</code>
-
 A versatile button component with multiple styles, sizes, and configurations.
 Supports icons, different visual styles, and responsive design
 with light/dark theme support.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - Rendered button component
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - Rendered button component  
 
-| Param            | Type                                                                                                                                                                                                                                                                                   | Description                                           |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| props            | <code>object</code>                                                                                                                                                                                                                                                                    | The props object                                      |
-| [props.id]       | <code>string</code>                                                                                                                                                                                                                                                                    | Unique identifier for the button element              |
-| [props.icon]     | <code>React.ReactNode</code>                                                                                                                                                                                                                                                           | Icon element to display alongside or instead of label |
-| [props.label]    | <code>string</code>                                                                                                                                                                                                                                                                    | Text content to display in the button                 |
-| [props.style]    | <code>&#x27;filled&#x27;</code> \| <code>&#x27;tonal&#x27;</code> \| <code>&#x27;outlined&#x27;</code> \| <code>&#x27;elevated&#x27;</code> \| <code>&#x27;text&#x27;</code> \| <code>&#x27;danger&#x27;</code> \| <code>&#x27;error&#x27;</code> \| <code>&#x27;embedded&#x27;</code> | Visual style variant of the button                    |
-| [props.onClick]  | <code>function</code>                                                                                                                                                                                                                                                                  | Click event handler function                          |
-| [props.disabled] | <code>boolean</code>                                                                                                                                                                                                                                                                   | Whether the button is disabled                        |
-| [props.rounded]  | <code>string</code>                                                                                                                                                                                                                                                                    | Tailwind CSS class for border radius                  |
-| [props.size]     | <code>&#x27;xs&#x27;</code> \| <code>&#x27;sm&#x27;</code> \| <code>&#x27;md&#x27;</code>                                                                                                                                                                                              | Size variant of the button                            |
-| [props.width]    | <code>string</code>                                                                                                                                                                                                                                                                    | Tailwind CSS class for button width                   |
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | The props object |
+| [props.id] | <code>string</code> | Unique identifier for the button element |
+| [props.icon] | <code>React.ReactNode</code> | Icon element to display alongside or instead of label |
+| [props.label] | <code>string</code> | Text content to display in the button |
+| [props.style] | <code>&#x27;filled&#x27;</code> \| <code>&#x27;tonal&#x27;</code> \| <code>&#x27;outlined&#x27;</code> \| <code>&#x27;elevated&#x27;</code> \| <code>&#x27;text&#x27;</code> \| <code>&#x27;danger&#x27;</code> \| <code>&#x27;error&#x27;</code> \| <code>&#x27;embedded&#x27;</code> | Visual style variant of the button |
+| [props.onClick] | <code>function</code> | Click event handler function |
+| [props.disabled] | <code>boolean</code> | Whether the button is disabled |
+| [props.rounded] | <code>string</code> | Tailwind CSS class for border radius |
+| [props.size] | <code>&#x27;xs&#x27;</code> \| <code>&#x27;sm&#x27;</code> \| <code>&#x27;md&#x27;</code> | Size variant of the button |
+| [props.width] | <code>string</code> | Tailwind CSS class for button width |
 
-**Example**
-
+**Example**  
 ```js
 // Basic filled button
-<Button label="Click Me" onClick={() => console.log("clicked")} />
+<Button label="Click Me" onClick={() => console.log('clicked')} />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Icon button with custom styling
-<Button icon={<SomeIcon />} style="outlined" size="md" rounded="rounded-lg" />
+<Button
+  icon={<SomeIcon />}
+  style="outlined"
+  size="md"
+  rounded="rounded-lg"
+/>
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Danger button with label
 <Button
-    label="Delete"
-    style="danger"
-    onClick={handleDelete}
-    disabled={isLoading}
+  label="Delete"
+  style="danger"
+  onClick={handleDelete}
+  disabled={isLoading}
 />
 ```
-
 <a name="ButtonGroup"></a>
 
 ## ButtonGroup(props) ⇒ <code>JSX.Element</code>
-
 A button group component that renders a collection of related buttons with single or multi-selection.
 Acts as a segmented control or toggle button group where buttons can be selected individually or in groups.
 Selected buttons appear with "filled" style while others use "tonal" style.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - Rendered button group component
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - Rendered button group component  
 
-| Param                 | Type                                                                                      | Default                     | Description                                                                          |
-| --------------------- | ----------------------------------------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------ |
-| props                 | <code>object</code>                                                                       |                             | The props object                                                                     |
-| props.name            | <code>string</code>                                                                       |                             | Unique name identifier for the button group (used for DOM IDs)                       |
-| [props.value]         | <code>string</code> \| <code>Array.&lt;string&gt;</code>                                  |                             | Currently selected button value(s). String for single select, Array for multi-select |
-| [props.items]         | <code>Array.&lt;object&gt;</code>                                                         |                             | Array of button configuration objects                                                |
-| props.items[].value   | <code>string</code>                                                                       |                             | Unique value for the button item                                                     |
-| [props.items[].label] | <code>string</code>                                                                       |                             | Text label to display on the button                                                  |
-| [props.items[].icon]  | <code>React.ReactNode</code>                                                              |                             | Icon element to display on the button                                                |
-| [props.multiSelect]   | <code>boolean</code>                                                                      | <code>false</code>          | Whether multiple buttons can be selected simultaneously                              |
-| [props.onChange]      | <code>function</code>                                                                     |                             | Callback function called when button selection changes                               |
-| [props.disabled]      | <code>boolean</code>                                                                      | <code>false</code>          | When true, disables the input field entirely (prevents interaction)                  |
-| [props.size]          | <code>&#x27;xs&#x27;</code> \| <code>&#x27;sm&#x27;</code> \| <code>&#x27;md&#x27;</code> | <code>&#x27;sm&#x27;</code> | Size variant applied to all buttons in the group                                     |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>object</code> |  | The props object |
+| props.name | <code>string</code> |  | Unique name identifier for the button group (used for DOM IDs) |
+| [props.value] | <code>string</code> \| <code>Array.&lt;string&gt;</code> |  | Currently selected button value(s). String for single select, Array for multi-select |
+| [props.items] | <code>Array.&lt;object&gt;</code> |  | Array of button configuration objects |
+| props.items[].value | <code>string</code> |  | Unique value for the button item |
+| [props.items[].label] | <code>string</code> |  | Text label to display on the button |
+| [props.items[].icon] | <code>React.ReactNode</code> |  | Icon element to display on the button |
+| [props.multiSelect] | <code>boolean</code> | <code>false</code> | Whether multiple buttons can be selected simultaneously |
+| [props.onChange] | <code>function</code> |  | Callback function called when button selection changes |
+| [props.disabled] | <code>boolean</code> | <code>false</code> | When true, disables the input field entirely (prevents interaction) |
+| [props.size] | <code>&#x27;xs&#x27;</code> \| <code>&#x27;sm&#x27;</code> \| <code>&#x27;md&#x27;</code> | <code>&#x27;sm&#x27;</code> | Size variant applied to all buttons in the group |
 
-**Example**
-
+**Example**  
 ```js
 // Basic horizontal button group (single select)
 <ButtonGroup
-    name="viewMode"
-    value={currentView}
-    items={[
-        { value: "grid", label: "Grid View" },
-        { value: "list", label: "List View" },
-        { value: "card", label: "Card View" },
-    ]}
-    onChange={(value) => setCurrentView(value)}
+  name="viewMode"
+  value={currentView}
+  items={[
+    { value: 'grid', label: 'Grid View' },
+    { value: 'list', label: 'List View' },
+    { value: 'card', label: 'Card View' }
+  ]}
+  onChange={(value) => setCurrentView(value)}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Vertical layout button group
 <ButtonGroup
-    name="sidebar"
-    value={activeSidebar}
-    layout="vertical"
-    items={[
-        { value: "files", icon: <FilesIcon />, label: "Files" },
-        { value: "search", icon: <SearchIcon />, label: "Search" },
-        { value: "git", icon: <GitIcon />, label: "Source Control" },
-    ]}
-    onChange={setActiveSidebar}
+  name="sidebar"
+  value={activeSidebar}
+  layout="vertical"
+  items={[
+    { value: 'files', icon: <FilesIcon />, label: 'Files' },
+    { value: 'search', icon: <SearchIcon />, label: 'Search' },
+    { value: 'git', icon: <GitIcon />, label: 'Source Control' }
+  ]}
+  onChange={setActiveSidebar}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Multi-select horizontal button group
 <ButtonGroup
-    name="filters"
-    value={selectedFilters}
-    multiSelect={true}
-    items={[
-        { value: "new", label: "New" },
-        { value: "popular", label: "Popular" },
-        { value: "sale", label: "On Sale" },
-    ]}
-    onChange={setSelectedFilters}
+  name="filters"
+  value={selectedFilters}
+  multiSelect={true}
+  items={[
+    { value: 'new', label: 'New' },
+    { value: 'popular', label: 'Popular' },
+    { value: 'sale', label: 'On Sale' }
+  ]}
+  onChange={setSelectedFilters}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Icon-only buttons with custom size
 <ButtonGroup
-    name="tools"
-    value={selectedTool}
-    size="md"
-    items={[
-        { value: "select", icon: <SelectIcon /> },
-        { value: "pen", icon: <PenIcon /> },
-        { value: "eraser", icon: <EraserIcon /> },
-    ]}
-    onChange={setSelectedTool}
+  name="tools"
+  value={selectedTool}
+  size="md"
+  items={[
+    { value: 'select', icon: <SelectIcon /> },
+    { value: 'pen', icon: <PenIcon /> },
+    { value: 'eraser', icon: <EraserIcon /> }
+  ]}
+  onChange={setSelectedTool}
 />
 ```
-
 <a name="CheckBox"></a>
 
 ## CheckBox(props) ⇒ <code>JSX.Element</code>
-
 A customizable checkbox component with label support, theming,
 and accessibility features.
 Supports different visual styles including danger/error states, disabled state,
 and automatic light/dark theme adaptation.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - Rendered checkbox component
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - Rendered checkbox component  
 
-| Param            | Type                  | Default            | Description                                                  |
-| ---------------- | --------------------- | ------------------ | ------------------------------------------------------------ |
-| props            | <code>object</code>   |                    | The props object                                             |
-| [props.id]       | <code>string</code>   |                    | Unique identifier for the checkbox input element             |
-| props.value      | <code>boolean</code>  |                    | Current checked state of the checkbox (controlled component) |
-| [props.label]    | <code>string</code>   |                    | Text label to display next to the checkbox                   |
-| [props.style]    | <code>string</code>   |                    | Visual style variant, use "danger" for error states          |
-| [props.onChange] | <code>function</code> |                    | Callback function called when checkbox state changes         |
-| [props.disabled] | <code>boolean</code>  | <code>false</code> | Whether the checkbox is disabled                             |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>object</code> |  | The props object |
+| [props.id] | <code>string</code> |  | Unique identifier for the checkbox input element |
+| props.value | <code>boolean</code> |  | Current checked state of the checkbox (controlled component) |
+| [props.label] | <code>string</code> |  | Text label to display next to the checkbox |
+| [props.style] | <code>string</code> |  | Visual style variant, use "danger" for error states |
+| [props.onChange] | <code>function</code> |  | Callback function called when checkbox state changes |
+| [props.disabled] | <code>boolean</code> | <code>false</code> | Whether the checkbox is disabled |
 
-**Example**
-
+**Example**  
 ```js
 // Basic checkbox with label
 <CheckBox
-    value={isChecked}
-    label="Accept terms and conditions"
-    onChange={(checked) => setIsChecked(checked)}
+  value={isChecked}
+  label="Accept terms and conditions"
+  onChange={(checked) => setIsChecked(checked)}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Checkbox with danger/error styling
 <CheckBox
-    id="error-checkbox"
-    value={hasError}
-    label="This has an error"
-    style="danger"
-    onChange={setHasError}
+  id="error-checkbox"
+  value={hasError}
+  label="This has an error"
+  style="danger"
+  onChange={setHasError}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Disabled checkbox
 <CheckBox
-    value={readOnlyValue}
-    label="Read-only option"
-    disabled={true}
-    onChange={() => {}} // No-op for disabled state
+  value={readOnlyValue}
+  label="Read-only option"
+  disabled={true}
+  onChange={() => {}} // No-op for disabled state
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Checkbox without label (icon only)
 <CheckBox
-    id="standalone-checkbox"
-    value={isSelected}
-    onChange={handleSelection}
+  id="standalone-checkbox"
+  value={isSelected}
+  onChange={handleSelection}
 />
 ```
-
 <a name="ActionItem"></a>
 
 ## ActionItem(props) ⇒ <code>JSX.Element</code>
-
 ActionItem component that provides a standardized container for action elements
 in the AppBar and NavigationDrawer.
 
@@ -1313,30 +1204,27 @@ It creates a fixed-size container (12x12 units) with centered content,
 designed to ensure consistent spacing and alignment of interactive elements
 like buttons and icons within the header components.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - ActionItem component
-**Component**:
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - ActionItem component  
+**Component**:   
 
-| Param          | Type                         | Description                                                       |
-| -------------- | ---------------------------- | ----------------------------------------------------------------- |
-| props          | <code>object</code>          | Component props                                                   |
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | Component props |
 | props.children | <code>React.ReactNode</code> | The content to render within the action item container (required) |
 
-**Example**
-
+**Example**  
 ```js
 // Basic usage with an icon
-import { SvgMenu } from "../icons";
+import { SvgMenu } from '../icons';
 
 <ActionItem>
-    <SvgMenu onClick={toggleDrawer} />
-</ActionItem>;
+  <SvgMenu onClick={toggleDrawer} />
+</ActionItem>
 ```
-
 <a name="CommonTitle"></a>
 
 ## CommonTitle(props) ⇒ <code>JSX.Element</code>
-
 CommonTitle component that renders the leading section of app bars and navigation drawer.
 This component combines navigation controls (back arrow, drawer toggle) with app
 identity elements (logo, app name) in a standardized layout.
@@ -1348,72 +1236,66 @@ header structures across different navigation contexts.
 It automatically handles the presence/absence of optional elements (backArrow,
 navigationDrawer, appLogo) and maintains proper spacing and alignment.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - CommonTitle component
-**Component**:
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - CommonTitle component  
+**Component**:   
 
-| Param                    | Type                         | Description                                     |
-| ------------------------ | ---------------------------- | ----------------------------------------------- |
-| props                    | <code>object</code>          | Component props                                 |
-| [props.backArrow]        | <code>React.ReactNode</code> | Icon/component for the back navigation button   |
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | Component props |
+| [props.backArrow] | <code>React.ReactNode</code> | Icon/component for the back navigation button |
 | [props.navigationDrawer] | <code>React.ReactNode</code> | Icon/component for the navigation drawer toggle |
-| [props.appLogo]          | <code>React.ReactNode</code> | App logo component or image                     |
-| [props.appName]          | <code>string</code>          | Name of the application to display              |
+| [props.appLogo] | <code>React.ReactNode</code> | App logo component or image |
+| [props.appName] | <code>string</code> | Name of the application to display |
 
-**Example**
-
+**Example**  
 ```js
 // Basic usage with navigation drawer and app name
-import { SvgMenu } from "../icons";
+import { SvgMenu } from '../icons';
 
 <CommonTitle
-    navigationDrawer={<SvgMenu onClick={toggleDrawer} />}
-    appName="My Application"
-/>;
+  navigationDrawer={<SvgMenu onClick={toggleDrawer} />}
+  appName="My Application"
+/>
 ```
-
-**Example**
-
+**Example**  
 ```js
 // With back navigation and logo
-import { SvgArrowBackIos } from "../icons";
-import AppLogo from "../AppLogo";
+import { SvgArrowBackIos } from '../icons';
+import AppLogo from '../AppLogo';
 
 <CommonTitle
-    backArrow={<SvgArrowBackIos onClick={goBack} />}
-    appLogo={<AppLogo />}
-    appName="Details Page"
-/>;
+  backArrow={<SvgArrowBackIos onClick={goBack} />}
+  appLogo={<AppLogo />}
+  appName="Details Page"
+/>
 ```
-
 <a name="Fab"></a>
 
 ## Fab(props) ⇒ <code>JSX.Element</code>
-
 Floating Action Button (FAB) component with expandable menu functionality.
 Provides a primary action button that can expand to show additional menu items.
 Follows Material Design 3 FAB guidelines with support for different color variants.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - FAB component with optional expandable menu
-**Component**:
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - FAB component with optional expandable menu  
+**Component**:   
 
-| Param            | Type                         | Description                                         |
-| ---------------- | ---------------------------- | --------------------------------------------------- |
-| props            | <code>object</code>          | Component props                                     |
-| [props.id]       | <code>string</code>          | HTML ID attribute for the FAB button                |
-| [props.icon]     | <code>React.ReactNode</code> | Icon to display in the FAB button                   |
-| [props.label]    | <code>string</code>          | Text label for the FAB button                       |
-| [props.items]    | <code>Array</code>           | Array of menu items to display when FAB is expanded |
-| [props.hidden]   | <code>boolean</code>         | Whether the FAB should be hidden                    |
-| [props.color]    | <code>string</code>          | Color variant (primary, secondary, tertiary)        |
-| [props.position] | <code>string</code>          | CSS positioning classes for the FAB                 |
-| [props.onClick]  | <code>function</code>        | Click handler for the main FAB button               |
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | Component props |
+| [props.id] | <code>string</code> | HTML ID attribute for the FAB button |
+| [props.icon] | <code>React.ReactNode</code> | Icon to display in the FAB button |
+| [props.label] | <code>string</code> | Text label for the FAB button |
+| [props.items] | <code>Array</code> | Array of menu items to display when FAB is expanded |
+| [props.hidden] | <code>boolean</code> | Whether the FAB should be hidden |
+| [props.color] | <code>string</code> | Color variant (primary, secondary, tertiary) |
+| [props.position] | <code>string</code> | CSS positioning classes for the FAB |
+| [props.onClick] | <code>function</code> | Click handler for the main FAB button |
 
 <a name="NavigationBar"></a>
 
 ## NavigationBar(props) ⇒ <code>JSX.Element</code>
-
 A mobile-first bottom navigation bar component with responsive behavior.
 Displays a row of navigation items with icons and labels.
 On mobile, renders as a fixed bottom bar with vertically stacked items.
@@ -1424,65 +1306,62 @@ Follows Material Design 3 theming guidelines with proper light/dark mode support
 Includes safe area padding for devices with rounded corners or notches (e.g., iPhone).
 
 The component automatically handles different visual states:
-
 - Active items are highlighted with container colors and primary text
 - Active items show background highlighting on mobile, pill shape on desktop
 - Disabled items appear with reduced opacity and are non-interactive
 - Hover/active effects adapt between mobile and desktop views
 - Provides enhanced touch feedback with active states for mobile interactions
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - Rendered navigation bar component
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - Rendered navigation bar component  
 
-| Param                 | Type                                                               | Default                                               | Description                                        |
-| --------------------- | ------------------------------------------------------------------ | ----------------------------------------------------- | -------------------------------------------------- |
-| props                 | <code>object</code>                                                |                                                       | Component props                                    |
-| props.items           | [<code>Array.&lt;NavigationBarItem&gt;</code>](#NavigationBarItem) |                                                       | Array of navigation items to display               |
-| [props.optionalClass] | <code>string</code>                                                | <code>&quot;\&quot;fixed bottom-0\&quot;&quot;</code> | Additional CSS classes for positioning and styling |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>object</code> |  | Component props |
+| props.items | [<code>Array.&lt;NavigationBarItem&gt;</code>](#NavigationBarItem) |  | Array of navigation items to display |
+| [props.optionalClass] | <code>string</code> | <code>&quot;\&quot;fixed bottom-0\&quot;&quot;</code> | Additional CSS classes for positioning and styling |
 
-**Example**
-
+**Example**  
 ```js
 // Basic usage with icons and labels
 <NavigationBar
-    items={[
-        {
-            icon: <HomeIcon />,
-            label: "Home",
-            active: true,
-            onClick: () => navigate("/home"),
-        },
-        {
-            icon: <SearchIcon />,
-            label: "Search",
-            onClick: () => navigate("/search"),
-        },
-        {
-            icon: <ProfileIcon />,
-            label: "Profile",
-            onClick: () => navigate("/profile"),
-        },
-        {
-            icon: <SettingsIcon />,
-            label: "Settings",
-            disabled: true,
-            onClick: () => {},
-        },
-    ]}
+  items={[
+    {
+      icon: <HomeIcon />,
+      label: "Home",
+      active: true,
+      onClick: () => navigate('/home')
+    },
+    {
+      icon: <SearchIcon />,
+      label: "Search",
+      onClick: () => navigate('/search')
+    },
+    {
+      icon: <ProfileIcon />,
+      label: "Profile",
+      onClick: () => navigate('/profile')
+    },
+    {
+      icon: <SettingsIcon />,
+      label: "Settings",
+      disabled: true,
+      onClick: () => {}
+    }
+  ]}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // With custom positioning as a top navigation bar
-<NavigationBar items={navigationItems} optionalClass="sticky top-0 shadow-lg" />
+<NavigationBar
+  items={navigationItems}
+  optionalClass="sticky top-0 shadow-lg"
+/>
 ```
-
 <a name="NavigationDrawer"></a>
 
 ## NavigationDrawer(props) ⇒ <code>JSX.Element</code>
-
 Navigation drawer component implementing Material Design 3 navigation drawer pattern.
 Provides a sliding drawer interface for application navigation with support for
 persistent (keep) and temporary modes.
@@ -1491,69 +1370,64 @@ The drawer includes a header area with app identity elements and a scrollable
 content area containing navigation items. In temporary mode, it displays a
 semi-transparent overlay that dismisses the drawer when clicked.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - NavigationDrawer component
-**Component**:
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - NavigationDrawer component  
+**Component**:   
 
-| Param             | Type                              | Description                                                                                                |
-| ----------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| props             | <code>object</code>               | Component props                                                                                            |
-| [props.backArrow] | <code>React.ReactNode</code>      | Back navigation icon/button for the header                                                                 |
-| [props.appLogo]   | <code>React.ReactNode</code>      | Application logo element                                                                                   |
-| [props.appName]   | <code>string</code>               | Application name displayed in the header                                                                   |
-| [props.items]     | <code>Array.&lt;object&gt;</code> | Array of navigation items to display Each item should have properties matching NavItem component props     |
-| [props.keep]      | <code>boolean</code>              | If true, drawer is persistent (always visible) If false, drawer is temporary with overlay and close button |
-| [props.open]      | <code>boolean</code>              | Whether the drawer is currently open (for temporary mode)                                                  |
-| [props.onClose]   | <code>function</code>             | Callback when drawer should close (temporary mode)                                                         |
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | Component props |
+| [props.backArrow] | <code>React.ReactNode</code> | Back navigation icon/button for the header |
+| [props.appLogo] | <code>React.ReactNode</code> | Application logo element |
+| [props.appName] | <code>string</code> | Application name displayed in the header |
+| [props.items] | <code>Array.&lt;object&gt;</code> | Array of navigation items to display   Each item should have properties matching NavItem component props |
+| [props.keep] | <code>boolean</code> | If true, drawer is persistent (always visible)   If false, drawer is temporary with overlay and close button |
+| [props.open] | <code>boolean</code> | Whether the drawer is currently open (for temporary mode) |
+| [props.onClose] | <code>function</code> | Callback when drawer should close (temporary mode) |
 
-**Example**
-
+**Example**  
 ```js
 // Basic usage with temporary drawer
-import { SvgHome, SvgSettings, SvgLogout } from "../icons";
+import { SvgHome, SvgSettings, SvgLogout } from '../icons';
 
 <NavigationDrawer
-    appName="My Application"
-    open={drawerOpen}
-    onClose={() => setDrawerOpen(false)}
-    items={[
-        {
-            icon: <SvgHome />,
-            label: "Home",
-            active: true,
-            onClick: () => navigate("/home"),
-        },
-        {
-            icon: <SvgSettings />,
-            label: "Settings",
-            onClick: () => navigate("/settings"),
-        },
-        {}, // Divider
-        {
-            icon: <SvgLogout />,
-            label: "Logout",
-            onClick: handleLogout,
-        },
-    ]}
-/>;
+  appName="My Application"
+  open={drawerOpen}
+  onClose={() => setDrawerOpen(false)}
+  items={[
+    {
+      icon: <SvgHome />,
+      label: "Home",
+      active: true,
+      onClick: () => navigate('/home')
+    },
+    {
+      icon: <SvgSettings />,
+      label: "Settings",
+      onClick: () => navigate('/settings')
+    },
+    {},  // Divider
+    {
+      icon: <SvgLogout />,
+      label: "Logout",
+      onClick: handleLogout
+    }
+  ]}
+/>
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Persistent drawer (always visible)
 <NavigationDrawer
-    appLogo={<AppLogo />}
-    appName="Dashboard"
-    keep={true}
-    items={navigationItems}
+  appLogo={<AppLogo />}
+  appName="Dashboard"
+  keep={true}
+  items={navigationItems}
 />
 ```
-
 <a name="NavigationRail"></a>
 
 ## NavigationRail(props) ⇒ <code>JSX.Element</code>
-
 A vertical navigation rail component implementing Material Design 3 guidelines.
 Displays a column of navigation items with icons and labels along the side of the screen.
 
@@ -1562,7 +1436,6 @@ alternative to a full navigation drawer. It provides quick access to top-level
 destinations while taking up minimal horizontal space.
 
 Features:
-
 - Compact mode (default) shows only icons with small labels on narrow screens
 - Expanded mode shows icons with larger labels on wider screens (lg breakpoint)
 - Supports active states with highlighted backgrounds and colors
@@ -1570,452 +1443,404 @@ Features:
 - Provides hover effects that adapt based on screen size
 - Follows Material Design 3 theming guidelines with proper light/dark mode support
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - Rendered navigation rail component
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - Rendered navigation rail component  
 
-| Param                 | Type                                                                 | Default                                                                     | Description                                        |
-| --------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------- |
-| props                 | <code>object</code>                                                  |                                                                             | Component props                                    |
-| props.items           | [<code>Array.&lt;NavigationRailItem&gt;</code>](#NavigationRailItem) |                                                                             | Array of navigation items to display               |
-| [props.optionalClass] | <code>string</code>                                                  | <code>&quot;\&quot;h-full w-24 lg:w-56 fixed top-0 py-4\&quot;&quot;</code> | Additional CSS classes for positioning and styling |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>object</code> |  | Component props |
+| props.items | [<code>Array.&lt;NavigationRailItem&gt;</code>](#NavigationRailItem) |  | Array of navigation items to display |
+| [props.optionalClass] | <code>string</code> | <code>&quot;\&quot;h-full w-24 lg:w-56 fixed top-0 py-4\&quot;&quot;</code> | Additional CSS classes for positioning and styling |
 
-**Example**
-
+**Example**  
 ```js
 // Basic usage with icons and labels
 <NavigationRail
-    items={[
-        {
-            icon: <HomeIcon />,
-            label: "Home",
-            active: true,
-            onClick: () => navigate("/home"),
-        },
-        {
-            icon: <SearchIcon />,
-            label: "Search",
-            onClick: () => navigate("/search"),
-        },
-        {
-            icon: <ProfileIcon />,
-            label: "Profile",
-            onClick: () => navigate("/profile"),
-        },
-        {
-            icon: <SettingsIcon />,
-            label: "Settings",
-            disabled: true,
-            onClick: () => {},
-        },
-    ]}
+  items={[
+    {
+      icon: <HomeIcon />,
+      label: "Home",
+      active: true,
+      onClick: () => navigate('/home')
+    },
+    {
+      icon: <SearchIcon />,
+      label: "Search",
+      onClick: () => navigate('/search')
+    },
+    {
+      icon: <ProfileIcon />,
+      label: "Profile",
+      onClick: () => navigate('/profile')
+    },
+    {
+      icon: <SettingsIcon />,
+      label: "Settings",
+      disabled: true,
+      onClick: () => {}
+    }
+  ]}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // With custom positioning and width
 <NavigationRail
-    items={navigationItems}
-    optionalClass="h-full w-20 lg:w-48 fixed left-0 top-16 py-2"
+  items={navigationItems}
+  optionalClass="h-full w-20 lg:w-48 fixed left-0 top-16 py-2"
 />
 ```
-
 <a name="PWABadge"></a>
 
 ## PWABadge(props) ⇒ <code>JSX.Element</code>
-
 PWA Badge component that displays notifications for service worker updates and offline status.
 Handles automatic update checks and provides user notifications for app updates and offline readiness.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - PWA notification badge component
-**Component**:
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - PWA notification badge component  
+**Component**:   
 
-| Param                          | Type                | Description                                     |
-| ------------------------------ | ------------------- | ----------------------------------------------- |
-| props                          | <code>object</code> | Component props                                 |
-| [props.checkForUpdateInterval] | <code>number</code> | Interval in milliseconds for checking updates   |
-| [props.offlineReadyMessage]    | <code>string</code> | Message to display when app is ready offline    |
-| [props.needRefreshMessage]     | <code>string</code> | Message to display when app update is available |
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | Component props |
+| [props.checkForUpdateInterval] | <code>number</code> | Interval in milliseconds for checking updates |
+| [props.offlineReadyMessage] | <code>string</code> | Message to display when app is ready offline |
+| [props.needRefreshMessage] | <code>string</code> | Message to display when app update is available |
 
 <a name="PWABadge..close"></a>
 
 ### PWABadge~close() ⇒ <code>void</code>
-
 Closes the PWA notification badge by resetting offline ready and need refresh states.
 
-**Kind**: inner method of [<code>PWABadge</code>](#PWABadge)
+**Kind**: inner method of [<code>PWABadge</code>](#PWABadge)  
 <a name="PasswordField"></a>
 
 ## PasswordField(props) ⇒ <code>JSX.Element</code>
-
 A specialized password input field with visibility toggle functionality.
 Built on top of TextField component with an integrated eye icon button
 that allows users to toggle between hidden and visible password display.
 Features monospace font by default for better password character recognition.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - Rendered password field component with visibility toggle
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - Rendered password field component with visibility toggle  
 
-| Param              | Type                  | Default                                        | Description                                                             |
-| ------------------ | --------------------- | ---------------------------------------------- | ----------------------------------------------------------------------- |
-| props              | <code>object</code>   |                                                | The props object                                                        |
-| [props.id]         | <code>string</code>   |                                                | Unique identifier for the password input element                        |
-| [props.value]      | <code>string</code>   | <code>&quot;&#x27;&#x27;&quot;</code>          | Current value of the password field                                     |
-| [props.label]      | <code>string</code>   |                                                | Floating label text that appears above the input when focused or filled |
-| [props.message]    | <code>string</code>   |                                                | Helper text displayed below the input field                             |
-| [props.error]      | <code>string</code>   |                                                | Error message that overrides helper text and applies error styling      |
-| [props.style]      | <code>string</code>   |                                                | Visual style variant, use "filled" for filled background style          |
-| [props.width]      | <code>string</code>   | <code>&quot;&#x27;w-48&#x27;&quot;</code>      | Tailwind CSS width class for the input field                            |
-| [props.fontFamily] | <code>string</code>   | <code>&quot;&#x27;font-mono&#x27;&quot;</code> | Tailwind CSS font family class (monospace by default for passwords)     |
-| [props.onChange]   | <code>function</code> |                                                | Callback function called when password value changes                    |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>object</code> |  | The props object |
+| [props.id] | <code>string</code> |  | Unique identifier for the password input element |
+| [props.value] | <code>string</code> | <code>&quot;&#x27;&#x27;&quot;</code> | Current value of the password field |
+| [props.label] | <code>string</code> |  | Floating label text that appears above the input when focused or filled |
+| [props.message] | <code>string</code> |  | Helper text displayed below the input field |
+| [props.error] | <code>string</code> |  | Error message that overrides helper text and applies error styling |
+| [props.style] | <code>string</code> |  | Visual style variant, use "filled" for filled background style |
+| [props.width] | <code>string</code> | <code>&quot;&#x27;w-48&#x27;&quot;</code> | Tailwind CSS width class for the input field |
+| [props.fontFamily] | <code>string</code> | <code>&quot;&#x27;font-mono&#x27;&quot;</code> | Tailwind CSS font family class (monospace by default for passwords) |
+| [props.onChange] | <code>function</code> |  | Callback function called when password value changes |
 
-**Example**
-
+**Example**  
 ```js
 // Basic password field
 <PasswordField
-    label="Password"
-    value={password}
-    onChange={(value) => setPassword(value)}
+  label="Password"
+  value={password}
+  onChange={(value) => setPassword(value)}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Password field with validation and custom width
 <PasswordField
-    id="user-password"
-    label="Enter Password"
-    value={password}
-    error={passwordError}
-    message="Must be at least 8 characters"
-    width="w-80"
-    onChange={setPassword}
+  id="user-password"
+  label="Enter Password"
+  value={password}
+  error={passwordError}
+  message="Must be at least 8 characters"
+  width="w-80"
+  onChange={setPassword}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Filled style password field
 <PasswordField
-    label="Confirm Password"
-    value={confirmPassword}
-    style="filled"
-    fontFamily="font-sans"
-    onChange={setConfirmPassword}
+  label="Confirm Password"
+  value={confirmPassword}
+  style="filled"
+  fontFamily="font-sans"
+  onChange={setConfirmPassword}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Password field in registration form
 <PasswordField
-    id="new-password"
-    label="Create Password"
-    value={newPassword}
-    error={validationError}
-    width="w-full"
-    onChange={handlePasswordChange}
+  id="new-password"
+  label="Create Password"
+  value={newPassword}
+  error={validationError}
+  width="w-full"
+  onChange={handlePasswordChange}
 />
 ```
-
 <a name="RadioGroup"></a>
 
 ## RadioGroup(props) ⇒ <code>JSX.Element</code>
-
 A radio button group component that allows single selection
 from a list of options. Renders a collection of radio buttons
 with custom styling and automatic light/dark theme support.
 Only one option can be selected at a time within the group.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - Rendered radio group component (React Fragment containing radio buttons)
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - Rendered radio group component (React Fragment containing radio buttons)  
 
-| Param               | Type                                                                     | Default                             | Description                                                                 |
-| ------------------- | ------------------------------------------------------------------------ | ----------------------------------- | --------------------------------------------------------------------------- |
-| props               | <code>object</code>                                                      |                                     | The props object                                                            |
-| props.name          | <code>string</code>                                                      |                                     | Unique name for the radio group (required for proper radio button grouping) |
-| [props.value]       | <code>string</code>                                                      |                                     | Currently selected radio button value                                       |
-| [props.items]       | <code>Array.&lt;object&gt;</code>                                        |                                     | Array of radio button option objects                                        |
-| props.items[].value | <code>string</code>                                                      |                                     | Unique value for the radio button option                                    |
-| props.items[].label | <code>string</code>                                                      |                                     | Text label to display next to the radio button                              |
-| [props.onChange]    | <code>function</code>                                                    |                                     | Callback function called when a radio button is selected                    |
-| [props.layout]      | <code>&#x27;vertical&#x27;</code> \| <code>&#x27;horizontal&#x27;</code> | <code>&#x27;horizontal&#x27;</code> | Layout direction for the radio buttons                                      |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>object</code> |  | The props object |
+| props.name | <code>string</code> |  | Unique name for the radio group (required for proper radio button grouping) |
+| [props.value] | <code>string</code> |  | Currently selected radio button value |
+| [props.items] | <code>Array.&lt;object&gt;</code> |  | Array of radio button option objects |
+| props.items[].value | <code>string</code> |  | Unique value for the radio button option |
+| props.items[].label | <code>string</code> |  | Text label to display next to the radio button |
+| [props.onChange] | <code>function</code> |  | Callback function called when a radio button is selected |
+| [props.layout] | <code>&#x27;vertical&#x27;</code> \| <code>&#x27;horizontal&#x27;</code> | <code>&#x27;horizontal&#x27;</code> | Layout direction for the radio buttons |
 
-**Example**
-
+**Example**  
 ```js
 // Basic radio group for size selection
 <RadioGroup
-    name="size"
-    value={selectedSize}
-    items={[
-        { value: "small", label: "Small" },
-        { value: "medium", label: "Medium" },
-        { value: "large", label: "Large" },
-    ]}
-    onChange={(value) => setSelectedSize(value)}
+  name="size"
+  value={selectedSize}
+  items={[
+    { value: 'small', label: 'Small' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'large', label: 'Large' }
+  ]}
+  onChange={(value) => setSelectedSize(value)}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Radio group for theme preferences
 <RadioGroup
-    name="theme"
-    value={currentTheme}
-    items={[
-        { value: "light", label: "Light Mode" },
-        { value: "dark", label: "Dark Mode" },
-        { value: "auto", label: "System Default" },
-    ]}
-    onChange={handleThemeChange}
+  name="theme"
+  value={currentTheme}
+  items={[
+    { value: 'light', label: 'Light Mode' },
+    { value: 'dark', label: 'Dark Mode' },
+    { value: 'auto', label: 'System Default' }
+  ]}
+  onChange={handleThemeChange}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Radio group for payment methods with Horizontal layout for compact display
 <RadioGroup
-    name="payment"
-    value={paymentMethod}
-    layout="horizontal"
-    items={[
-        { value: "credit", label: "Credit Card" },
-        { value: "debit", label: "Debit Card" },
-        { value: "paypal", label: "PayPal" },
-        { value: "bank", label: "Bank Transfer" },
-    ]}
-    onChange={setPaymentMethod}
+  name="payment"
+  value={paymentMethod}
+  layout="horizontal"
+  items={[
+    { value: 'credit', label: 'Credit Card' },
+    { value: 'debit', label: 'Debit Card' },
+    { value: 'paypal', label: 'PayPal' },
+    { value: 'bank', label: 'Bank Transfer' }
+  ]}
+  onChange={setPaymentMethod}
 />
 ```
-
 <a name="Slider"></a>
 
 ## Slider(props) ⇒ <code>JSX.Element</code>
-
 An interactive slider component with drag functionality and responsive design.
 Supports both continuous values (0-1 range) and discrete step values (integer count).
 Features hover and active states, automatic resize handling, and customizable sizing.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - Rendered interactive slider component
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - Rendered interactive slider component  
 
-| Param            | Type                                                                                      | Description                                                                                          |
-| ---------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| props            | <code>object</code>                                                                       | The props object                                                                                     |
-| [props.id]       | <code>string</code>                                                                       | Unique identifier for the slider element (auto-generated if not provided)                            |
-| [props.value]    | <code>number</code>                                                                       | Current value of the slider. For continuous mode (count=1): 0-1 range. For discrete mode: 0 to count |
-| [props.count]    | <code>number</code>                                                                       | Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider                         |
-| [props.size]     | <code>&#x27;xs&#x27;</code> \| <code>&#x27;sm&#x27;</code> \| <code>&#x27;md&#x27;</code> | Visual size variant affecting track height and thumb size                                            |
-| [props.width]    | <code>string</code>                                                                       | Tailwind CSS width class for the slider container                                                    |
-| [props.onChange] | <code>function</code>                                                                     | Callback function called when slider value changes                                                   |
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | The props object |
+| [props.id] | <code>string</code> | Unique identifier for the slider element (auto-generated if not provided) |
+| [props.value] | <code>number</code> | Current value of the slider. For continuous mode (count=1): 0-1 range. For discrete mode: 0 to count |
+| [props.count] | <code>number</code> | Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider |
+| [props.size] | <code>&#x27;xs&#x27;</code> \| <code>&#x27;sm&#x27;</code> \| <code>&#x27;md&#x27;</code> | Visual size variant affecting track height and thumb size |
+| [props.width] | <code>string</code> | Tailwind CSS width class for the slider container |
+| [props.onChange] | <code>function</code> | Callback function called when slider value changes |
 
-**Example**
-
+**Example**  
 ```js
 // Continuous slider (0-1 range)
 <Slider
-    value={volume}
-    onChange={(newValue) => setVolume(newValue)}
-    width="w-64"
-    size="sm"
+  value={volume}
+  onChange={(newValue) => setVolume(newValue)}
+  width="w-64"
+  size="sm"
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Discrete step slider (0-10 range)
 <Slider
-    id="rating-slider"
-    value={rating}
-    count={10}
-    onChange={(newRating) => setRating(newRating)}
-    size="md"
-    width="w-80"
+  id="rating-slider"
+  value={rating}
+  count={10}
+  onChange={(newRating) => setRating(newRating)}
+  size="md"
+  width="w-80"
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Progress indicator (read-only)
 <Slider
-    value={downloadProgress}
-    size="xs"
-    width="w-full"
-    // No onChange = read-only mode
+  value={downloadProgress}
+  size="xs"
+  width="w-full"
+  // No onChange = read-only mode
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Temperature control with custom sizing
 <Slider
-    id="temperature"
-    value={currentTemp}
-    count={100}
-    size="md"
-    width="w-96"
-    onChange={(temp) => {
-        setCurrentTemp(temp);
-        adjustTemperature(temp);
-    }}
+  id="temperature"
+  value={currentTemp}
+  count={100}
+  size="md"
+  width="w-96"
+  onChange={(temp) => {
+    setCurrentTemp(temp);
+    adjustTemperature(temp);
+  }}
 />
 ```
-
 <a name="Switch"></a>
 
 ## Switch(props) ⇒ <code>JSX.Element</code>
-
 A toggle switch component that provides an intuitive on/off control interface.
 Features a sliding toggle with visual feedback, checkmark icon when enabled,
 and automatic light/dark theme adaptation.
 Commonly used for settings and preferences.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - Rendered switch component
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - Rendered switch component  
 
-| Param            | Type                  | Default            | Description                                                               |
-| ---------------- | --------------------- | ------------------ | ------------------------------------------------------------------------- |
-| props            | <code>object</code>   |                    | The props object                                                          |
-| [props.id]       | <code>string</code>   |                    | Unique identifier for the switch input element                            |
-| props.value      | <code>boolean</code>  |                    | Current state of the switch (true for on/enabled, false for off/disabled) |
-| [props.onChange] | <code>function</code> |                    | Callback function called when switch state changes                        |
-| [props.disabled] | <code>boolean</code>  | <code>false</code> | Whether the switch is disabled and non-interactive                        |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>object</code> |  | The props object |
+| [props.id] | <code>string</code> |  | Unique identifier for the switch input element |
+| props.value | <code>boolean</code> |  | Current state of the switch (true for on/enabled, false for off/disabled) |
+| [props.onChange] | <code>function</code> |  | Callback function called when switch state changes |
+| [props.disabled] | <code>boolean</code> | <code>false</code> | Whether the switch is disabled and non-interactive |
 
-**Example**
-
+**Example**  
 ```js
 // Basic switch for notifications
 <Switch
-    id="notifications"
-    value={notificationsEnabled}
-    onChange={(enabled) => setNotificationsEnabled(enabled)}
+  id="notifications"
+  value={notificationsEnabled}
+  onChange={(enabled) => setNotificationsEnabled(enabled)}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Switch with disabled state
 <Switch
-    id="premium-feature"
-    value={premiumEnabled}
-    onChange={setPremiumEnabled}
-    disabled={!isPremiumUser}
+  id="premium-feature"
+  value={premiumEnabled}
+  onChange={setPremiumEnabled}
+  disabled={!isPremiumUser}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Dark mode toggle switch
 <Switch
-    id="dark-mode"
-    value={isDarkMode}
-    onChange={(enabled) => {
-        setIsDarkMode(enabled);
-        document.documentElement.classList.toggle("dark", enabled);
-    }}
+  id="dark-mode"
+  value={isDarkMode}
+  onChange={(enabled) => {
+    setIsDarkMode(enabled);
+    document.documentElement.classList.toggle('dark', enabled);
+  }}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Auto-save setting switch
 <Switch
-    id="auto-save"
-    value={autoSaveEnabled}
-    onChange={handleAutoSaveToggle}
+  id="auto-save"
+  value={autoSaveEnabled}
+  onChange={handleAutoSaveToggle}
 />
 ```
-
 <a name="TextField"></a>
 
 ## TextField(props, [readonly]) ⇒ <code>JSX.Element</code>
-
 A versatile text input field component with floating labels,
 validation states, and customizable styling.
 Supports different input types, prefix/suffix elements, error handling,
 and both filled and outlined styles.
 Features automatic label animation and theme-aware design.
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - Rendered text field component
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - Rendered text field component  
 
-| Param              | Type                                                                                                                                    | Default                                        | Description                                                                                                                  |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| props              | <code>object</code>                                                                                                                     |                                                | The props object                                                                                                             |
-| [props.id]         | <code>string</code>                                                                                                                     |                                                | Unique identifier for the input element                                                                                      |
-| [props.type]       | <code>&#x27;text&#x27;</code> \| <code>&#x27;email&#x27;</code> \| <code>&#x27;password&#x27;</code> \| <code>&#x27;number&#x27;</code> | <code>&#x27;text&#x27;</code>                  | HTML input type                                                                                                              |
-| [props.value]      | <code>string</code> \| <code>number</code>                                                                                              |                                                | Current value of the input field                                                                                             |
-| [props.label]      | <code>string</code>                                                                                                                     |                                                | Floating label text that appears above the input when focused or filled                                                      |
-| [props.message]    | <code>string</code>                                                                                                                     |                                                | Helper text displayed below the input field                                                                                  |
-| [props.error]      | <code>string</code>                                                                                                                     |                                                | Error message that overrides the helper text and applies error styling                                                       |
-| [props.prefix]     | <code>React.ReactNode</code>                                                                                                            |                                                | Element to display at the start of the input. Typically uses Button component with style="embedded" for interactive elements |
-| [props.suffix]     | <code>React.ReactNode</code>                                                                                                            |                                                | Element to display at the end of the input. Typically uses Button component with style="embedded" for interactive elements   |
-| [props.style]      | <code>string</code>                                                                                                                     |                                                | Visual style variant, use "filled" for filled background style                                                               |
-| [props.width]      | <code>string</code>                                                                                                                     | <code>&quot;&#x27;w-48&#x27;&quot;</code>      | Tailwind CSS width class for the input field                                                                                 |
-| [props.fontFamily] | <code>string</code>                                                                                                                     | <code>&quot;&#x27;font-sans&#x27;&quot;</code> | Tailwind CSS font family class                                                                                               |
-| [props.onChange]   | <code>function</code>                                                                                                                   |                                                | Callback function called when input value changes                                                                            |
-| [readonly]         | <code>boolean</code>                                                                                                                    |                                                | When true, makes the input read-only (allows selection but prevents editing)                                                 |
-| [props.disabled]   | <code>boolean</code>                                                                                                                    | <code>false</code>                             | When true, disables the input field entirely (prevents interaction)                                                          |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>object</code> |  | The props object |
+| [props.id] | <code>string</code> |  | Unique identifier for the input element |
+| [props.type] | <code>&#x27;text&#x27;</code> \| <code>&#x27;email&#x27;</code> \| <code>&#x27;password&#x27;</code> \| <code>&#x27;number&#x27;</code> | <code>&#x27;text&#x27;</code> | HTML input type |
+| [props.value] | <code>string</code> \| <code>number</code> |  | Current value of the input field |
+| [props.label] | <code>string</code> |  | Floating label text that appears above the input when focused or filled |
+| [props.message] | <code>string</code> |  | Helper text displayed below the input field |
+| [props.error] | <code>string</code> |  | Error message that overrides the helper text and applies error styling |
+| [props.prefix] | <code>React.ReactNode</code> |  | Element to display at the start of the input. Typically uses Button component with style="embedded" for interactive elements |
+| [props.suffix] | <code>React.ReactNode</code> |  | Element to display at the end of the input. Typically uses Button component with style="embedded" for interactive elements |
+| [props.style] | <code>string</code> |  | Visual style variant, use "filled" for filled background style |
+| [props.width] | <code>string</code> | <code>&quot;&#x27;w-48&#x27;&quot;</code> | Tailwind CSS width class for the input field |
+| [props.fontFamily] | <code>string</code> | <code>&quot;&#x27;font-sans&#x27;&quot;</code> | Tailwind CSS font family class |
+| [props.onChange] | <code>function</code> |  | Callback function called when input value changes |
+| [readonly] | <code>boolean</code> |  | When true, makes the input read-only (allows selection but prevents editing) |
+| [props.disabled] | <code>boolean</code> | <code>false</code> | When true, disables the input field entirely (prevents interaction) |
 
-**Example**
-
+**Example**  
 ```js
 // Basic text input with floating label
 <TextField
-    id="username"
-    label="Username"
-    value={username}
-    onChange={(value) => setUsername(value)}
+  id="username"
+  label="Username"
+  value={username}
+  onChange={(value) => setUsername(value)}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Email input with validation and helper text
 <TextField
-    id="email"
-    type="email"
-    label="Email Address"
-    value={email}
-    message="We'll never share your email"
-    error={emailError}
-    onChange={setEmail}
+  id="email"
+  type="email"
+  label="Email Address"
+  value={email}
+  message="We'll never share your email"
+  error={emailError}
+  onChange={setEmail}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Password field with embedded button prefix
 <TextField
-    id="password"
-    type="password"
-    label="Password"
-    value={password}
-    prefix={<Button icon={<LockIcon />} style="embedded" />}
-    width="w-80"
-    onChange={setPassword}
+  id="password"
+  type="password"
+  label="Password"
+  value={password}
+  prefix={<Button icon={<LockIcon />} style="embedded" />}
+  width="w-80"
+  onChange={setPassword}
 />
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Filled style input with embedded button suffix
 <TextField
@@ -2029,192 +1854,173 @@ Features automatic label animation and theme-aware design.
 />
 />
 ```
-
 <a name="ToggleDarkModeButton"></a>
 
 ## ToggleDarkModeButton() ⇒ <code>JSX.Element</code>
-
 A toggle button component that cycles between light mode,
 dark mode, and system preference.
 Automatically detects system preference via media queries
 and persists user's choice in localStorage.
 
 The component cycles through the following states:
-
 1. System preference (default) - uses the device's color scheme preference
 2. Light mode - forces light theme regardless of system preference
 3. Dark mode - forces dark theme regardless of system preference
 
 To apply dark mode styles in your app, add the following to your CSS:
-
 ```css
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - A button with icon that changes based on current mode
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - A button with icon that changes based on current mode  
 **Custom-variant**: dark (&:where(.dark, .dark *));
 ```
 
 The component adds/removes the "dark" class on the documentElement (html)
-automatically.
-**Example**
-
+automatically.  
+**Example**  
 ```js
 // Basic usage in a header component
-import ToggleDarkModeButton from "../xuan-paper/ToggleDarkModeButton";
+import ToggleDarkModeButton from '../xuan-paper/ToggleDarkModeButton';
 
 const Header = () => (
-    <header className="flex justify-between items-center p-4">
-        <h1>My App</h1>
-        <div className="flex gap-2">
-            <ToggleDarkModeButton />
-            <UserMenuButton />
-        </div>
-    </header>
+  <header className="flex justify-between items-center p-4">
+    <h1>My App</h1>
+    <div className="flex gap-2">
+      <ToggleDarkModeButton />
+      <UserMenuButton />
+    </div>
+  </header>
 );
 ```
-
 <a name="ToggleLanguageButton"></a>
 
 ## ToggleLanguageButton() ⇒ <code>JSX.Element</code>
-
 A button component that toggles the application's language
 between available translations.
 Cycles through languages defined in the resources object
 and persists the selection in localStorage.
 
 Features:
-
 - Displays the current language code or a language icon if no label is available
 - Automatically loads the previously selected language from localStorage on mount
 - Cycles through available languages in the order they appear in the resources object
 - Persists language preference across browser sessions
 
 This component requires:
-
 - A properly configured i18next setup
 - A resources object exported from i18n.js with language codes as keys
 - Each translation entry should optionally have a 'label' property for display
 - The i18n configuration must use the exported resources object
 
-**Kind**: global function
-**Returns**: <code>JSX.Element</code> - A button displaying the current language label or a language icon
-**Example**
-
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - A button displaying the current language label or a language icon  
+**Example**  
 ```js
 // Basic usage in a header component
-import ToggleLanguageButton from "../xuan-paper/ToggleLanguageButton";
+import ToggleLanguageButton from '../xuan-paper/ToggleLanguageButton';
 
 const Header = () => (
-    <header className="flex justify-between items-center p-4">
-        <h1>My App</h1>
-        <div className="flex gap-2">
-            <ToggleLanguageButton />
-            <SettingsButton />
-        </div>
-    </header>
+  <header className="flex justify-between items-center p-4">
+    <h1>My App</h1>
+    <div className="flex gap-2">
+      <ToggleLanguageButton />
+      <SettingsButton />
+    </div>
+  </header>
 );
 ```
-
-**Example**
-
+**Example**  
 ```js
 // Example i18n.js file with exported resources object
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 export const resources = {
-    en: {
-        label: "En",
-        translation: {
-            // English translations
-        },
-    },
-    ja: {
-        label: "日",
-        translation: {
-            // Japanese translations
-        },
-    },
-    // Additional languages...
+  en: {
+    label: "En",
+    translation: {
+      // English translations
+    }
+  },
+  ja: {
+    label: "日",
+    translation: {
+      // Japanese translations
+    }
+  },
+  // Additional languages...
 };
 
 // The i18n instance must use the same resources object that is exported
 i18n.use(initReactI18next).init({
-    resources, // Use the exported resources
-    lng: "en",
-    interpolation: {
-        escapeValue: false, // not needed for react as it escapes by default
-    },
+  resources, // Use the exported resources
+  lng: "en",
+  interpolation: {
+    escapeValue: false // not needed for react as it escapes by default
+  }
 });
 
 export default i18n;
 ```
-
 <a name="ColorPair"></a>
 
 ## ColorPair : <code>Array.&lt;string&gt;</code>
-
 A color token pair consisting of [tokenName, hexColor]
 
-**Kind**: global typedef
-**Example**
-
+**Kind**: global typedef  
+**Example**  
 ```js
-["primary", "#1976D2"];
+["primary", "#1976D2"]
 ```
-
 <a name="ThemeObject"></a>
 
 ## ThemeObject : <code>object</code>
-
-**Kind**: global typedef
+**Kind**: global typedef  
 **Properties**
 
-| Name       | Type                                               | Description                               |
-| ---------- | -------------------------------------------------- | ----------------------------------------- |
-| brightness | <code>string</code>                                | Theme brightness mode ("light" or "dark") |
-| colors     | [<code>Array.&lt;ColorPair&gt;</code>](#ColorPair) | Array of color token pairs                |
+| Name | Type | Description |
+| --- | --- | --- |
+| brightness | <code>string</code> | Theme brightness mode ("light" or "dark") |
+| colors | [<code>Array.&lt;ColorPair&gt;</code>](#ColorPair) | Array of color token pairs |
 
 <a name="FabMenuItemProp"></a>
 
 ## FabMenuItemProp : <code>object</code>
-
-**Kind**: global typedef
+**Kind**: global typedef  
 **Properties**
 
-| Name     | Type                         | Description                               |
-| -------- | ---------------------------- | ----------------------------------------- |
-| icon     | <code>React.ReactNode</code> | The icon to display alongside the label   |
-| label    | <code>string</code>          | The label of the menu item                |
-| onClick  | <code>function</code>        | The click event handler for the menu item |
-| disabled | <code>boolean</code>         | Whether the menu item is disabled         |
+| Name | Type | Description |
+| --- | --- | --- |
+| icon | <code>React.ReactNode</code> | The icon to display alongside the label |
+| label | <code>string</code> | The label of the menu item |
+| onClick | <code>function</code> | The click event handler for the menu item |
+| disabled | <code>boolean</code> | Whether the menu item is disabled |
 
 <a name="NavigationBarItem"></a>
 
 ## NavigationBarItem : <code>object</code>
-
-**Kind**: global typedef
+**Kind**: global typedef  
 **Properties**
 
-| Name       | Type                         | Default            | Description                                                     |
-| ---------- | ---------------------------- | ------------------ | --------------------------------------------------------------- |
-| icon       | <code>React.ReactNode</code> |                    | Icon element to display for the navigation item                 |
-| label      | <code>string</code>          |                    | Text label shown below/beside the icon                          |
-| [active]   | <code>boolean</code>         | <code>false</code> | Whether the navigation item is currently active/selected        |
-| [disabled] | <code>boolean</code>         | <code>false</code> | Whether the navigation item is disabled and non-interactive     |
-| onClick    | <code>function</code>        |                    | Callback function triggered when the navigation item is clicked |
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| icon | <code>React.ReactNode</code> |  | Icon element to display for the navigation item |
+| label | <code>string</code> |  | Text label shown below/beside the icon |
+| [active] | <code>boolean</code> | <code>false</code> | Whether the navigation item is currently active/selected |
+| [disabled] | <code>boolean</code> | <code>false</code> | Whether the navigation item is disabled and non-interactive |
+| onClick | <code>function</code> |  | Callback function triggered when the navigation item is clicked |
 
 <a name="NavigationRailItem"></a>
 
 ## NavigationRailItem : <code>object</code>
-
-**Kind**: global typedef
+**Kind**: global typedef  
 **Properties**
 
-| Name       | Type                         | Default            | Description                                                                         |
-| ---------- | ---------------------------- | ------------------ | ----------------------------------------------------------------------------------- |
-| icon       | <code>React.ReactNode</code> |                    | Icon element to display for the navigation item                                     |
-| label      | <code>string</code>          |                    | Text label shown below the icon in compact mode or beside the icon in expanded mode |
-| [active]   | <code>boolean</code>         | <code>false</code> | Whether the navigation item is currently active/selected                            |
-| [disabled] | <code>boolean</code>         | <code>false</code> | Whether the navigation item is disabled and non-interactive                         |
-| onClick    | <code>function</code>        |                    | Callback function triggered when the navigation item is clicked                     |
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| icon | <code>React.ReactNode</code> |  | Icon element to display for the navigation item |
+| label | <code>string</code> |  | Text label shown below the icon in compact mode or beside the icon in expanded mode |
+| [active] | <code>boolean</code> | <code>false</code> | Whether the navigation item is currently active/selected |
+| [disabled] | <code>boolean</code> | <code>false</code> | Whether the navigation item is disabled and non-interactive |
+| onClick | <code>function</code> |  | Callback function triggered when the navigation item is clicked |
+
