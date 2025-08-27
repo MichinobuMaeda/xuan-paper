@@ -5,17 +5,15 @@ import PropTypes from "prop-types";
  * from a list of options. Renders a collection of radio buttons
  * with custom styling and automatic light/dark theme support.
  * Only one option can be selected at a time within the group.
- *
- * @param {Object} props - The props object
+ * @param {object} props - The props object
  * @param {string} props.name - Unique name for the radio group (required for proper radio button grouping)
  * @param {string} [props.value] - Currently selected radio button value
- * @param {Array<Object>} [props.items] - Array of radio button option objects
+ * @param {Array<object>} [props.items] - Array of radio button option objects
  * @param {string} props.items[].value - Unique value for the radio button option
  * @param {string} props.items[].label - Text label to display next to the radio button
  * @param {Function} [props.onChange] - Callback function called when a radio button is selected
  * @param {('vertical'|'horizontal')} [props.layout='horizontal'] - Layout direction for the radio buttons
  * @returns {JSX.Element} Rendered radio group component (React Fragment containing radio buttons)
- *
  * @example
  * // Basic radio group for size selection
  * <RadioGroup
@@ -28,7 +26,6 @@ import PropTypes from "prop-types";
  *   ]}
  *   onChange={(value) => setSelectedSize(value)}
  * />
- *
  * @example
  * // Radio group for theme preferences
  * <RadioGroup
@@ -41,7 +38,6 @@ import PropTypes from "prop-types";
  *   ]}
  *   onChange={handleThemeChange}
  * />
- *
  * @example
  * // Radio group for payment methods with Horizontal layout for compact display
  * <RadioGroup

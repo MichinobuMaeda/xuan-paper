@@ -4,23 +4,20 @@ import PropTypes from "prop-types";
  * A versatile button component with multiple styles, sizes, and configurations.
  * Supports icons, different visual styles, and responsive design
  * with light/dark theme support.
- *
- * @param {Object} props - The props object
+ * @param {object} props - The props object
  * @param {string} [props.id] - Unique identifier for the button element
  * @param {React.ReactNode} [props.icon] - Icon element to display alongside or instead of label
  * @param {string} [props.label] - Text content to display in the button
- * @param {('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embedded')} [props.style='filled'] - Visual style variant of the button
+ * @param {('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embedded')} [props.style] - Visual style variant of the button
  * @param {Function} [props.onClick] - Click event handler function
- * @param {boolean} [props.disabled=false] - Whether the button is disabled
- * @param {string} [props.rounded='rounded-full'] - Tailwind CSS class for border radius
- * @param {('xs'|'sm'|'md')} [props.size='sm'] - Size variant of the button
- * @param {string} [props.width='w-fit'] - Tailwind CSS class for button width
+ * @param {boolean} [props.disabled] - Whether the button is disabled
+ * @param {string} [props.rounded] - Tailwind CSS class for border radius
+ * @param {('xs'|'sm'|'md')} [props.size] - Size variant of the button
+ * @param {string} [props.width] - Tailwind CSS class for button width
  * @returns {JSX.Element} Rendered button component
- *
  * @example
  * // Basic filled button
  * <Button label="Click Me" onClick={() => console.log('clicked')} />
- *
  * @example
  * // Icon button with custom styling
  * <Button
@@ -29,7 +26,6 @@ import PropTypes from "prop-types";
  *   size="md"
  *   rounded="rounded-lg"
  * />
- *
  * @example
  * // Danger button with label
  * <Button

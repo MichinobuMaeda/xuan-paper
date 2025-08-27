@@ -10,14 +10,13 @@ import PropTypes from "prop-types";
  *
  * Each AppBarItem is designed to be used within the suffix array of the AppBar component
  * to create action buttons on the right side of the app bar.
- *
  * @component
- * @param {Object} props - Component props
+ * @param {object} props - Component props
  * @param {React.ReactNode} props.icon - The icon to display within the button (required)
- * @param {boolean} [props.disabled=false] - Whether the button is disabled
- * @param {Function} [props.onClick=() => {}] - Click handler function
+ * @param {boolean} [props.disabled] - Whether the button is disabled
+ * @param {string} [props.bgColor] - CSS classes for background color styling
+ * @param {Function} [props.onClick] - Click handler function
  * @returns {JSX.Element} AppBarItem button component
- *
  * @example
  * // Basic usage with an icon
  * import { SvgSettings } from '../icons';
@@ -26,7 +25,6 @@ import PropTypes from "prop-types";
  *   icon={<SvgSettings />}
  *   onClick={() => console.log('Settings clicked')}
  * />
- *
  * @example
  * // Disabled state
  * import { SvgDownload } from '../icons';

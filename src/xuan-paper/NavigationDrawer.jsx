@@ -11,16 +11,15 @@ const bgColor =
  * Renders a clickable navigation item with icon, label, and optional badge.
  * Supports active and disabled states with appropriate styling.
  * If neither icon nor label is provided, renders a horizontal divider.
- *
  * @component
  * @private
- * @param {Object} props - Component props
+ * @param {object} props - Component props
  * @param {React.ReactNode} [props.icon] - Icon element displayed on the left side
  * @param {string} [props.label] - Text label for the navigation item
  * @param {React.ReactNode} [props.badge] - Optional badge/indicator displayed on the right side
- * @param {Function} [props.onClick=() => {}] - Click handler function
- * @param {boolean} [props.active=false] - Whether the navigation item is currently active/selected
- * @param {boolean} [props.disabled=false] - Whether the navigation item is disabled
+ * @param {Function} [props.onClick] - Click handler function
+ * @param {boolean} [props.active] - Whether the navigation item is currently active/selected
+ * @param {boolean} [props.disabled] - Whether the navigation item is disabled
  * @returns {JSX.Element} NavItem component or divider
  */
 const NavItem = ({
@@ -77,20 +76,18 @@ NavItem.propTypes = {
  * The drawer includes a header area with app identity elements and a scrollable
  * content area containing navigation items. In temporary mode, it displays a
  * semi-transparent overlay that dismisses the drawer when clicked.
- *
  * @component
- * @param {Object} props - Component props
+ * @param {object} props - Component props
  * @param {React.ReactNode} [props.backArrow] - Back navigation icon/button for the header
  * @param {React.ReactNode} [props.appLogo] - Application logo element
  * @param {string} [props.appName] - Application name displayed in the header
- * @param {Array<Object>} [props.items=[]] - Array of navigation items to display
+ * @param {Array<object>} [props.items] - Array of navigation items to display
  *   Each item should have properties matching NavItem component props
  * @param {boolean} [props.keep] - If true, drawer is persistent (always visible)
  *   If false, drawer is temporary with overlay and close button
- * @param {boolean} [props.open=false] - Whether the drawer is currently open (for temporary mode)
- * @param {Function} [props.onClose=() => {}] - Callback when drawer should close (temporary mode)
+ * @param {boolean} [props.open] - Whether the drawer is currently open (for temporary mode)
+ * @param {Function} [props.onClose] - Callback when drawer should close (temporary mode)
  * @returns {JSX.Element} NavigationDrawer component
- *
  * @example
  * // Basic usage with temporary drawer
  * import { SvgHome, SvgSettings, SvgLogout } from '../icons';
@@ -119,7 +116,6 @@ NavItem.propTypes = {
  *     }
  *   ]}
  * />
- *
  * @example
  * // Persistent drawer (always visible)
  * <NavigationDrawer

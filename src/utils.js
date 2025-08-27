@@ -1,16 +1,13 @@
 /**
  * Converts HSL (Hue, Saturation, Lightness) color values to hexadecimal format.
  * Uses the HSL color model to generate web-compatible hex color codes.
- *
  * @param {number} h - Hue value in degrees (0-360). Represents the color wheel position
- * @param {number} [s=100] - Saturation percentage (0-100). Controls color intensity/purity
- * @param {number} [l=50] - Lightness percentage (0-100). Controls brightness (0=black, 100=white)
+ * @param {number} [s] - Saturation percentage (0-100). Controls color intensity/purity
+ * @param {number} [l] - Lightness percentage (0-100). Controls brightness (0=black, 100=white)
  * @returns {string} Hexadecimal color code in format #RRGGBB
- *
  * @example
  * // Pure red color
  * hslToHex(0, 100, 50); // Returns "#ff0000"
- *
  * @example
  * // Blue with default saturation and lightness
  * hslToHex(240); // Returns "#0000ff"
@@ -33,7 +30,6 @@ export const hslToHex = (h, s = 100, l = 50) => {
  * Uses weighted RGB luminance calculation to assess if text should be light-colored
  * when displayed on this background. The algorithm applies different weights to
  * RGB channels based on human color perception (green appears brightest, blue darkest).
- *
  * @param {string} hex - Hex color code in format #RRGGBB (e.g., "#1976D2", "#FF5722")
  * @returns {boolean} true if the color is dark (light text recommended),
  *  false if light (dark text recommended)
@@ -49,11 +45,9 @@ export const isDarkBackground = (hex) =>
  * Triggers a file download in the browser with specified filename and content.
  * Creates a temporary blob URL and programmatically clicks a download link.
  * Automatically cleans up the created elements and URLs after download.
- *
  * @param {string} filename - Name for the downloaded file (including extension)
  * @param {string|ArrayBuffer|Blob} content - File content to download
  * @returns {void}
- *
  * @example
  * // Download a text file
  * const textContent = "Hello, World!\nThis is a sample file.";

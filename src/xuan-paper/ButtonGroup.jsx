@@ -5,11 +5,10 @@ import Button from "./Button.jsx";
  * A button group component that renders a collection of related buttons with single or multi-selection.
  * Acts as a segmented control or toggle button group where buttons can be selected individually or in groups.
  * Selected buttons appear with "filled" style while others use "tonal" style.
- *
- * @param {Object} props - The props object
+ * @param {object} props - The props object
  * @param {string} props.name - Unique name identifier for the button group (used for DOM IDs)
  * @param {string|Array<string>} [props.value] - Currently selected button value(s). String for single select, Array for multi-select
- * @param {Array<Object>} [props.items] - Array of button configuration objects
+ * @param {Array<object>} [props.items] - Array of button configuration objects
  * @param {string} props.items[].value - Unique value for the button item
  * @param {string} [props.items[].label] - Text label to display on the button
  * @param {React.ReactNode} [props.items[].icon] - Icon element to display on the button
@@ -18,7 +17,6 @@ import Button from "./Button.jsx";
  * @param {boolean} [props.disabled=false] - When true, disables the input field entirely (prevents interaction)
  * @param {('xs'|'sm'|'md')} [props.size='sm'] - Size variant applied to all buttons in the group
  * @returns {JSX.Element} Rendered button group component
- *
  * @example
  * // Basic horizontal button group (single select)
  * <ButtonGroup
@@ -31,7 +29,6 @@ import Button from "./Button.jsx";
  *   ]}
  *   onChange={(value) => setCurrentView(value)}
  * />
- *
  * @example
  * // Vertical layout button group
  * <ButtonGroup
@@ -45,7 +42,6 @@ import Button from "./Button.jsx";
  *   ]}
  *   onChange={setActiveSidebar}
  * />
- *
  * @example
  * // Multi-select horizontal button group
  * <ButtonGroup
@@ -59,7 +55,6 @@ import Button from "./Button.jsx";
  *   ]}
  *   onChange={setSelectedFilters}
  * />
- *
  * @example
  * // Icon-only buttons with custom size
  * <ButtonGroup

@@ -13,7 +13,7 @@ const ColorThemeValues = () => {
     <>
       <h2>{t("theme color")}</h2>
       <div className="flex flex-col md:flex-row sm:px-2 py-2 gap-2 w-full justify-center">
-        {scheme.map(([brightness, colors]) => (
+        {scheme.map(({ brightness, colors }) => (
           <div className="flex flex-col gap-0" key={brightness}>
             {colors.map(([key, hex]) => (
               <div

@@ -26,9 +26,7 @@ const STORAGE_KEY = "xuan-paper-theme-mode";
  *
  * The component adds/removes the "dark" class on the documentElement (html)
  * automatically.
- *
  * @returns {JSX.Element} A button with icon that changes based on current mode
- *
  * @example
  * // Basic usage in a header component
  * import ToggleDarkModeButton from '../xuan-paper/ToggleDarkModeButton';

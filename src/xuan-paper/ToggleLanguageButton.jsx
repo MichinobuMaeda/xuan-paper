@@ -24,9 +24,7 @@ const STORAGE_KEY = "xuan-paper-language";
  * - A resources object exported from i18n.js with language codes as keys
  * - Each translation entry should optionally have a 'label' property for display
  * - The i18n configuration must use the exported resources object
- *
  * @returns {JSX.Element} A button displaying the current language label or a language icon
- *
  * @example
  * // Basic usage in a header component
  * import ToggleLanguageButton from '../xuan-paper/ToggleLanguageButton';
@@ -40,7 +38,6 @@ const STORAGE_KEY = "xuan-paper-language";
  *     </div>
  *   </header>
  * );
- *
  * @example
  * // Example i18n.js file with exported resources object
  * import i18n from "i18next";

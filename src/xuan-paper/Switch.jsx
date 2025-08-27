@@ -5,14 +5,12 @@ import PropTypes from "prop-types";
  * Features a sliding toggle with visual feedback, checkmark icon when enabled,
  * and automatic light/dark theme adaptation.
  * Commonly used for settings and preferences.
- *
- * @param {Object} props - The props object
+ * @param {object} props - The props object
  * @param {string} [props.id] - Unique identifier for the switch input element
  * @param {boolean} props.value - Current state of the switch (true for on/enabled, false for off/disabled)
  * @param {Function} [props.onChange] - Callback function called when switch state changes
  * @param {boolean} [props.disabled=false] - Whether the switch is disabled and non-interactive
  * @returns {JSX.Element} Rendered switch component
- *
  * @example
  * // Basic switch for notifications
  * <Switch
@@ -20,7 +18,6 @@ import PropTypes from "prop-types";
  *   value={notificationsEnabled}
  *   onChange={(enabled) => setNotificationsEnabled(enabled)}
  * />
- *
  * @example
  * // Switch with disabled state
  * <Switch
@@ -29,7 +26,6 @@ import PropTypes from "prop-types";
  *   onChange={setPremiumEnabled}
  *   disabled={!isPremiumUser}
  * />
- *
  * @example
  * // Dark mode toggle switch
  * <Switch
@@ -40,7 +36,6 @@ import PropTypes from "prop-types";
  *     document.documentElement.classList.toggle('dark', enabled);
  *   }}
  * />
- *
  * @example
  * // Auto-save setting switch
  * <Switch

@@ -42,7 +42,7 @@ const openedColor = (color = "primary") => {
 };
 
 /**
- * @typedef {Object} FabMenuItemProp
+ * @typedef {object} FabMenuItemProp
  * @property {React.ReactNode} icon - The icon to display alongside the label
  * @property {string} label - The label of the menu item
  * @property {Function} onClick - The click event handler for the menu item
@@ -76,6 +76,20 @@ FabMenuItem.propTypes = {
 };
 
 /**
+ * Floating Action Button (FAB) component with expandable menu functionality.
+ * Provides a primary action button that can expand to show additional menu items.
+ * Follows Material Design 3 FAB guidelines with support for different color variants.
+ * @component
+ * @param {object} props - Component props
+ * @param {string} [props.id] - HTML ID attribute for the FAB button
+ * @param {React.ReactNode} [props.icon] - Icon to display in the FAB button
+ * @param {string} [props.label] - Text label for the FAB button
+ * @param {Array} [props.items] - Array of menu items to display when FAB is expanded
+ * @param {boolean} [props.hidden] - Whether the FAB should be hidden
+ * @param {string} [props.color] - Color variant (primary, secondary, tertiary)
+ * @param {string} [props.position] - CSS positioning classes for the FAB
+ * @param {Function} [props.onClick] - Click handler for the main FAB button
+ * @returns {JSX.Element} FAB component with optional expandable menu
  */
 function Fab({
   id,

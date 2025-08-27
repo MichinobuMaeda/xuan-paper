@@ -8,12 +8,10 @@ import PropTypes from "prop-types";
  * It creates a fixed-size container (12x12 units) with centered content,
  * designed to ensure consistent spacing and alignment of interactive elements
  * like buttons and icons within the header components.
- *
  * @component
- * @param {Object} props - Component props
+ * @param {object} props - Component props
  * @param {React.ReactNode} props.children - The content to render within the action item container (required)
  * @returns {JSX.Element} ActionItem component
- *
  * @example
  * // Basic usage with an icon
  * import { SvgMenu } from '../icons';
@@ -22,13 +20,13 @@ import PropTypes from "prop-types";
  *   <SvgMenu onClick={toggleDrawer} />
  * </ActionItem>
  */
-export const ActionItem = ({ children }) => {
+export function ActionItem({ children }) {
   return (
     <div className="flex flex-row w-12 h-12 justify-center items-center">
       {children}
     </div>
   );
-};
+}
 
 ActionItem.propTypes = {
   children: PropTypes.node.isRequired,
@@ -45,15 +43,13 @@ ActionItem.propTypes = {
  *
  * It automatically handles the presence/absence of optional elements (backArrow,
  * navigationDrawer, appLogo) and maintains proper spacing and alignment.
- *
  * @component
- * @param {Object} props - Component props
+ * @param {object} props - Component props
  * @param {React.ReactNode} [props.backArrow] - Icon/component for the back navigation button
  * @param {React.ReactNode} [props.navigationDrawer] - Icon/component for the navigation drawer toggle
  * @param {React.ReactNode} [props.appLogo] - App logo component or image
  * @param {string} [props.appName] - Name of the application to display
  * @returns {JSX.Element} CommonTitle component
- *
  * @example
  * // Basic usage with navigation drawer and app name
  * import { SvgMenu } from '../icons';
@@ -62,7 +58,6 @@ ActionItem.propTypes = {
  *   navigationDrawer={<SvgMenu onClick={toggleDrawer} />}
  *   appName="My Application"
  * />
- *
  * @example
  * // With back navigation and logo
  * import { SvgArrowBackIos } from '../icons';

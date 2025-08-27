@@ -19,19 +19,17 @@ import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
  *
  * The component includes responsive padding that adapts to screen sizes, with tighter
  * spacing on mobile devices and more generous spacing on larger screens.
- *
  * @component
- * @param {Object} props - Component props
+ * @param {object} props - Component props
  * @param {React.ReactNode} [props.backArrow] - Icon/component for the back navigation button
  * @param {React.ReactNode} [props.navigationDrawer] - Icon/component for the navigation drawer toggle
  * @param {React.ReactNode} [props.appLogo] - App logo component or image
  * @param {string} [props.appName] - Name of the application to display
  * @param {React.ReactNode[]} [props.suffix] - Array of action items to display on the right side
- * @param {string} [props.optionalClass="fixed top-0"] - Additional CSS classes for positioning and styling
- * @param {string} [props.height="h-14"] - Height of the app bar as Tailwind CSS class (e.g., "h-14" = 3.5rem = 56px)
- * @param {string} [props.bgColor="bg-light-surface dark:bg-dark-surface"] - Background color CSS classes with light/dark mode variants
+ * @param {string} [props.optionalClass] - Additional CSS classes for positioning and styling
+ * @param {string} [props.height] - Height of the app bar as Tailwind CSS class (e.g., "h-14" = 3.5rem = 56px)
+ * @param {string} [props.bgColor] - Background color CSS classes with light/dark mode variants
  * @returns {JSX.Element} AppBar component
- *
  * @example
  * // Basic usage with app name and actions
  * import { SvgMenu, SvgSettings } from '../icons';
@@ -41,7 +39,6 @@ import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
  *   appName="My Application"
  *   suffix={[<SvgSettings onClick={openSettings} />]}
  * />
- *
  * @example
  * // With back navigation and custom styling
  * import { SvgArrowBackIos } from '../icons';

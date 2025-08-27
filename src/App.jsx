@@ -45,6 +45,21 @@ import { downloadFile } from "./utils.js";
 const appName = "Xuan Paper";
 const cssFileName = "theme.css";
 
+/**
+ * Main application component that provides the layout and functionality for the Xuan Paper theme generator.
+ * Manages theme customization, navigation states, and UI behavior including scroll-based hiding/showing of elements.
+ *
+ * Features:
+ * - Material Design 3 theme customization with color and contrast controls
+ * - Responsive navigation (bottom bar, side rail, drawer)
+ * - Auto-hiding UI elements based on scroll direction
+ * - Theme CSS generation and download
+ * - PWA capabilities with update notifications
+ * - Internationalization support
+ * - Demo components showcase
+ * @component
+ * @returns {JSX.Element} The complete application layout with navigation, theme controls, and demo components
+ */
 function App() {
   const { t } = useTranslation();
 

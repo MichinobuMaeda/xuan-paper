@@ -6,8 +6,7 @@ import PropTypes from "prop-types";
  * Supports different input types, prefix/suffix elements, error handling,
  * and both filled and outlined styles.
  * Features automatic label animation and theme-aware design.
- *
- * @param {Object} props - The props object
+ * @param {object} props - The props object
  * @param {string} [props.id] - Unique identifier for the input element
  * @param {('text'|'email'|'password'|'number')} [props.type='text'] - HTML input type
  * @param {string|number} [props.value] - Current value of the input field
@@ -20,10 +19,9 @@ import PropTypes from "prop-types";
  * @param {string} [props.width='w-48'] - Tailwind CSS width class for the input field
  * @param {string} [props.fontFamily='font-sans'] - Tailwind CSS font family class
  * @param {Function} [props.onChange] - Callback function called when input value changes
- * @param {boolean} [props.readonly=false] - When true, makes the input read-only (allows selection but prevents editing)
+ * @param {boolean} [readonly] - When true, makes the input read-only (allows selection but prevents editing)
  * @param {boolean} [props.disabled=false] - When true, disables the input field entirely (prevents interaction)
  * @returns {JSX.Element} Rendered text field component
- *
  * @example
  * // Basic text input with floating label
  * <TextField
@@ -32,7 +30,6 @@ import PropTypes from "prop-types";
  *   value={username}
  *   onChange={(value) => setUsername(value)}
  * />
- *
  * @example
  * // Email input with validation and helper text
  * <TextField
@@ -44,7 +41,6 @@ import PropTypes from "prop-types";
  *   error={emailError}
  *   onChange={setEmail}
  * />
- *
  * @example
  * // Password field with embedded button prefix
  * <TextField
@@ -56,7 +52,6 @@ import PropTypes from "prop-types";
  *   width="w-80"
  *   onChange={setPassword}
  * />
- *
  * @example
  * // Filled style input with embedded button suffix
  * <TextField

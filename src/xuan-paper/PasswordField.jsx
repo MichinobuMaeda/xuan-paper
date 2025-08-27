@@ -8,8 +8,7 @@ import Button from "./Button";
  * Built on top of TextField component with an integrated eye icon button
  * that allows users to toggle between hidden and visible password display.
  * Features monospace font by default for better password character recognition.
- *
- * @param {Object} props - The props object
+ * @param {object} props - The props object
  * @param {string} [props.id] - Unique identifier for the password input element
  * @param {string} [props.value=''] - Current value of the password field
  * @param {string} [props.label] - Floating label text that appears above the input when focused or filled
@@ -20,7 +19,6 @@ import Button from "./Button";
  * @param {string} [props.fontFamily='font-mono'] - Tailwind CSS font family class (monospace by default for passwords)
  * @param {Function} [props.onChange] - Callback function called when password value changes
  * @returns {JSX.Element} Rendered password field component with visibility toggle
- *
  * @example
  * // Basic password field
  * <PasswordField
@@ -28,7 +26,6 @@ import Button from "./Button";
  *   value={password}
  *   onChange={(value) => setPassword(value)}
  * />
- *
  * @example
  * // Password field with validation and custom width
  * <PasswordField
@@ -40,7 +37,6 @@ import Button from "./Button";
  *   width="w-80"
  *   onChange={setPassword}
  * />
- *
  * @example
  * // Filled style password field
  * <PasswordField
@@ -50,7 +46,6 @@ import Button from "./Button";
  *   fontFamily="font-sans"
  *   onChange={setConfirmPassword}
  * />
- *
  * @example
  * // Password field in registration form
  * <PasswordField

@@ -12,16 +12,13 @@ import PropTypes from "prop-types";
  * - An update notification with reload button when a new version is available
  * - An offline ready notification when content has been cached for offline use
  * - Nothing when no PWA status updates are available
- *
  * @component
  * @generated Based on the @vite-pwa/pwa plugin setup with customized UI
- *
- * @param {Object} props - Component props
+ * @param {object} props - Component props
  * @param {number} [props.checkForUpdateInterval=60*60*1000] - Interval in milliseconds to check for PWA updates (default: 1 hour)
  * @param {string} [props.offlineReadyMessage="App ready to work offline"] - Message to display when the app is ready for offline use
  * @param {string} [props.needRefreshMessage="New app available, click on reload button to update."] - Message to display when a new version is available
  * @returns {JSX.Element|null} A notification badge or null if no notifications
- *
  * @example
  * // Basic usage in a layout component
  * import PWABadge from '../components/PWABadge';
@@ -34,7 +31,6 @@ import PropTypes from "prop-types";
  *     </header>
  *   );
  * }
- *
  * @example
  * // With custom messages and update interval
  * <PWABadge
@@ -44,6 +40,16 @@ import PropTypes from "prop-types";
  * />
  */
 
+/**
+ * PWA Badge component that displays notifications for service worker updates and offline status.
+ * Handles automatic update checks and provides user notifications for app updates and offline readiness.
+ * @component
+ * @param {object} props - Component props
+ * @param {number} [props.checkForUpdateInterval] - Interval in milliseconds for checking updates
+ * @param {string} [props.offlineReadyMessage] - Message to display when app is ready offline
+ * @param {string} [props.needRefreshMessage] - Message to display when app update is available
+ * @returns {JSX.Element} PWA notification badge component
+ */
 function PWABadge({
   checkForUpdateInterval = 60 * 60 * 1000,
   offlineReadyMessage = "App ready to work offline",
@@ -70,6 +76,10 @@ function PWABadge({
     },
   });
 
+  /**
+   * Closes the PWA notification badge by resetting offline ready and need refresh states.
+   * @returns {void}
+   */
   function close() {
     setOfflineReady(false);
     setNeedRefresh(false);
@@ -143,7 +153,6 @@ export default PWABadge;
  * 2. Skips update checks when the device is offline
  * 3. Fetches the service worker file with cache headers that prevent caching
  * 4. Triggers the service worker update process if a new version is available
- *
  * @private
  * @function
  * @param {number} period - Interval in milliseconds between update checks

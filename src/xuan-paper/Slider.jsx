@@ -5,16 +5,14 @@ import PropTypes from "prop-types";
  * An interactive slider component with drag functionality and responsive design.
  * Supports both continuous values (0-1 range) and discrete step values (integer count).
  * Features hover and active states, automatic resize handling, and customizable sizing.
- *
- * @param {Object} props - The props object
+ * @param {object} props - The props object
  * @param {string} [props.id] - Unique identifier for the slider element (auto-generated if not provided)
- * @param {number} [props.value=0] - Current value of the slider. For continuous mode (count=1): 0-1 range. For discrete mode: 0 to count
- * @param {number} [props.count=1] - Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider
- * @param {('xs'|'sm'|'md')} [props.size='xs'] - Visual size variant affecting track height and thumb size
- * @param {string} [props.width='w-48'] - Tailwind CSS width class for the slider container
+ * @param {number} [props.value] - Current value of the slider. For continuous mode (count=1): 0-1 range. For discrete mode: 0 to count
+ * @param {number} [props.count] - Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider
+ * @param {('xs'|'sm'|'md')} [props.size] - Visual size variant affecting track height and thumb size
+ * @param {string} [props.width] - Tailwind CSS width class for the slider container
  * @param {Function} [props.onChange] - Callback function called when slider value changes
  * @returns {JSX.Element} Rendered interactive slider component
- *
  * @example
  * // Continuous slider (0-1 range)
  * <Slider
@@ -23,7 +21,6 @@ import PropTypes from "prop-types";
  *   width="w-64"
  *   size="sm"
  * />
- *
  * @example
  * // Discrete step slider (0-10 range)
  * <Slider
@@ -34,7 +31,6 @@ import PropTypes from "prop-types";
  *   size="md"
  *   width="w-80"
  * />
- *
  * @example
  * // Progress indicator (read-only)
  * <Slider
@@ -43,7 +39,6 @@ import PropTypes from "prop-types";
  *   width="w-full"
  *   // No onChange = read-only mode
  * />
- *
  * @example
  * // Temperature control with custom sizing
  * <Slider

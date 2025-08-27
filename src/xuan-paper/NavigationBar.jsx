@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 /**
- * @typedef {Object} NavigationBarItem
+ * @typedef {object} NavigationBarItem
  * @property {React.ReactNode} icon - Icon element to display for the navigation item
  * @property {string} label - Text label shown below/beside the icon
  * @property {boolean} [active=false] - Whether the navigation item is currently active/selected
@@ -25,12 +25,10 @@ import PropTypes from "prop-types";
  * - Disabled items appear with reduced opacity and are non-interactive
  * - Hover/active effects adapt between mobile and desktop views
  * - Provides enhanced touch feedback with active states for mobile interactions
- *
- * @param {Object} props - Component props
+ * @param {object} props - Component props
  * @param {Array<NavigationBarItem>} props.items - Array of navigation items to display
  * @param {string} [props.optionalClass="fixed bottom-0"] - Additional CSS classes for positioning and styling
  * @returns {JSX.Element} Rendered navigation bar component
- *
  * @example
  * // Basic usage with icons and labels
  * <NavigationBar
@@ -59,7 +57,6 @@ import PropTypes from "prop-types";
  *     }
  *   ]}
  * />
- *
  * @example
  * // With custom positioning as a top navigation bar
  * <NavigationBar

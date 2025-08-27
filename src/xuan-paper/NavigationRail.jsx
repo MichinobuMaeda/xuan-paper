@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 /**
- * @typedef {Object} NavigationRailItem
+ * @typedef {object} NavigationRailItem
  * @property {React.ReactNode} icon - Icon element to display for the navigation item
  * @property {string} label - Text label shown below the icon in compact mode or beside the icon in expanded mode
  * @property {boolean} [active=false] - Whether the navigation item is currently active/selected
@@ -24,12 +24,10 @@ import PropTypes from "prop-types";
  * - Supports disabled states with reduced opacity
  * - Provides hover effects that adapt based on screen size
  * - Follows Material Design 3 theming guidelines with proper light/dark mode support
- *
- * @param {Object} props - Component props
+ * @param {object} props - Component props
  * @param {Array<NavigationRailItem>} props.items - Array of navigation items to display
  * @param {string} [props.optionalClass="h-full w-24 lg:w-56 fixed top-0 py-4"] - Additional CSS classes for positioning and styling
  * @returns {JSX.Element} Rendered navigation rail component
- *
  * @example
  * // Basic usage with icons and labels
  * <NavigationRail
@@ -58,7 +56,6 @@ import PropTypes from "prop-types";
  *     }
  *   ]}
  * />
- *
  * @example
  * // With custom positioning and width
  * <NavigationRail
