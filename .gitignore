@@ -5,6 +5,8 @@ dev-dist
 *.local
 /coverage
 /src/version.js
+/*.zip
+
 
 # Logs
 logs
