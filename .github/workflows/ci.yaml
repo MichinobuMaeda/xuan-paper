@@ -3,6 +3,10 @@ name: CI
 on:
   pull_request:
     branches: [main]
+  push:
+    branches: [main]
+    tags:
+      - "v*.*.*"
 
 jobs:
   ci:
@@ -17,3 +21,13 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run test
+
+      - name: Build
+        run: npm run build && zip -r xuan-paper.zip dist src/xuan-paper tools
+        if: github.ref_type == 'tag'
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          files: xuan-paper.zip
