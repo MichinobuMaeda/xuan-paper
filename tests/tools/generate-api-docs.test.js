@@ -283,7 +283,7 @@ describe("generate-api-docs utilities", () => {
           template: "custom",
         });
         expect(fs.writeFile).toHaveBeenCalledWith(
-          "/mock/project/mock/project/docs/api.md",
+          "/mock/project/docs/api.md",
           "# API Documentation",
         );
       });
@@ -389,7 +389,7 @@ describe("generate-api-docs utilities", () => {
         configure: "conf.json",
       });
       expect(fs.writeFile).toHaveBeenCalledWith(
-        "/mock/project/mock/project/docs/api.md",
+        "/mock/project/docs/api.md",
         "# Complete API Documentation",
       );
 

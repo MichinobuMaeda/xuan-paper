@@ -1,5 +1,3 @@
-# Xuan Paper API Documentation
-
 ## Modules
 
 <dl>

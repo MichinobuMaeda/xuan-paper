@@ -108,10 +108,10 @@ export const absolutePath = (relativePath) =>
  *   }
  * });
  */
-export const generateApiDocs = async ({ title, files, output, options }) => {
+export const generateApiDocs = async ({ files, output, options }) => {
   const md = await jsdoc2md.render({ files, ...options });
   await fs.mkdir(path.dirname(absolutePath(output)), { recursive: true });
-  await fs.writeFile(absolutePath(output), `# ${title}\n\n${md}`);
+  await fs.writeFile(absolutePath(output), md);
 };
 
 /**
@@ -156,8 +156,7 @@ export const generateApiDocs = async ({ title, files, output, options }) => {
  */
 export const apiDocsPlugin = (config) => {
   const inputs = (config.inputs || []).map((input) => absolutePath(input));
-  const output = absolutePath(config.output);
-  const title = config.title || "API Documentation";
+  const outputPath = config.output;
   const options = config.options || {};
 
   const files = [];
@@ -179,7 +178,7 @@ export const apiDocsPlugin = (config) => {
      * @returns {Promise<void>} A promise that resolves when documentation is generated
      */
     async buildStart() {
-      generateApiDocs({ files, output, title, options });
+      generateApiDocs({ files, output: outputPath, options });
     },
     /**
      * Handles hot updates in development mode
@@ -196,7 +195,7 @@ export const apiDocsPlugin = (config) => {
       const path = absolutePath(file);
       if (files.includes(path)) {
         console.log(`Regenerating API docs due to change in ${file}`);
-        generateApiDocs({ files, output, title, options });
+        generateApiDocs({ files, output: outputPath, options });
       }
     },
   };

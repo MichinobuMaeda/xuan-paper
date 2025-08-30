@@ -22,7 +22,20 @@ Tailwind / React / Material design 3
 
 ## Note
 
+### Development
+
+```bash
+$ git clone git@github.com:MichinobuMaeda/xuan-paper.git
+$ cd xuan-paper
+$ npm i
+$ npm run lint
+$ npm test
+$ npm start
 ```
+
+### Prepare this project
+
+```bash
 $ npm create @vite-pwa/pwa@latest
 
 ✔ Project name: … xuan-paper
