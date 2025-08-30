@@ -24,11 +24,15 @@ jobs:
       - run: npm run test
 
       - name: Build
-        run: npm run build && zip -r xuan-paper.zip dist src/xuan-paper tools
+        run: npm run build
+        if: github.ref_type == 'tag'
+
+      - name: Archive
+        run: zip -r xuan-paper_${{ github.ref_name }}.zip dist src/xuan-paper tools
         if: github.ref_type == 'tag'
 
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
-          files: xuan-paper.zip
+          files: xuan-paper_${{ github.ref_name }}.zip
