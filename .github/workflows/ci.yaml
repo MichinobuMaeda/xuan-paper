@@ -37,8 +37,7 @@ jobs:
       - name: Publish
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
-          commit_message: "Update docs"
-          file_pattern: "docs/**/*"
+          commit_message: "Publish sample"
         if: github.ref_type == 'tag' || github.ref_name == 'main'
 
       - name: Archive
