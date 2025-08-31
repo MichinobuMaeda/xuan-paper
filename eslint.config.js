@@ -6,7 +6,7 @@ import jsdoc from "eslint-plugin-jsdoc";
 
 export default defineConfig([
   {
-    ignores: ["**/dist/**", "**/src/sw.js"],
+    ignores: ["**/dist/**", "**/docs/**", "**/src/sw.js"],
   },
   jsdoc.configs["flat/recommended"],
   {
