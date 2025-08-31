@@ -2,7 +2,7 @@
 
 Tailwind / React / Material design 3
 
-[Sample](https://xuan-paper.michinobu.jp)
+[Sample](https://pages.michinobu.jp/xuan-paper)
 
 [API](docs/api.md)
 

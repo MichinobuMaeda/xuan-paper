@@ -34,7 +34,7 @@ import SvgEdit from "./icons/SvgEdit.jsx";
 
 import "./App.css";
 import PWABadge from "./xuan-paper/PWABadge.jsx";
-import appLogo from "/favicon.svg";
+import appLogo from "./assets/images/favicon.svg";
 import version from "./version.js";
 
 import ColorThemeParameters from "./ColorThemeParameters.jsx";
