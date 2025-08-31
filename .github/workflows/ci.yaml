@@ -23,21 +23,23 @@ jobs:
       - run: npm run lint
       - run: npm run test
 
+      - name: Build
+        run: npm run build
+        if: github.ref_type == 'tag' || github.ref_name == 'main'
+
       - name: Prepare publish
         run: |
           cp -r dist/* ./docs/ && \
           sed -i -e 's/="\//="\/xuan-paper\//g' docs/index.html && \
           sed -i -e 's/="\//="\/xuan-paper\//g' docs/manifest.webmanifest
+        if: github.ref_type == 'tag' || github.ref_name == 'main'
 
       - name: Publish
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "Update docs"
           file_pattern: "docs/**/*"
-
-      - name: Build
-        run: npm run build
-        if: github.ref_type == 'tag'
+        if: github.ref_type == 'tag' || github.ref_name == 'main'
 
       - name: Archive
         run: zip -r xuan-paper_${{ github.ref_name }}.zip dist src/xuan-paper tools
