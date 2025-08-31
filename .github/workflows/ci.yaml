@@ -23,6 +23,18 @@ jobs:
       - run: npm run lint
       - run: npm run test
 
+      - name: Prepare publish
+        run: |
+          cp -r dist/* ./docs/ && \
+          sed -i -e 's/="\//="\/xuan-paper\//g' docs/index.html && \
+          sed -i -e 's/="\//="\/xuan-paper\//g' docs/manifest.webmanifest
+
+      - name: Publish
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: "Update docs"
+          file_pattern: "docs/**/*"
+
       - name: Build
         run: npm run build
         if: github.ref_type == 'tag'
