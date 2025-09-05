@@ -164,7 +164,10 @@ function App() {
   ];
 
   return (
-    <>
+    <div
+      className={`flex flex-col w-full justify-start items-start
+      ${drawerKeep ? "pl-84" : ""}`}
+    >
       <AppBar
         backArrow={
           <AppBarItem icon={<SvgArrowBackIos />} disabled onClick={() => {}} />
@@ -204,7 +207,7 @@ function App() {
 
       <main
         className={`flex flex-col pb-8 gap-2 w-full
-          ${drawerKeep ? "pl-84" : navVertical ? "pl-24 lg:pl-56" : ""}`}
+          ${navVertical ? "pl-24 lg:pl-56" : ""}`}
       >
         <div
           className={`flex flex-col w-full top-safe-offset-14 z-30
@@ -260,16 +263,21 @@ function App() {
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         items={[
+          {
+            label: "Headline",
+          },
           ...navItems,
           <hr key="divider" />,
           {
             icon: <SvgInfo />,
             label: "With badge",
             badge: <span className="text-xs">10</span>,
+            onClick: () => {},
           },
           {
             label:
               "Without Icon, with long label text that should be truncated",
+            onClick: () => {},
           },
         ]}
       />
@@ -293,7 +301,7 @@ function App() {
         ]}
         position={`fixed bottom-safe ${navVertical ? "mb-4" : "mb-20"} right-4 z-40`}
       />
-    </>
+    </div>
   );
 }
 

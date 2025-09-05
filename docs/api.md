@@ -162,10 +162,20 @@ Includes safe area padding for devices with rounded corners or notches (e.g., iP
 <dt><a href="#NavigationDrawer">NavigationDrawer(props)</a> ⇒ <code>JSX.Element</code></dt>
 <dd><p>Navigation drawer component implementing Material Design 3 navigation drawer pattern.
 Provides a sliding drawer interface for application navigation with support for
-persistent (keep) and temporary modes.</p>
-<p>The drawer includes a header area with app identity elements and a scrollable
-content area containing navigation items. In temporary mode, it displays a
-semi-transparent overlay that dismisses the drawer when clicked.</p>
+both persistent (always visible) and temporary (modal overlay) modes.</p>
+<p>The drawer features a clean, modern design with:</p>
+<ul>
+<li>A header area with app identity elements and proper spacing</li>
+<li>A scrollable content area containing navigation items with consistent styling</li>
+<li>Support for icons, labels, badges, and dividers within navigation items</li>
+<li>Proper theming with light/dark mode support using Material Design 3 color tokens</li>
+<li>Responsive behavior that adapts to different screen sizes</li>
+</ul>
+<p>In temporary mode, the drawer displays over a semi-transparent overlay that
+dismisses the drawer when clicked, following standard modal patterns. In
+persistent mode, the drawer remains visible and takes up dedicated screen space.</p>
+<p>The component respects accessibility guidelines with proper focus management,
+keyboard navigation support, and semantic markup for screen readers.</p>
 </dd>
 <dt><a href="#NavigationRail">NavigationRail(props)</a> ⇒ <code>JSX.Element</code></dt>
 <dd><p>A vertical navigation rail component implementing Material Design 3 guidelines.
@@ -1362,26 +1372,33 @@ The component automatically handles different visual states:
 ## NavigationDrawer(props) ⇒ <code>JSX.Element</code>
 Navigation drawer component implementing Material Design 3 navigation drawer pattern.
 Provides a sliding drawer interface for application navigation with support for
-persistent (keep) and temporary modes.
+both persistent (always visible) and temporary (modal overlay) modes.
 
-The drawer includes a header area with app identity elements and a scrollable
-content area containing navigation items. In temporary mode, it displays a
-semi-transparent overlay that dismisses the drawer when clicked.
+The drawer features a clean, modern design with:
+- A header area with app identity elements and proper spacing
+- A scrollable content area containing navigation items with consistent styling
+- Support for icons, labels, badges, and dividers within navigation items
+- Proper theming with light/dark mode support using Material Design 3 color tokens
+- Responsive behavior that adapts to different screen sizes
+
+In temporary mode, the drawer displays over a semi-transparent overlay that
+dismisses the drawer when clicked, following standard modal patterns. In
+persistent mode, the drawer remains visible and takes up dedicated screen space.
+
+The component respects accessibility guidelines with proper focus management,
+keyboard navigation support, and semantic markup for screen readers.
 
 **Kind**: global function  
-**Returns**: <code>JSX.Element</code> - NavigationDrawer component  
+**Returns**: <code>JSX.Element</code> - NavigationDrawer component or empty fragment when closed  
 **Component**:   
 
 | Param | Type | Description |
 | --- | --- | --- |
 | props | <code>object</code> | Component props |
-| [props.backArrow] | <code>React.ReactNode</code> | Back navigation icon/button for the header |
-| [props.appLogo] | <code>React.ReactNode</code> | Application logo element |
-| [props.appName] | <code>string</code> | Application name displayed in the header |
-| [props.items] | <code>Array.&lt;object&gt;</code> | Array of navigation items to display   Each item should have properties matching NavItem component props |
-| [props.keep] | <code>boolean</code> | If true, drawer is persistent (always visible)   If false, drawer is temporary with overlay and close button |
-| [props.open] | <code>boolean</code> | Whether the drawer is currently open (for temporary mode) |
-| [props.onClose] | <code>function</code> | Callback when drawer should close (temporary mode) |
+| [props.items] | <code>Array.&lt;object&gt;</code> | Array of navigation items to display in the drawer.   Each item object supports properties: icon, label, badge, onClick, active, disabled.   Empty objects ({}) render as horizontal dividers between sections. |
+| [props.keep] | <code>boolean</code> | Controls drawer behavior: true for persistent mode (always visible),   false for temporary mode with overlay and dismissal capability |
+| [props.open] | <code>boolean</code> | Whether the drawer is currently open and visible (primarily used in temporary mode) |
+| [props.onClose] | <code>function</code> | Callback function invoked when drawer should close (e.g., overlay click in temporary mode) |
 
 **Example**  
 ```js
@@ -1389,7 +1406,6 @@ semi-transparent overlay that dismisses the drawer when clicked.
 import { SvgHome, SvgSettings, SvgLogout } from '../icons';
 
 <NavigationDrawer
-  appName="My Application"
   open={drawerOpen}
   onClose={() => setDrawerOpen(false)}
   items={[
@@ -1404,7 +1420,7 @@ import { SvgHome, SvgSettings, SvgLogout } from '../icons';
       label: "Settings",
       onClick: () => navigate('/settings')
     },
-    {},  // Divider
+    {},  // Renders a horizontal divider
     {
       icon: <SvgLogout />,
       label: "Logout",
@@ -1417,8 +1433,6 @@ import { SvgHome, SvgSettings, SvgLogout } from '../icons';
 ```js
 // Persistent drawer (always visible)
 <NavigationDrawer
-  appLogo={<AppLogo />}
-  appName="Dashboard"
   keep={true}
   items={navigationItems}
 />

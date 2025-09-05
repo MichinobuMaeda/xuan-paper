@@ -9,7 +9,7 @@ export default mergeConfig(
       environment: "jsdom",
       setupFiles: ["./tests/setup.ts"],
       include: ["**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-      exclude: ["node_modules", "dist", ".idea", ".git", ".cache"],
+      exclude: ["node_modules", "dist", ".idea", ".git", ".cache", "docs"],
       coverage: {
         provider: "v8",
         reporter: ["text", "json", "html"],
@@ -28,6 +28,7 @@ export default mergeConfig(
           "src/sw.js",
           "src/version.js",
           "**/*.jsx",
+          "docs/**",
         ],
       },
     },

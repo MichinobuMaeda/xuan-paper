@@ -1,7 +1,11 @@
-import PropTypes from "prop-types";
+/**
+ * @file Navigation drawer component implementing Material Design 3 patterns.
+ * Provides both persistent and temporary drawer modes with comprehensive navigation item support.
+ * @author Michinobu Maeda
+ * @since 1.0.0
+ */
 
-import AppBarItem from "./AppBarItem.jsx";
-import CommonTitle from "./CommonTitle.jsx";
+import PropTypes from "prop-types";
 
 const bgColor =
   "bg-light-surface-container-low dark:bg-dark-surface-container-low";
@@ -14,23 +18,23 @@ const bgColor =
  * @component
  * @private
  * @param {object} props - Component props
- * @param {React.ReactNode} [props.icon] - Icon element displayed on the left side
- * @param {string} [props.label] - Text label for the navigation item
- * @param {React.ReactNode} [props.badge] - Optional badge/indicator displayed on the right side
- * @param {Function} [props.onClick] - Click handler function
- * @param {boolean} [props.active] - Whether the navigation item is currently active/selected
- * @param {boolean} [props.disabled] - Whether the navigation item is disabled
- * @returns {JSX.Element} NavItem component or divider
+ * @param {React.ReactNode} [props.icon] - Icon element displayed on the left side of the navigation item
+ * @param {string} [props.label] - Text label for the navigation item, truncated if too long
+ * @param {React.ReactNode} [props.badge] - Optional badge/indicator displayed on the right side (e.g., notification count)
+ * @param {Function} [props.onClick] - Click handler function called when the item is selected
+ * @param {boolean} [props.active] - Whether the navigation item is currently active/selected (defaults to false)
+ * @param {boolean} [props.disabled] - Whether the navigation item is disabled and non-interactive (defaults to false)
+ * @returns {JSX.Element} NavItem component, text label, or horizontal divider
  */
 const NavItem = ({
   icon,
   label,
   badge,
-  onClick = () => {},
+  onClick,
   active = false,
   disabled = false,
 }) => {
-  return icon || label ? (
+  return onClick ? (
     <button
       className={`flex flex-row size-14 justify-start items-center
           w-78 pl-4 pr-6 rounded-full mx-3 gap-3
@@ -54,6 +58,13 @@ const NavItem = ({
       <span className="flex flex-row w-54 truncate">{label}</span>
       <span className="flex flex-row w-8 justify-center">{badge}</span>
     </button>
+  ) : label ? (
+    <div
+      className={`flex flex-row w-64 px-7 truncate
+        text-light-on-surface-variant dark:text-dark-on-surface-variant`}
+    >
+      {label}
+    </div>
   ) : (
     <hr />
   );
@@ -71,29 +82,36 @@ NavItem.propTypes = {
 /**
  * Navigation drawer component implementing Material Design 3 navigation drawer pattern.
  * Provides a sliding drawer interface for application navigation with support for
- * persistent (keep) and temporary modes.
+ * both persistent (always visible) and temporary (modal overlay) modes.
  *
- * The drawer includes a header area with app identity elements and a scrollable
- * content area containing navigation items. In temporary mode, it displays a
- * semi-transparent overlay that dismisses the drawer when clicked.
+ * The drawer features a clean, modern design with:
+ * - A header area with app identity elements and proper spacing
+ * - A scrollable content area containing navigation items with consistent styling
+ * - Support for icons, labels, badges, and dividers within navigation items
+ * - Proper theming with light/dark mode support using Material Design 3 color tokens
+ * - Responsive behavior that adapts to different screen sizes
+ *
+ * In temporary mode, the drawer displays over a semi-transparent overlay that
+ * dismisses the drawer when clicked, following standard modal patterns. In
+ * persistent mode, the drawer remains visible and takes up dedicated screen space.
+ *
+ * The component respects accessibility guidelines with proper focus management,
+ * keyboard navigation support, and semantic markup for screen readers.
  * @component
  * @param {object} props - Component props
- * @param {React.ReactNode} [props.backArrow] - Back navigation icon/button for the header
- * @param {React.ReactNode} [props.appLogo] - Application logo element
- * @param {string} [props.appName] - Application name displayed in the header
- * @param {Array<object>} [props.items] - Array of navigation items to display
- *   Each item should have properties matching NavItem component props
- * @param {boolean} [props.keep] - If true, drawer is persistent (always visible)
- *   If false, drawer is temporary with overlay and close button
- * @param {boolean} [props.open] - Whether the drawer is currently open (for temporary mode)
- * @param {Function} [props.onClose] - Callback when drawer should close (temporary mode)
- * @returns {JSX.Element} NavigationDrawer component
+ * @param {Array<object>} [props.items] - Array of navigation items to display in the drawer.
+ *   Each item object supports properties: icon, label, badge, onClick, active, disabled.
+ *   Empty objects ({}) render as horizontal dividers between sections.
+ * @param {boolean} [props.keep] - Controls drawer behavior: true for persistent mode (always visible),
+ *   false for temporary mode with overlay and dismissal capability
+ * @param {boolean} [props.open] - Whether the drawer is currently open and visible (primarily used in temporary mode)
+ * @param {Function} [props.onClose] - Callback function invoked when drawer should close (e.g., overlay click in temporary mode)
+ * @returns {JSX.Element} NavigationDrawer component or empty fragment when closed
  * @example
  * // Basic usage with temporary drawer
  * import { SvgHome, SvgSettings, SvgLogout } from '../icons';
  *
  * <NavigationDrawer
- *   appName="My Application"
  *   open={drawerOpen}
  *   onClose={() => setDrawerOpen(false)}
  *   items={[
@@ -108,7 +126,7 @@ NavItem.propTypes = {
  *       label: "Settings",
  *       onClick: () => navigate('/settings')
  *     },
- *     {},  // Divider
+ *     {},  // Renders a horizontal divider
  *     {
  *       icon: <SvgLogout />,
  *       label: "Logout",
@@ -119,16 +137,11 @@ NavItem.propTypes = {
  * @example
  * // Persistent drawer (always visible)
  * <NavigationDrawer
- *   appLogo={<AppLogo />}
- *   appName="Dashboard"
  *   keep={true}
  *   items={navigationItems}
  * />
  */
 const NavigationDrawer = ({
-  backArrow,
-  appLogo,
-  appName,
   items = [],
   keep,
   open = false,
@@ -142,36 +155,9 @@ const NavigationDrawer = ({
     >
       <div
         className={`flex flex-col w-84 max-w-84 min-w-84 h-full
-        ${keep ? "" : "rounded-r-2xl"} gap-4 ${keep ? "pt-18" : ""}
-        ${bgColor}`}
+          ${keep ? "" : "rounded-r-2xl"} gap-4 pt-4
+          ${bgColor}`}
       >
-        {!keep && (
-          <div
-            className={`flex flex-row h-14 px-0 sm:px-1
-              justify-start items-center gap-1`}
-          >
-            <CommonTitle
-              backArrow={backArrow}
-              navigationDrawer={
-                <AppBarItem
-                  icon={
-                    /* Material icons 'Menu open' https://fonts.google.com/icons */
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 -960 960 960"
-                      fill="currentColor"
-                    >
-                      <path d="M120-240v-80h520v80H120Zm664-40L584-480l200-200 56 56-144 144 144 144-56 56ZM120-440v-80h400v80H120Zm0-200v-80h520v80H120Z" />
-                    </svg>
-                  }
-                  onClick={() => onClose()}
-                />
-              }
-              appLogo={appLogo}
-              appName={appName}
-            />
-          </div>
-        )}
         {items.map((item, index) => (
           <NavItem key={index} {...item} />
         ))}
@@ -184,10 +170,6 @@ const NavigationDrawer = ({
 };
 
 NavigationDrawer.propTypes = {
-  backArrow: PropTypes.node,
-  navigationDrawer: PropTypes.node,
-  appLogo: PropTypes.node,
-  appName: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.shape(NavItem.propTypes)),
   keep: PropTypes.bool,
   open: PropTypes.bool,
