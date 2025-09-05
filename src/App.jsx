@@ -248,17 +248,6 @@ function App() {
         ))}
 
       <NavigationDrawer
-        backArrow={
-          <AppBarItem icon={<SvgArrowBackIos />} disabled onClick={() => {}} />
-        }
-        appLogo={
-          <img
-            src={appLogo}
-            className="size-10 min-w-10"
-            alt={`${appName} logo`}
-          />
-        }
-        appName={appName}
         keep={drawerKeep}
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}

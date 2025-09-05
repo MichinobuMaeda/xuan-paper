@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 
-import CommonTitle, { ActionItem } from "./CommonTitle.jsx";
-
 /**
  * AppBar component that implements a Material Design 3 styled top app bar.
  * This component serves as the primary toolbar at the top of the application,
@@ -72,17 +70,17 @@ const AppBar = ({
       <div
         className={`flex flex-row items-center ${height} w-full gap-1 px-0 sm:px-1`}
       >
-        <CommonTitle
-          backArrow={backArrow}
-          navigationDrawer={navigationDrawer}
-          appLogo={appLogo}
-          appName={appName}
-        />
-        <div className="flex flex-row grow justify-end items-center">
-          {suffix.map((item, index) => (
-            <ActionItem key={index}>{item}</ActionItem>
-          ))}
-        </div>
+        {backArrow}
+        {navigationDrawer}
+        <div className="flex mx-2">{appLogo}</div>
+        <div className="flex text-xl sm:text-2xl truncate">{appName}</div>
+        {suffix && (
+          <div className="flex flex-row grow justify-end items-center">
+            {suffix.map((item, index) => (
+              <div key={index}>{item}</div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
