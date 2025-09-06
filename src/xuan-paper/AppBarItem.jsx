@@ -43,7 +43,7 @@ const AppBarItem = ({
   return (
     <button
       className={`flex flex-row  w-10 h-10 justify-center items-center
-        rounded-full mx-1
+        rounded-full
         ${disabled ? "" : "cursor-pointer"}
         ${bgColor}
         ${

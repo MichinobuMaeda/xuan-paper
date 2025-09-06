@@ -87,10 +87,18 @@ containing navigation controls, app identity elements, and action items.</p>
 (back arrow, navigation drawer toggle) and action items (suffix). It respects
 safe area insets for proper display on devices with notches or rounded corners
 using the <code>pt-safe</code> class from tailwindcss-safe-area plugin.</p>
+<p>Key features include:</p>
+<ul>
+<li>Responsive design that adapts to different screen sizes</li>
+<li>Flexible positioning with customizable CSS classes</li>
+<li>Support for light/dark theme variants</li>
+<li>Configurable height and background colors</li>
+<li>Safe area support for modern mobile devices</li>
+<li>Proper accessibility with semantic markup</li>
+</ul>
 <p>By default, it&#39;s positioned fixed at the top of the viewport, but this behavior
-can be customized via the optionalClass prop. The component&#39;s height (as a complete
-Tailwind class like &quot;h-14&quot;) and background color are also configurable to accommodate
-different design requirements and theming options.</p>
+can be customized via the optionalClass prop. The component&#39;s height and background
+color are fully configurable to accommodate different design requirements.</p>
 <p>The component includes responsive padding that adapts to screen sizes, with tighter
 spacing on mobile devices and more generous spacing on larger screens.</p>
 </dd>
@@ -118,24 +126,6 @@ Selected buttons appear with &quot;filled&quot; style while others use &quot;ton
 and accessibility features.
 Supports different visual styles including danger/error states, disabled state,
 and automatic light/dark theme adaptation.</p>
-</dd>
-<dt><a href="#ActionItem">ActionItem(props)</a> ⇒ <code>JSX.Element</code></dt>
-<dd><p>ActionItem component that provides a standardized container for action elements
-in the AppBar and NavigationDrawer.</p>
-<p>This is an internal component not intended to be used directly by developers.
-It creates a fixed-size container (12x12 units) with centered content,
-designed to ensure consistent spacing and alignment of interactive elements
-like buttons and icons within the header components.</p>
-</dd>
-<dt><a href="#CommonTitle">CommonTitle(props)</a> ⇒ <code>JSX.Element</code></dt>
-<dd><p>CommonTitle component that renders the leading section of app bars and navigation drawer.
-This component combines navigation controls (back arrow, drawer toggle) with app
-identity elements (logo, app name) in a standardized layout.</p>
-<p>This is an internal component that is not intended to be used directly by developers.
-It is used internally by the AppBar and NavigationDrawer components to create consistent
-header structures across different navigation contexts.</p>
-<p>It automatically handles the presence/absence of optional elements (backArrow,
-navigationDrawer, appLogo) and maintains proper spacing and alignment.</p>
 </dd>
 <dt><a href="#Fab">Fab(props)</a> ⇒ <code>JSX.Element</code></dt>
 <dd><p>Floating Action Button (FAB) component with expandable menu functionality.
@@ -916,29 +906,37 @@ The AppBar combines branding elements (logo, app name) with navigation controls
 safe area insets for proper display on devices with notches or rounded corners
 using the `pt-safe` class from tailwindcss-safe-area plugin.
 
+Key features include:
+- Responsive design that adapts to different screen sizes
+- Flexible positioning with customizable CSS classes
+- Support for light/dark theme variants
+- Configurable height and background colors
+- Safe area support for modern mobile devices
+- Proper accessibility with semantic markup
+
 By default, it's positioned fixed at the top of the viewport, but this behavior
-can be customized via the optionalClass prop. The component's height (as a complete
-Tailwind class like "h-14") and background color are also configurable to accommodate
-different design requirements and theming options.
+can be customized via the optionalClass prop. The component's height and background
+color are fully configurable to accommodate different design requirements.
 
 The component includes responsive padding that adapts to screen sizes, with tighter
 spacing on mobile devices and more generous spacing on larger screens.
 
 **Kind**: global function  
-**Returns**: <code>JSX.Element</code> - AppBar component  
+**Returns**: <code>JSX.Element</code> - AppBar component with configured navigation and branding elements  
 **Component**:   
 
 | Param | Type | Description |
 | --- | --- | --- |
 | props | <code>object</code> | Component props |
-| [props.backArrow] | <code>React.ReactNode</code> | Icon/component for the back navigation button |
-| [props.navigationDrawer] | <code>React.ReactNode</code> | Icon/component for the navigation drawer toggle |
-| [props.appLogo] | <code>React.ReactNode</code> | App logo component or image |
-| [props.appName] | <code>string</code> | Name of the application to display |
-| [props.suffix] | <code>Array.&lt;React.ReactNode&gt;</code> | Array of action items to display on the right side |
-| [props.optionalClass] | <code>string</code> | Additional CSS classes for positioning and styling |
-| [props.height] | <code>string</code> | Height of the app bar as Tailwind CSS class (e.g., "h-14" = 3.5rem = 56px) |
-| [props.bgColor] | <code>string</code> | Background color CSS classes with light/dark mode variants |
+| [props.backArrow] | <code>React.ReactNode</code> | Icon/component for the back navigation button, typically an arrow pointing left |
+| [props.navigationDrawer] | <code>React.ReactNode</code> | Icon/component for the navigation drawer toggle, usually a hamburger menu icon |
+| [props.appLogo] | <code>React.ReactNode</code> | App logo component or image element to display as brand identity |
+| [props.appName] | <code>string</code> | Name of the application to display next to the logo |
+| [props.suffix] | <code>Array.&lt;React.ReactNode&gt;</code> | Array of action items (buttons, icons) to display on the right side of the app bar |
+| [props.optionalClass] | <code>string</code> | Additional CSS classes for positioning and styling (defaults to "fixed top-0") |
+| [props.height] | <code>string</code> | Height of the app bar as Tailwind CSS class, supports responsive classes (defaults to "h-12 sm:h-14") |
+| [props.textColor] | <code>string</code> | Text color CSS classes with light/dark mode variants for app bar content (defaults to "text-light-on-surface dark:text-dark-on-surface") |
+| [props.bgColor] | <code>string</code> | Background color CSS classes with light/dark mode variants for the app bar container (defaults to "bg-light-surface dark:bg-dark-surface") |
 
 **Example**  
 ```js
@@ -963,6 +961,25 @@ import { SvgArrowBackIos } from '../icons';
   optionalClass="sticky top-0 shadow-md"
   height="h-16"
   bgColor="bg-light-primary-container dark:bg-dark-primary-container"
+  textColor="text-light-on-primary-container dark:text-dark-on-primary-container"
+/>
+```
+**Example**  
+```js
+// Full configuration with logo and multiple actions
+import { SvgLogo, SvgSearch, SvgNotifications, SvgAccount } from '../icons';
+
+<AppBar
+  appLogo={<SvgLogo />}
+  appName="Enterprise App"
+  suffix={[
+    <SvgSearch onClick={openSearch} />,
+    <SvgNotifications onClick={showNotifications} />,
+    <SvgAccount onClick={openProfile} />
+  ]}
+  height="h-16 lg:h-20"
+  bgColor="bg-white dark:bg-gray-900"
+  textColor="text-gray-900 dark:text-white"
 />
 ```
 <a name="AppBarItem"></a>
@@ -1199,83 +1216,6 @@ and automatic light/dark theme adaptation.
   id="standalone-checkbox"
   value={isSelected}
   onChange={handleSelection}
-/>
-```
-<a name="ActionItem"></a>
-
-## ActionItem(props) ⇒ <code>JSX.Element</code>
-ActionItem component that provides a standardized container for action elements
-in the AppBar and NavigationDrawer.
-
-This is an internal component not intended to be used directly by developers.
-It creates a fixed-size container (12x12 units) with centered content,
-designed to ensure consistent spacing and alignment of interactive elements
-like buttons and icons within the header components.
-
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - ActionItem component  
-**Component**:   
-
-| Param | Type | Description |
-| --- | --- | --- |
-| props | <code>object</code> | Component props |
-| props.children | <code>React.ReactNode</code> | The content to render within the action item container (required) |
-
-**Example**  
-```js
-// Basic usage with an icon
-import { SvgMenu } from '../icons';
-
-<ActionItem>
-  <SvgMenu onClick={toggleDrawer} />
-</ActionItem>
-```
-<a name="CommonTitle"></a>
-
-## CommonTitle(props) ⇒ <code>JSX.Element</code>
-CommonTitle component that renders the leading section of app bars and navigation drawer.
-This component combines navigation controls (back arrow, drawer toggle) with app
-identity elements (logo, app name) in a standardized layout.
-
-This is an internal component that is not intended to be used directly by developers.
-It is used internally by the AppBar and NavigationDrawer components to create consistent
-header structures across different navigation contexts.
-
-It automatically handles the presence/absence of optional elements (backArrow,
-navigationDrawer, appLogo) and maintains proper spacing and alignment.
-
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - CommonTitle component  
-**Component**:   
-
-| Param | Type | Description |
-| --- | --- | --- |
-| props | <code>object</code> | Component props |
-| [props.backArrow] | <code>React.ReactNode</code> | Icon/component for the back navigation button |
-| [props.navigationDrawer] | <code>React.ReactNode</code> | Icon/component for the navigation drawer toggle |
-| [props.appLogo] | <code>React.ReactNode</code> | App logo component or image |
-| [props.appName] | <code>string</code> | Name of the application to display |
-
-**Example**  
-```js
-// Basic usage with navigation drawer and app name
-import { SvgMenu } from '../icons';
-
-<CommonTitle
-  navigationDrawer={<SvgMenu onClick={toggleDrawer} />}
-  appName="My Application"
-/>
-```
-**Example**  
-```js
-// With back navigation and logo
-import { SvgArrowBackIos } from '../icons';
-import AppLogo from '../AppLogo';
-
-<CommonTitle
-  backArrow={<SvgArrowBackIos onClick={goBack} />}
-  appLogo={<AppLogo />}
-  appName="Details Page"
 />
 ```
 <a name="Fab"></a>

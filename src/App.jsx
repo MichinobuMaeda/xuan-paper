@@ -189,20 +189,14 @@ function App() {
             />
           )
         }
-        appLogo={
-          <img
-            src={appLogo}
-            className="size-10 min-w-10"
-            alt={`${appName} logo`}
-          />
-        }
+        appLogo={<img src={appLogo} alt={`${appName} logo`} />}
         appName={appName}
         suffix={[
           <ToggleLanguageButton key="toggle-language" />,
           <ToggleDarkModeButton key="toggle-dark-mode" />,
         ]}
         optionalClass={headerOptionalClass}
-        height="h-14" // Default
+        height="h-12 sm:h-14" // Default
       />
 
       <main
