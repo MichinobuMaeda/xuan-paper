@@ -84,9 +84,9 @@ are useful for web applications.</p>
 This component serves as the primary toolbar at the top of the application,
 containing navigation controls, app identity elements, and action items.</p>
 <p>The AppBar combines branding elements (logo, app name) with navigation controls
-(back arrow, navigation drawer toggle) and action items (suffix). It respects
-safe area insets for proper display on devices with notches or rounded corners
-using the <code>pt-safe</code> class from tailwindcss-safe-area plugin.</p>
+in the prefix array (back arrow, navigation drawer toggle) and action items
+in the suffix array. It respects safe area insets for proper display on devices
+with notches or rounded corners using the <code>pt-safe</code> class from tailwindcss-safe-area plugin.</p>
 <p>Key features include:</p>
 <ul>
 <li>Responsive design that adapts to different screen sizes</li>
@@ -95,6 +95,9 @@ using the <code>pt-safe</code> class from tailwindcss-safe-area plugin.</p>
 <li>Configurable height and background colors</li>
 <li>Safe area support for modern mobile devices</li>
 <li>Proper accessibility with semantic markup</li>
+<li>Flexible prefix/suffix arrays for navigation and action items</li>
+<li>Automatic filtering of null/undefined items in prefix and suffix arrays</li>
+<li>Optimized for Button components with style=&quot;embedded&quot; and size=&quot;sm&quot; in prefix/suffix arrays</li>
 </ul>
 <p>By default, it&#39;s positioned fixed at the top of the viewport, but this behavior
 can be customized via the optionalClass prop. The component&#39;s height and background
@@ -102,19 +105,30 @@ color are fully configurable to accommodate different design requirements.</p>
 <p>The component includes responsive padding that adapts to screen sizes, with tighter
 spacing on mobile devices and more generous spacing on larger screens.</p>
 </dd>
-<dt><a href="#AppBarItem">AppBarItem(props)</a> ⇒ <code>JSX.Element</code></dt>
-<dd><p>AppBarItem component that represents an action button in the AppBar.
-This component renders a circular button with an icon, following Material Design 3 guidelines
-for top app bar action items.</p>
-<p>The button has hover effects and can be disabled. When disabled, it appears with reduced
-opacity and doesn&#39;t respond to click events.</p>
-<p>Each AppBarItem is designed to be used within the suffix array of the AppBar component
-to create action buttons on the right side of the app bar.</p>
-</dd>
 <dt><a href="#Button">Button(props)</a> ⇒ <code>JSX.Element</code></dt>
-<dd><p>A versatile button component with multiple styles, sizes, and configurations.
-Supports icons, different visual styles, and responsive design
-with light/dark theme support.</p>
+<dd><p>A versatile button component implementing Material Design 3 principles with multiple
+styles, sizes, and configurations. Supports icons, different visual styles, and
+responsive design with comprehensive light/dark theme support.</p>
+<p>The component provides eight distinct visual styles:</p>
+<ul>
+<li><strong>filled</strong>: High emphasis with solid background (default)</li>
+<li><strong>tonal</strong>: Medium emphasis with tonal background</li>
+<li><strong>outlined</strong>: Medium emphasis with outlined border</li>
+<li><strong>elevated</strong>: Medium emphasis with shadow elevation</li>
+<li><strong>text</strong>: Low emphasis, text-only appearance</li>
+<li><strong>danger/error</strong>: High emphasis for destructive actions</li>
+<li><strong>embedded</strong>: Minimal emphasis for inline actions</li>
+</ul>
+<p>Features include:</p>
+<ul>
+<li>Automatic size adjustment based on content and style</li>
+<li>Hover and active state animations</li>
+<li>Disabled state handling with appropriate visual feedback</li>
+<li>Flexible width and border radius customization</li>
+<li>Accessibility support with proper ARIA attributes</li>
+<li>Icon-only or text-only configurations</li>
+<li>Factory method (Button.forAppBar) for creating AppBar-optimized buttons</li>
+</ul>
 </dd>
 <dt><a href="#ButtonGroup">ButtonGroup(props)</a> ⇒ <code>JSX.Element</code></dt>
 <dd><p>A button group component that renders a collection of related buttons with single or multi-selection.
@@ -217,35 +231,60 @@ Supports different input types, prefix/suffix elements, error handling,
 and both filled and outlined styles.
 Features automatic label animation and theme-aware design.</p>
 </dd>
-<dt><a href="#ToggleDarkModeButton">ToggleDarkModeButton()</a> ⇒ <code>JSX.Element</code></dt>
-<dd><p>A toggle button component that cycles between light mode,
-dark mode, and system preference.
-Automatically detects system preference via media queries
-and persists user&#39;s choice in localStorage.</p>
-<p>The component cycles through the following states:</p>
+<dt><a href="#computeMode">computeMode(systemMode, brightnessSetting)</a> ⇒ <code>boolean</code></dt>
+<dd><p>Computes the actual theme mode (dark/light) based on system preference and user setting.</p>
+</dd>
+<dt><a href="#nextMode">nextMode(systemMode, brightnessSetting)</a> ⇒ <code>string</code></dt>
+<dd><p>Determines the next mode in the cycling sequence based on current system and user settings.</p>
+</dd>
+<dt><a href="#ToggleDarkModeButton">ToggleDarkModeButton(props)</a> ⇒ <code>JSX.Element</code></dt>
+<dd><p>A toggle button component that cycles between system preference, light mode, and dark mode.
+Automatically detects system preference via media queries and persists user&#39;s choice in localStorage.</p>
+<p>The component provides intelligent theme switching with three states:</p>
 <ol>
-<li>System preference (default) - uses the device&#39;s color scheme preference</li>
-<li>Light mode - forces light theme regardless of system preference</li>
-<li>Dark mode - forces dark theme regardless of system preference</li>
+<li><strong>System preference</strong> (default) - automatically follows the device&#39;s color scheme preference</li>
+<li><strong>Light mode</strong> - forces light theme regardless of system preference</li>
+<li><strong>Dark mode</strong> - forces dark theme regardless of system preference</li>
 </ol>
-<p>To apply dark mode styles in your app, add the following to your CSS:
+<p>Key features:</p>
+<ul>
+<li>Automatically detects and responds to system color scheme changes</li>
+<li>Persists user preference across browser sessions using localStorage</li>
+<li>Applies theme changes by adding/removing &quot;dark&quot; class on document element</li>
+<li>Displays appropriate icons for each state (system/brightness/dark mode icons)</li>
+<li>Integrates seamlessly with Tailwind CSS dark mode utilities</li>
+<li>Supports all Button component styling options</li>
+</ul>
+<p>CSS Setup Required:
+To enable dark mode styles in your application, add this custom variant to your CSS:
 ```css</p>
 </dd>
-<dt><a href="#ToggleLanguageButton">ToggleLanguageButton()</a> ⇒ <code>JSX.Element</code></dt>
-<dd><p>A button component that toggles the application&#39;s language
-between available translations.
-Cycles through languages defined in the resources object
-and persists the selection in localStorage.</p>
-<p>Features:</p>
+<dt><a href="#initLanguage">initLanguage(setLanguage)</a></dt>
+<dd><p>Initializes the language from localStorage if a valid language is stored.</p>
+</dd>
+<dt><a href="#nextLanguage">nextLanguage(currentLanguage, setLanguage)</a></dt>
+<dd><p>Cycles to the next available language in the resources object.</p>
+</dd>
+<dt><a href="#ToggleLanguageButton">ToggleLanguageButton(props)</a> ⇒ <code>JSX.Element</code></dt>
+<dd><p>A button component that toggles the application&#39;s language between available translations.
+Cycles through languages defined in the resources object and persists the selection in localStorage.</p>
+<p>The component automatically displays either:</p>
 <ul>
-<li>Displays the current language code or a language icon if no label is available</li>
+<li>The current language&#39;s label (if defined in resources[lang].label)</li>
+<li>A universal language icon (Material Design language icon) as fallback</li>
+</ul>
+<p>Key features:</p>
+<ul>
 <li>Automatically loads the previously selected language from localStorage on mount</li>
 <li>Cycles through available languages in the order they appear in the resources object</li>
-<li>Persists language preference across browser sessions</li>
+<li>Persists language preference across browser sessions using localStorage</li>
+<li>Integrates seamlessly with react-i18next for language switching</li>
+<li>Provides visual feedback with either text labels or language icon</li>
+<li>Supports all Button component styling options</li>
 </ul>
-<p>This component requires:</p>
+<p>Requirements:</p>
 <ul>
-<li>A properly configured i18next setup</li>
+<li>A properly configured i18next setup with react-i18next</li>
 <li>A resources object exported from i18n.js with language codes as keys</li>
 <li>Each translation entry should optionally have a &#39;label&#39; property for display</li>
 <li>The i18n configuration must use the exported resources object</li>
@@ -902,9 +941,9 @@ This component serves as the primary toolbar at the top of the application,
 containing navigation controls, app identity elements, and action items.
 
 The AppBar combines branding elements (logo, app name) with navigation controls
-(back arrow, navigation drawer toggle) and action items (suffix). It respects
-safe area insets for proper display on devices with notches or rounded corners
-using the `pt-safe` class from tailwindcss-safe-area plugin.
+in the prefix array (back arrow, navigation drawer toggle) and action items
+in the suffix array. It respects safe area insets for proper display on devices
+with notches or rounded corners using the `pt-safe` class from tailwindcss-safe-area plugin.
 
 Key features include:
 - Responsive design that adapts to different screen sizes
@@ -913,6 +952,9 @@ Key features include:
 - Configurable height and background colors
 - Safe area support for modern mobile devices
 - Proper accessibility with semantic markup
+- Flexible prefix/suffix arrays for navigation and action items
+- Automatic filtering of null/undefined items in prefix and suffix arrays
+- Optimized for Button components with style="embedded" and size="sm" in prefix/suffix arrays
 
 By default, it's positioned fixed at the top of the viewport, but this behavior
 can be customized via the optionalClass prop. The component's height and background
@@ -928,11 +970,10 @@ spacing on mobile devices and more generous spacing on larger screens.
 | Param | Type | Description |
 | --- | --- | --- |
 | props | <code>object</code> | Component props |
-| [props.backArrow] | <code>React.ReactNode</code> | Icon/component for the back navigation button, typically an arrow pointing left |
-| [props.navigationDrawer] | <code>React.ReactNode</code> | Icon/component for the navigation drawer toggle, usually a hamburger menu icon |
 | [props.appLogo] | <code>React.ReactNode</code> | App logo component or image element to display as brand identity |
 | [props.appName] | <code>string</code> | Name of the application to display next to the logo |
-| [props.suffix] | <code>Array.&lt;React.ReactNode&gt;</code> | Array of action items (buttons, icons) to display on the right side of the app bar |
+| [props.prefix] | <code>Array.&lt;React.ReactNode&gt;</code> | Array of elements to display on the left side (e.g., back arrow, navigation drawer toggle).   Typically contains Button.forAppBar components for consistent app bar styling. |
+| [props.suffix] | <code>Array.&lt;React.ReactNode&gt;</code> | Array of action items (buttons, icons) to display on the right side of the app bar.   Typically contains Button.forAppBar components for consistent app bar styling. |
 | [props.optionalClass] | <code>string</code> | Additional CSS classes for positioning and styling (defaults to "fixed top-0") |
 | [props.height] | <code>string</code> | Height of the app bar as Tailwind CSS class, supports responsive classes (defaults to "h-12 sm:h-14") |
 | [props.textColor] | <code>string</code> | Text color CSS classes with light/dark mode variants for app bar content (defaults to "text-light-on-surface dark:text-dark-on-surface") |
@@ -940,102 +981,71 @@ spacing on mobile devices and more generous spacing on larger screens.
 
 **Example**  
 ```js
-// Basic usage with app name and actions
-import { SvgMenu, SvgSettings } from '../icons';
+import { SvgMenu, SvgSearch, SvgNotifications } from '../icons';
+import Button from './Button';
 
 <AppBar
-  navigationDrawer={<SvgMenu onClick={toggleDrawer} />}
+  prefix={[
+    <Button.forAppBar icon={<SvgArrowBackIos />} onClick={goBack} />
+    <Button.forAppBar icon={<SvgMenu />} onClick={toggleDrawer} />
+  ]}
   appName="My Application"
-  suffix={[<SvgSettings onClick={openSettings} />]}
-/>
-```
-**Example**  
-```js
-// With back navigation and custom styling
-import { SvgArrowBackIos } from '../icons';
-
-<AppBar
-  backArrow={<SvgArrowBackIos onClick={goBack} />}
-  appName="Details Page"
-  suffix={[]}
-  optionalClass="sticky top-0 shadow-md"
-  height="h-16"
-  bgColor="bg-light-primary-container dark:bg-dark-primary-container"
-  textColor="text-light-on-primary-container dark:text-dark-on-primary-container"
+  suffix={[
+    <Button.forAppBar icon={<SvgSearch />} onClick={openSearch} />,
+    <Button.forAppBar icon={<SvgNotifications />} onClick={showNotifications} />
+  ]}
 />
 ```
 **Example**  
 ```js
 // Full configuration with logo and multiple actions
-import { SvgLogo, SvgSearch, SvgNotifications, SvgAccount } from '../icons';
+import { SvgLogo, SvgMenu, SvgSearch, SvgNotifications, SvgAccount } from '../icons';
+import Button from './Button';
 
 <AppBar
+  prefix={[
+    <Button.forAppBar icon={<SvgMenu />} onClick={toggleDrawer} />
+  ]}
   appLogo={<SvgLogo />}
   appName="Enterprise App"
   suffix={[
-    <SvgSearch onClick={openSearch} />,
-    <SvgNotifications onClick={showNotifications} />,
-    <SvgAccount onClick={openProfile} />
+    <Button.forAppBar icon={<SvgSearch />} onClick={openSearch} />,
+    <Button.forAppBar icon={<SvgNotifications />} onClick={showNotifications} />,
+    <Button.forAppBar icon={<SvgAccount />} onClick={openProfile} />
   ]}
   height="h-16 lg:h-20"
   bgColor="bg-white dark:bg-gray-900"
   textColor="text-gray-900 dark:text-white"
 />
 ```
-<a name="AppBarItem"></a>
-
-## AppBarItem(props) ⇒ <code>JSX.Element</code>
-AppBarItem component that represents an action button in the AppBar.
-This component renders a circular button with an icon, following Material Design 3 guidelines
-for top app bar action items.
-
-The button has hover effects and can be disabled. When disabled, it appears with reduced
-opacity and doesn't respond to click events.
-
-Each AppBarItem is designed to be used within the suffix array of the AppBar component
-to create action buttons on the right side of the app bar.
-
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - AppBarItem button component  
-**Component**:   
-
-| Param | Type | Description |
-| --- | --- | --- |
-| props | <code>object</code> | Component props |
-| props.icon | <code>React.ReactNode</code> | The icon to display within the button (required) |
-| [props.disabled] | <code>boolean</code> | Whether the button is disabled |
-| [props.bgColor] | <code>string</code> | CSS classes for background color styling |
-| [props.onClick] | <code>function</code> | Click handler function |
-
-**Example**  
-```js
-// Basic usage with an icon
-import { SvgSettings } from '../icons';
-
-<AppBarItem
-  icon={<SvgSettings />}
-  onClick={() => console.log('Settings clicked')}
-/>
-```
-**Example**  
-```js
-// Disabled state
-import { SvgDownload } from '../icons';
-
-<AppBarItem
-  icon={<SvgDownload />}
-  disabled={true}
-/>
-```
 <a name="Button"></a>
 
 ## Button(props) ⇒ <code>JSX.Element</code>
-A versatile button component with multiple styles, sizes, and configurations.
-Supports icons, different visual styles, and responsive design
-with light/dark theme support.
+A versatile button component implementing Material Design 3 principles with multiple
+styles, sizes, and configurations. Supports icons, different visual styles, and
+responsive design with comprehensive light/dark theme support.
+
+The component provides eight distinct visual styles:
+- **filled**: High emphasis with solid background (default)
+- **tonal**: Medium emphasis with tonal background
+- **outlined**: Medium emphasis with outlined border
+- **elevated**: Medium emphasis with shadow elevation
+- **text**: Low emphasis, text-only appearance
+- **danger/error**: High emphasis for destructive actions
+- **embedded**: Minimal emphasis for inline actions
+
+Features include:
+- Automatic size adjustment based on content and style
+- Hover and active state animations
+- Disabled state handling with appropriate visual feedback
+- Flexible width and border radius customization
+- Accessibility support with proper ARIA attributes
+- Icon-only or text-only configurations
+- Factory method (Button.forAppBar) for creating AppBar-optimized buttons
 
 **Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered button component  
+**Returns**: <code>JSX.Element</code> - Rendered button component with configured styling and behavior  
+**Component**:   
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1043,16 +1053,16 @@ with light/dark theme support.
 | [props.id] | <code>string</code> | Unique identifier for the button element |
 | [props.icon] | <code>React.ReactNode</code> | Icon element to display alongside or instead of label |
 | [props.label] | <code>string</code> | Text content to display in the button |
-| [props.style] | <code>&#x27;filled&#x27;</code> \| <code>&#x27;tonal&#x27;</code> \| <code>&#x27;outlined&#x27;</code> \| <code>&#x27;elevated&#x27;</code> \| <code>&#x27;text&#x27;</code> \| <code>&#x27;danger&#x27;</code> \| <code>&#x27;error&#x27;</code> \| <code>&#x27;embedded&#x27;</code> | Visual style variant of the button |
-| [props.onClick] | <code>function</code> | Click event handler function |
-| [props.disabled] | <code>boolean</code> | Whether the button is disabled |
-| [props.rounded] | <code>string</code> | Tailwind CSS class for border radius |
-| [props.size] | <code>&#x27;xs&#x27;</code> \| <code>&#x27;sm&#x27;</code> \| <code>&#x27;md&#x27;</code> | Size variant of the button |
-| [props.width] | <code>string</code> | Tailwind CSS class for button width |
+| [props.style] | <code>&#x27;filled&#x27;</code> \| <code>&#x27;tonal&#x27;</code> \| <code>&#x27;outlined&#x27;</code> \| <code>&#x27;elevated&#x27;</code> \| <code>&#x27;text&#x27;</code> \| <code>&#x27;danger&#x27;</code> \| <code>&#x27;error&#x27;</code> \| <code>&#x27;embedded&#x27;</code> | Visual style variant of the button (defaults to "filled") |
+| [props.onClick] | <code>function</code> | Click event handler function (defaults to empty function) |
+| [props.disabled] | <code>boolean</code> | Whether the button is disabled (defaults to false) |
+| [props.rounded] | <code>string</code> | Tailwind CSS class for border radius (defaults to "rounded-full") |
+| [props.size] | <code>&#x27;xs&#x27;</code> \| <code>&#x27;sm&#x27;</code> \| <code>&#x27;md&#x27;</code> | Size variant of the button (defaults to "sm", auto-adjusts to "xs" for embedded style) |
+| [props.width] | <code>string</code> | Tailwind CSS class for button width (defaults to "w-fit") |
 
 **Example**  
 ```js
-// Basic filled button
+// Basic filled button (default style)
 <Button label="Click Me" onClick={() => console.log('clicked')} />
 ```
 **Example**  
@@ -1074,6 +1084,75 @@ with light/dark theme support.
   onClick={handleDelete}
   disabled={isLoading}
 />
+```
+**Example**  
+```js
+// Icon-only button with custom width
+<Button
+  icon={<SvgAdd />}
+  style="tonal"
+  size="md"
+  width="w-12"
+/>
+```
+**Example**  
+```js
+// Embedded text button for inline actions
+<Button
+  label="Learn more"
+  style="embedded"
+  onClick={showDetails}
+/>
+```
+**Example**  
+```js
+// AppBar button using factory method
+import { SvgMenu } from '../icons';
+
+const menuButton = Button.forAppBar({
+  icon: <SvgMenu />,
+  onClick: toggleMenu
+});
+```
+<a name="Button.forAppBar"></a>
+
+### Button.forAppBar(props) ⇒ <code>JSX.Element</code>
+Factory method to create a Button optimized for AppBar usage.
+Automatically applies style="embedded" and size="sm" which are the recommended
+settings for buttons used in AppBar prefix and suffix arrays.
+
+**Kind**: static method of [<code>Button</code>](#Button)  
+**Returns**: <code>JSX.Element</code> - Button component optimized for AppBar usage  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | Button props (excluding style and size which are preset) |
+| [props.id] | <code>string</code> | Unique identifier for the button element |
+| [props.icon] | <code>React.ReactNode</code> | Icon element to display |
+| [props.label] | <code>string</code> | Text content to display in the button |
+| [props.onClick] | <code>function</code> | Click event handler function |
+| [props.disabled] | <code>boolean</code> | Whether the button is disabled |
+
+**Example**  
+```js
+// Create an AppBar navigation button
+import { SvgMenu } from '../icons';
+
+const navigationButton = Button.forAppBar({
+  icon: <SvgMenu />,
+  onClick: () => setDrawerOpen(true)
+});
+```
+**Example**  
+```js
+// Create an AppBar action button
+import { SvgSettings } from '../icons';
+
+const settingsButton = Button.forAppBar({
+  icon: <SvgSettings />,
+  onClick: openSettings,
+  disabled: isLoading
+});
 ```
 <a name="ButtonGroup"></a>
 
@@ -1335,10 +1414,12 @@ keyboard navigation support, and semantic markup for screen readers.
 | Param | Type | Description |
 | --- | --- | --- |
 | props | <code>object</code> | Component props |
-| [props.items] | <code>Array.&lt;object&gt;</code> | Array of navigation items to display in the drawer.   Each item object supports properties: icon, label, badge, onClick, active, disabled.   Empty objects ({}) render as horizontal dividers between sections. |
+| [props.items] | <code>Array.&lt;object&gt;</code> | Array of navigation items to display in the drawer (defaults to []).   Each item object supports properties: icon, label, badge, onClick, active, disabled.   Empty objects ({}) render as horizontal dividers between sections. |
 | [props.keep] | <code>boolean</code> | Controls drawer behavior: true for persistent mode (always visible),   false for temporary mode with overlay and dismissal capability |
-| [props.open] | <code>boolean</code> | Whether the drawer is currently open and visible (primarily used in temporary mode) |
-| [props.onClose] | <code>function</code> | Callback function invoked when drawer should close (e.g., overlay click in temporary mode) |
+| [props.open] | <code>boolean</code> | Whether the drawer is currently open and visible (defaults to false) |
+| [props.onClose] | <code>function</code> | Callback function invoked when drawer should close (defaults to empty function) |
+| [props.width] | <code>string</code> | Width of the drawer using Tailwind CSS class (defaults to "w-84") |
+| [props.bgColor] | <code>string</code> | Background color CSS classes for the drawer container (defaults to "bg-light-surface-container-low dark:bg-dark-surface-container-low") |
 
 **Example**  
 ```js
@@ -1375,6 +1456,27 @@ import { SvgHome, SvgSettings, SvgLogout } from '../icons';
 <NavigationDrawer
   keep={true}
   items={navigationItems}
+/>
+```
+**Example**  
+```js
+// Custom width drawer
+<NavigationDrawer
+  open={isOpen}
+  width="w-72"
+  items={menuItems}
+  onClose={() => setIsOpen(false)}
+/>
+```
+**Example**  
+```js
+// Custom styling with background color
+<NavigationDrawer
+  open={drawerVisible}
+  items={navigationItems}
+  bgColor="bg-white dark:bg-gray-800"
+  width="w-80"
+  onClose={closeDrawer}
 />
 ```
 <a name="NavigationRail"></a>
@@ -1806,29 +1908,70 @@ Features automatic label animation and theme-aware design.
 />
 />
 ```
+<a name="computeMode"></a>
+
+## computeMode(systemMode, brightnessSetting) ⇒ <code>boolean</code>
+Computes the actual theme mode (dark/light) based on system preference and user setting.
+
+**Kind**: global function  
+**Returns**: <code>boolean</code> - True for dark mode, false for light mode  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| systemMode | <code>string</code> | The system's preferred color scheme ("light" or "dark") |
+| brightnessSetting | <code>string</code> | The user's brightness setting ("system", "light", or "dark") |
+
+<a name="nextMode"></a>
+
+## nextMode(systemMode, brightnessSetting) ⇒ <code>string</code>
+Determines the next mode in the cycling sequence based on current system and user settings.
+
+**Kind**: global function  
+**Returns**: <code>string</code> - The next brightness setting in the cycle  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| systemMode | <code>string</code> | The system's preferred color scheme ("light" or "dark") |
+| brightnessSetting | <code>string</code> | The current user brightness setting |
+
 <a name="ToggleDarkModeButton"></a>
 
-## ToggleDarkModeButton() ⇒ <code>JSX.Element</code>
-A toggle button component that cycles between light mode,
-dark mode, and system preference.
-Automatically detects system preference via media queries
-and persists user's choice in localStorage.
+## ToggleDarkModeButton(props) ⇒ <code>JSX.Element</code>
+A toggle button component that cycles between system preference, light mode, and dark mode.
+Automatically detects system preference via media queries and persists user's choice in localStorage.
 
-The component cycles through the following states:
-1. System preference (default) - uses the device's color scheme preference
-2. Light mode - forces light theme regardless of system preference
-3. Dark mode - forces dark theme regardless of system preference
+The component provides intelligent theme switching with three states:
+1. **System preference** (default) - automatically follows the device's color scheme preference
+2. **Light mode** - forces light theme regardless of system preference
+3. **Dark mode** - forces dark theme regardless of system preference
 
-To apply dark mode styles in your app, add the following to your CSS:
+Key features:
+- Automatically detects and responds to system color scheme changes
+- Persists user preference across browser sessions using localStorage
+- Applies theme changes by adding/removing "dark" class on document element
+- Displays appropriate icons for each state (system/brightness/dark mode icons)
+- Integrates seamlessly with Tailwind CSS dark mode utilities
+- Supports all Button component styling options
+
+CSS Setup Required:
+To enable dark mode styles in your application, add this custom variant to your CSS:
 ```css
 
 **Kind**: global function  
-**Returns**: <code>JSX.Element</code> - A button with icon that changes based on current mode  
+**Returns**: <code>JSX.Element</code> - A button with dynamic icon that reflects current theme mode  
 **Custom-variant**: dark (&:where(.dark, .dark *));
 ```
 
-The component adds/removes the "dark" class on the documentElement (html)
-automatically.  
+The component automatically manages the "dark" class on the document element,
+allowing Tailwind CSS dark: modifiers to work correctly.  
+**Component**:   
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | Component props |
+| [props.style] | <code>string</code> | Visual style variant for the button (defaults to "embedded") |
+| [props.size] | <code>string</code> | Size variant for the button (defaults to "sm") |
+
 **Example**  
 ```js
 // Basic usage in a header component
@@ -1844,28 +1987,81 @@ const Header = () => (
   </header>
 );
 ```
+**Example**  
+```js
+// Custom styling with different button appearance
+<ToggleDarkModeButton style="outlined" size="md" />
+```
+**Example**  
+```js
+// Usage in a settings panel
+const SettingsPanel = () => (
+  <div className="p-4">
+    <h2>Appearance Settings</h2>
+    <div className="flex items-center gap-3">
+      <span>Theme:</span>
+      <ToggleDarkModeButton style="tonal" />
+    </div>
+  </div>
+);
+```
+<a name="initLanguage"></a>
+
+## initLanguage(setLanguage)
+Initializes the language from localStorage if a valid language is stored.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| setLanguage | <code>function</code> | Function to set the current language |
+
+<a name="nextLanguage"></a>
+
+## nextLanguage(currentLanguage, setLanguage)
+Cycles to the next available language in the resources object.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| currentLanguage | <code>string</code> | The currently active language code |
+| setLanguage | <code>function</code> | Function to set the new language |
+
 <a name="ToggleLanguageButton"></a>
 
-## ToggleLanguageButton() ⇒ <code>JSX.Element</code>
-A button component that toggles the application's language
-between available translations.
-Cycles through languages defined in the resources object
-and persists the selection in localStorage.
+## ToggleLanguageButton(props) ⇒ <code>JSX.Element</code>
+A button component that toggles the application's language between available translations.
+Cycles through languages defined in the resources object and persists the selection in localStorage.
 
-Features:
-- Displays the current language code or a language icon if no label is available
+The component automatically displays either:
+- The current language's label (if defined in resources[lang].label)
+- A universal language icon (Material Design language icon) as fallback
+
+Key features:
 - Automatically loads the previously selected language from localStorage on mount
 - Cycles through available languages in the order they appear in the resources object
-- Persists language preference across browser sessions
+- Persists language preference across browser sessions using localStorage
+- Integrates seamlessly with react-i18next for language switching
+- Provides visual feedback with either text labels or language icon
+- Supports all Button component styling options
 
-This component requires:
-- A properly configured i18next setup
+Requirements:
+- A properly configured i18next setup with react-i18next
 - A resources object exported from i18n.js with language codes as keys
 - Each translation entry should optionally have a 'label' property for display
 - The i18n configuration must use the exported resources object
 
 **Kind**: global function  
 **Returns**: <code>JSX.Element</code> - A button displaying the current language label or a language icon  
+**Component**:   
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> | Component props |
+| [props.style] | <code>string</code> | Visual style variant for the button (defaults to "embedded") |
+| [props.size] | <code>string</code> | Size variant for the button (defaults to "sm") |
+
 **Example**  
 ```js
 // Basic usage in a header component
@@ -1880,6 +2076,11 @@ const Header = () => (
     </div>
   </header>
 );
+```
+**Example**  
+```js
+// Custom styling with different button styles
+<ToggleLanguageButton style="outlined" size="md" />
 ```
 **Example**  
 ```js
@@ -1900,7 +2101,12 @@ export const resources = {
       // Japanese translations
     }
   },
-  // Additional languages...
+  es: {
+    label: "Es",
+    translation: {
+      // Spanish translations
+    }
+  }
 };
 
 // The i18n instance must use the same resources object that is exported

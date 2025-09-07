@@ -1,22 +1,48 @@
+/**
+ * @file A versatile button component implementing Material Design 3 button patterns.
+ * Provides multiple styles, sizes, and configurations with comprehensive theming support.
+ * @author Michinobu Maeda
+ * @since 1.0.0
+ */
+
 import PropTypes from "prop-types";
 
 /**
- * A versatile button component with multiple styles, sizes, and configurations.
- * Supports icons, different visual styles, and responsive design
- * with light/dark theme support.
+ * A versatile button component implementing Material Design 3 principles with multiple
+ * styles, sizes, and configurations. Supports icons, different visual styles, and
+ * responsive design with comprehensive light/dark theme support.
+ *
+ * The component provides eight distinct visual styles:
+ * - **filled**: High emphasis with solid background (default)
+ * - **tonal**: Medium emphasis with tonal background
+ * - **outlined**: Medium emphasis with outlined border
+ * - **elevated**: Medium emphasis with shadow elevation
+ * - **text**: Low emphasis, text-only appearance
+ * - **danger/error**: High emphasis for destructive actions
+ * - **embedded**: Minimal emphasis for inline actions
+ *
+ * Features include:
+ * - Automatic size adjustment based on content and style
+ * - Hover and active state animations
+ * - Disabled state handling with appropriate visual feedback
+ * - Flexible width and border radius customization
+ * - Accessibility support with proper ARIA attributes
+ * - Icon-only or text-only configurations
+ * - Factory method (Button.forAppBar) for creating AppBar-optimized buttons
+ * @component
  * @param {object} props - The props object
  * @param {string} [props.id] - Unique identifier for the button element
  * @param {React.ReactNode} [props.icon] - Icon element to display alongside or instead of label
  * @param {string} [props.label] - Text content to display in the button
- * @param {('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embedded')} [props.style] - Visual style variant of the button
- * @param {Function} [props.onClick] - Click event handler function
- * @param {boolean} [props.disabled] - Whether the button is disabled
- * @param {string} [props.rounded] - Tailwind CSS class for border radius
- * @param {('xs'|'sm'|'md')} [props.size] - Size variant of the button
- * @param {string} [props.width] - Tailwind CSS class for button width
- * @returns {JSX.Element} Rendered button component
+ * @param {('filled'|'tonal'|'outlined'|'elevated'|'text'|'danger'|'error'|'embedded')} [props.style] - Visual style variant of the button (defaults to "filled")
+ * @param {Function} [props.onClick] - Click event handler function (defaults to empty function)
+ * @param {boolean} [props.disabled] - Whether the button is disabled (defaults to false)
+ * @param {string} [props.rounded] - Tailwind CSS class for border radius (defaults to "rounded-full")
+ * @param {('xs'|'sm'|'md')} [props.size] - Size variant of the button (defaults to "sm", auto-adjusts to "xs" for embedded style)
+ * @param {string} [props.width] - Tailwind CSS class for button width (defaults to "w-fit")
+ * @returns {JSX.Element} Rendered button component with configured styling and behavior
  * @example
- * // Basic filled button
+ * // Basic filled button (default style)
  * <Button label="Click Me" onClick={() => console.log('clicked')} />
  * @example
  * // Icon button with custom styling
@@ -34,6 +60,29 @@ import PropTypes from "prop-types";
  *   onClick={handleDelete}
  *   disabled={isLoading}
  * />
+ * @example
+ * // Icon-only button with custom width
+ * <Button
+ *   icon={<SvgAdd />}
+ *   style="tonal"
+ *   size="md"
+ *   width="w-12"
+ * />
+ * @example
+ * // Embedded text button for inline actions
+ * <Button
+ *   label="Learn more"
+ *   style="embedded"
+ *   onClick={showDetails}
+ * />
+ * @example
+ * // AppBar button using factory method
+ * import { SvgMenu } from '../icons';
+ *
+ * const menuButton = Button.forAppBar({
+ *   icon: <SvgMenu />,
+ *   onClick: toggleMenu
+ * });
  */
 function Button({
   id,
@@ -46,9 +95,8 @@ function Button({
   size = "sm",
   width = "w-fit",
 }) {
-  if (style === "embedded") {
-    size = "xs";
-  }
+  size = size || (style === "embedded" ? "xs" : "sm");
+
   return (
     <button
       id={id}
@@ -125,6 +173,43 @@ ${(() => {
     </button>
   );
 }
+
+/**
+ * Factory method to create a Button optimized for AppBar usage.
+ * Automatically applies style="embedded" and size="sm" which are the recommended
+ * settings for buttons used in AppBar prefix and suffix arrays.
+ * @param {object} props - Button props (excluding style and size which are preset)
+ * @param {string} [props.id] - Unique identifier for the button element
+ * @param {React.ReactNode} [props.icon] - Icon element to display
+ * @param {string} [props.label] - Text content to display in the button
+ * @param {Function} [props.onClick] - Click event handler function
+ * @param {boolean} [props.disabled] - Whether the button is disabled
+ * @returns {JSX.Element} Button component optimized for AppBar usage
+ * @example
+ * // Create an AppBar navigation button
+ * import { SvgMenu } from '../icons';
+ *
+ * const navigationButton = Button.forAppBar({
+ *   icon: <SvgMenu />,
+ *   onClick: () => setDrawerOpen(true)
+ * });
+ * @example
+ * // Create an AppBar action button
+ * import { SvgSettings } from '../icons';
+ *
+ * const settingsButton = Button.forAppBar({
+ *   icon: <SvgSettings />,
+ *   onClick: openSettings,
+ *   disabled: isLoading
+ * });
+ */
+Button.forAppBar = (props) => {
+  return Button({
+    ...props,
+    style: "embedded",
+    size: "sm",
+  });
+};
 
 Button.propTypes = {
   id: PropTypes.string,

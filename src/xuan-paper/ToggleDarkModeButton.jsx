@@ -1,32 +1,85 @@
+/**
+ * @file ToggleDarkModeButton component for theme switching functionality.
+ * Provides a button that cycles through system, light, and dark themes with persistence.
+ * @author Michinobu Maeda
+ * @since 1.0.0
+ */
+
 import { useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import AppBarItem from "./AppBarItem.jsx";
+import Button from "./Button.jsx";
+
+const STORAGE_KEY = "xuan-paper-theme-mode";
 
 const modeSystem = "system";
 const modeLight = "light";
 const modeDark = "dark";
-const STORAGE_KEY = "xuan-paper-theme-mode";
 
 /**
- * A toggle button component that cycles between light mode,
- * dark mode, and system preference.
- * Automatically detects system preference via media queries
- * and persists user's choice in localStorage.
+ * Computes the actual theme mode (dark/light) based on system preference and user setting.
+ * @param {string} systemMode - The system's preferred color scheme ("light" or "dark")
+ * @param {string} brightnessSetting - The user's brightness setting ("system", "light", or "dark")
+ * @returns {boolean} True for dark mode, false for light mode
+ */
+// Compute theme mode from app settings and system mode
+const computeMode = (systemMode, brightnessSetting) =>
+  brightnessSetting === modeLight
+    ? false
+    : brightnessSetting === modeDark
+      ? true
+      : systemMode === modeDark;
+
+/**
+ * Determines the next mode in the cycling sequence based on current system and user settings.
+ * @param {string} systemMode - The system's preferred color scheme ("light" or "dark")
+ * @param {string} brightnessSetting - The current user brightness setting
+ * @returns {string} The next brightness setting in the cycle
+ */
+// Determine next mode in the cycle
+const nextMode = (systemMode, brightnessSetting) =>
+  brightnessSetting === modeSystem
+    ? systemMode === modeDark
+      ? modeLight
+      : modeDark
+    : brightnessSetting === modeLight
+      ? systemMode === modeDark
+        ? modeDark
+        : modeSystem
+      : systemMode === modeDark
+        ? modeSystem
+        : modeLight;
+
+/**
+ * A toggle button component that cycles between system preference, light mode, and dark mode.
+ * Automatically detects system preference via media queries and persists user's choice in localStorage.
  *
- * The component cycles through the following states:
- * 1. System preference (default) - uses the device's color scheme preference
- * 2. Light mode - forces light theme regardless of system preference
- * 3. Dark mode - forces dark theme regardless of system preference
+ * The component provides intelligent theme switching with three states:
+ * 1. **System preference** (default) - automatically follows the device's color scheme preference
+ * 2. **Light mode** - forces light theme regardless of system preference
+ * 3. **Dark mode** - forces dark theme regardless of system preference
  *
- * To apply dark mode styles in your app, add the following to your CSS:
+ * Key features:
+ * - Automatically detects and responds to system color scheme changes
+ * - Persists user preference across browser sessions using localStorage
+ * - Applies theme changes by adding/removing "dark" class on document element
+ * - Displays appropriate icons for each state (system/brightness/dark mode icons)
+ * - Integrates seamlessly with Tailwind CSS dark mode utilities
+ * - Supports all Button component styling options
+ *
+ * CSS Setup Required:
+ * To enable dark mode styles in your application, add this custom variant to your CSS:
  * ```css
  * @custom-variant dark (&:where(.dark, .dark *));
  * ```
  *
- * The component adds/removes the "dark" class on the documentElement (html)
- * automatically.
- * @returns {JSX.Element} A button with icon that changes based on current mode
+ * The component automatically manages the "dark" class on the document element,
+ * allowing Tailwind CSS dark: modifiers to work correctly.
+ * @component
+ * @param {object} props - Component props
+ * @param {string} [props.style] - Visual style variant for the button (defaults to "embedded")
+ * @param {string} [props.size] - Size variant for the button (defaults to "sm")
+ * @returns {JSX.Element} A button with dynamic icon that reflects current theme mode
  * @example
  * // Basic usage in a header component
  * import ToggleDarkModeButton from '../xuan-paper/ToggleDarkModeButton';
@@ -40,26 +93,31 @@ const STORAGE_KEY = "xuan-paper-theme-mode";
  *     </div>
  *   </header>
  * );
+ * @example
+ * // Custom styling with different button appearance
+ * <ToggleDarkModeButton style="outlined" size="md" />
+ * @example
+ * // Usage in a settings panel
+ * const SettingsPanel = () => (
+ *   <div className="p-4">
+ *     <h2>Appearance Settings</h2>
+ *     <div className="flex items-center gap-3">
+ *       <span>Theme:</span>
+ *       <ToggleDarkModeButton style="tonal" />
+ *     </div>
+ *   </div>
+ * );
  */
 
-const ToggleDarkModeButton = ({
-  bgColor = "bg-light-surface dark:bg-dark-surface",
-}) => {
+const ToggleDarkModeButton = ({ style = "embedded", size = "sm" }) => {
   // Initialize state from localStorage or default to system
-  const [brightnessSetting, setBrightnessSetting] = useState(() => {
-    const savedMode = localStorage.getItem(STORAGE_KEY);
-    return savedMode || modeSystem;
-  });
+  const [brightnessSetting, setBrightnessSetting] = useState(
+    () => localStorage.getItem(STORAGE_KEY) || modeSystem,
+  );
   const [systemMode, setSystemMode] = useState("light");
 
-  // Compute theme mode from app settings and system mode
   const darkTheme = useMemo(
-    () =>
-      brightnessSetting === modeLight
-        ? false
-        : brightnessSetting === modeDark
-          ? true
-          : systemMode === modeDark,
+    () => computeMode(systemMode, brightnessSetting),
     [brightnessSetting, systemMode],
   );
 
@@ -92,7 +150,7 @@ const ToggleDarkModeButton = ({
   }, [darkTheme]);
 
   return (
-    <AppBarItem
+    <Button
       icon={
         brightnessSetting === modeSystem ? (
           /* Material icons 'Reset brightness' https://fonts.google.com/icons */
@@ -124,27 +182,17 @@ const ToggleDarkModeButton = ({
         )
       }
       onClick={() =>
-        setBrightnessSetting(
-          brightnessSetting === modeSystem
-            ? systemMode === modeDark
-              ? modeLight
-              : modeDark
-            : brightnessSetting === modeLight
-              ? systemMode === modeDark
-                ? modeDark
-                : modeSystem
-              : systemMode === modeDark
-                ? modeSystem
-                : modeLight,
-        )
+        setBrightnessSetting(nextMode(systemMode, brightnessSetting))
       }
-      bgColor={bgColor}
+      style={style}
+      size={size}
     />
   );
 };
 
 ToggleDarkModeButton.propTypes = {
-  bgColor: PropTypes.string,
+  style: PropTypes.string,
+  size: PropTypes.string,
 };
 
 export default ToggleDarkModeButton;

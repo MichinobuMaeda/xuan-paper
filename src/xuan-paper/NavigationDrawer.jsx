@@ -7,14 +7,19 @@
 
 import PropTypes from "prop-types";
 
-const bgColor =
-  "bg-light-surface-container-low dark:bg-dark-surface-container-low";
-
 /**
  * Navigation item component used within the NavigationDrawer.
  * Renders a clickable navigation item with icon, label, and optional badge.
- * Supports active and disabled states with appropriate styling.
- * If neither icon nor label is provided, renders a horizontal divider.
+ * Supports active and disabled states with appropriate styling and hover effects.
+ *
+ * The component automatically handles different rendering modes:
+ * - If both icon and label are provided: renders as a complete navigation button
+ * - If only label is provided: renders as a text-only label/section header
+ * - If neither icon nor label is provided: renders as a horizontal divider
+ *
+ * The styling follows Material Design 3 principles with proper color tokens
+ * for both light and dark themes, including appropriate contrast ratios
+ * for accessibility.
  * @component
  * @private
  * @param {object} props - Component props
@@ -24,6 +29,7 @@ const bgColor =
  * @param {Function} [props.onClick] - Click handler function called when the item is selected
  * @param {boolean} [props.active] - Whether the navigation item is currently active/selected (defaults to false)
  * @param {boolean} [props.disabled] - Whether the navigation item is disabled and non-interactive (defaults to false)
+ * @param {string} [props.bgColor] - Background color CSS classes for the navigation item (defaults to "bg-light-surface-container-low dark:bg-dark-surface-container-low")
  * @returns {JSX.Element} NavItem component, text label, or horizontal divider
  */
 const NavItem = ({
@@ -33,11 +39,12 @@ const NavItem = ({
   onClick,
   active = false,
   disabled = false,
+  bgColor = "bg-light-surface-container-low dark:bg-dark-surface-container-low",
 }) => {
   return onClick ? (
     <button
       className={`flex flex-row size-14 justify-start items-center
-          w-78 pl-4 pr-6 rounded-full mx-3 gap-3
+          w-full pl-4 pr-6 rounded-full gap-3
           text-light-on-surface-variant dark:text-dark-on-surface-variant
           ${
             disabled
@@ -60,7 +67,7 @@ const NavItem = ({
     </button>
   ) : label ? (
     <div
-      className={`flex flex-row w-64 px-7 truncate
+      className={`flex flex-row w-full px-4 truncate
         text-light-on-surface-variant dark:text-dark-on-surface-variant`}
     >
       {label}
@@ -77,6 +84,7 @@ NavItem.propTypes = {
   onClick: PropTypes.func,
   active: PropTypes.bool,
   disabled: PropTypes.bool,
+  bgColor: PropTypes.string,
 };
 
 /**
@@ -99,13 +107,15 @@ NavItem.propTypes = {
  * keyboard navigation support, and semantic markup for screen readers.
  * @component
  * @param {object} props - Component props
- * @param {Array<object>} [props.items] - Array of navigation items to display in the drawer.
+ * @param {Array<object>} [props.items] - Array of navigation items to display in the drawer (defaults to []).
  *   Each item object supports properties: icon, label, badge, onClick, active, disabled.
  *   Empty objects ({}) render as horizontal dividers between sections.
  * @param {boolean} [props.keep] - Controls drawer behavior: true for persistent mode (always visible),
  *   false for temporary mode with overlay and dismissal capability
- * @param {boolean} [props.open] - Whether the drawer is currently open and visible (primarily used in temporary mode)
- * @param {Function} [props.onClose] - Callback function invoked when drawer should close (e.g., overlay click in temporary mode)
+ * @param {boolean} [props.open] - Whether the drawer is currently open and visible (defaults to false)
+ * @param {Function} [props.onClose] - Callback function invoked when drawer should close (defaults to empty function)
+ * @param {string} [props.width] - Width of the drawer using Tailwind CSS class (defaults to "w-84")
+ * @param {string} [props.bgColor] - Background color CSS classes for the drawer container (defaults to "bg-light-surface-container-low dark:bg-dark-surface-container-low")
  * @returns {JSX.Element} NavigationDrawer component or empty fragment when closed
  * @example
  * // Basic usage with temporary drawer
@@ -140,22 +150,41 @@ NavItem.propTypes = {
  *   keep={true}
  *   items={navigationItems}
  * />
+ * @example
+ * // Custom width drawer
+ * <NavigationDrawer
+ *   open={isOpen}
+ *   width="w-72"
+ *   items={menuItems}
+ *   onClose={() => setIsOpen(false)}
+ * />
+ * @example
+ * // Custom styling with background color
+ * <NavigationDrawer
+ *   open={drawerVisible}
+ *   items={navigationItems}
+ *   bgColor="bg-white dark:bg-gray-800"
+ *   width="w-80"
+ *   onClose={closeDrawer}
+ * />
  */
 const NavigationDrawer = ({
   items = [],
   keep,
   open = false,
   onClose = () => {},
+  width = "w-84",
+  bgColor = "bg-light-surface-container-low dark:bg-dark-surface-container-low",
 }) => {
   return open ? (
     <div
-      className={`flex flex-row ${keep ? "w-84" : "w-full"} h-full
+      className={`flex flex-row ${keep ? width : "w-full"} h-full
         fixed top-0 left-0 ${keep ? "" : "z-50"}
         bg-light-on-surface/30 dark:bg-dark-on-surface/30`}
     >
       <div
-        className={`flex flex-col w-84 max-w-84 min-w-84 h-full
-          ${keep ? "" : "rounded-r-2xl"} gap-4 pt-4
+        className={`flex flex-col ${width} max-${width} min-${width} h-full
+          ${keep ? "" : "rounded-r-2xl"} gap-4 pt-4 px-3
           ${bgColor}`}
       >
         {items.map((item, index) => (
@@ -174,6 +203,8 @@ NavigationDrawer.propTypes = {
   keep: PropTypes.bool,
   open: PropTypes.bool,
   onClose: PropTypes.func,
+  width: PropTypes.string,
+  bgColor: PropTypes.string,
 };
 
 export default NavigationDrawer;

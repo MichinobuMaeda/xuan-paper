@@ -1,29 +1,68 @@
+/**
+ * @file ToggleLanguageButton component for internationalization support.
+ * Provides a button that cycles through available languages with persistence.
+ * @author Michinobu Maeda
+ * @since 1.0.0
+ */
+
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { resources } from "../i18n.js";
 
-import AppBarItem from "./AppBarItem.jsx";
+import Button from "./Button.jsx";
 
 const STORAGE_KEY = "xuan-paper-language";
 
 /**
- * A button component that toggles the application's language
- * between available translations.
- * Cycles through languages defined in the resources object
- * and persists the selection in localStorage.
+ * Initializes the language from localStorage if a valid language is stored.
+ * @param {Function} setLanguage - Function to set the current language
+ */
+const initLanguage = (setLanguage) => {
+  const lang = localStorage.getItem(STORAGE_KEY);
+  if (lang && Object.keys(resources).includes(lang)) {
+    setLanguage(lang);
+  }
+};
+
+/**
+ * Cycles to the next available language in the resources object.
+ * @param {string} currentLanguage - The currently active language code
+ * @param {Function} setLanguage - Function to set the new language
+ */
+const nextLanguage = (currentLanguage, setLanguage) => {
+  const languages = Object.keys(resources);
+  let index = languages.indexOf(currentLanguage) + 1;
+  const nextLang = languages[index < languages.length ? index : 0];
+  localStorage.setItem(STORAGE_KEY, nextLang);
+  setLanguage(nextLang);
+};
+
+/**
+ * A button component that toggles the application's language between available translations.
+ * Cycles through languages defined in the resources object and persists the selection in localStorage.
  *
- * Features:
- * - Displays the current language code or a language icon if no label is available
+ * The component automatically displays either:
+ * - The current language's label (if defined in resources[lang].label)
+ * - A universal language icon (Material Design language icon) as fallback
+ *
+ * Key features:
  * - Automatically loads the previously selected language from localStorage on mount
  * - Cycles through available languages in the order they appear in the resources object
- * - Persists language preference across browser sessions
+ * - Persists language preference across browser sessions using localStorage
+ * - Integrates seamlessly with react-i18next for language switching
+ * - Provides visual feedback with either text labels or language icon
+ * - Supports all Button component styling options
  *
- * This component requires:
- * - A properly configured i18next setup
+ * Requirements:
+ * - A properly configured i18next setup with react-i18next
  * - A resources object exported from i18n.js with language codes as keys
  * - Each translation entry should optionally have a 'label' property for display
  * - The i18n configuration must use the exported resources object
+ * @component
+ * @param {object} props - Component props
+ * @param {string} [props.style] - Visual style variant for the button (defaults to "embedded")
+ * @param {string} [props.size] - Size variant for the button (defaults to "sm")
  * @returns {JSX.Element} A button displaying the current language label or a language icon
  * @example
  * // Basic usage in a header component
@@ -38,6 +77,9 @@ const STORAGE_KEY = "xuan-paper-language";
  *     </div>
  *   </header>
  * );
+ * @example
+ * // Custom styling with different button styles
+ * <ToggleLanguageButton style="outlined" size="md" />
  * @example
  * // Example i18n.js file with exported resources object
  * import i18n from "i18next";
@@ -56,7 +98,12 @@ const STORAGE_KEY = "xuan-paper-language";
  *       // Japanese translations
  *     }
  *   },
- *   // Additional languages...
+ *   es: {
+ *     label: "Es",
+ *     translation: {
+ *       // Spanish translations
+ *     }
+ *   }
  * };
  *
  * // The i18n instance must use the same resources object that is exported
@@ -70,25 +117,23 @@ const STORAGE_KEY = "xuan-paper-language";
  *
  * export default i18n;
  */
-
-const ToggleLanguageButton = ({
-  bgColor = "bg-light-surface dark:bg-dark-surface",
-}) => {
+const ToggleLanguageButton = ({ style = "embedded", size = "sm" }) => {
   const { i18n } = useTranslation();
 
   const [label, setLabel] = useState(resources[i18n.language]?.label);
 
-  // Initialize language from localStorage on component mount
+  const setLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    setLabel(resources[lang]?.label);
+  };
+
+  // On component mount
   useEffect(() => {
-    const savedLanguage = localStorage.getItem(STORAGE_KEY);
-    if (savedLanguage && Object.keys(resources).includes(savedLanguage)) {
-      i18n.changeLanguage(savedLanguage);
-      setLabel(resources[savedLanguage]?.label);
-    }
+    initLanguage(setLanguage);
   }, []);
 
   return (
-    <AppBarItem
+    <Button
       icon={
         label ? (
           <div
@@ -109,25 +154,16 @@ const ToggleLanguageButton = ({
           </svg>
         )
       }
-      onClick={() => {
-        const languages = Object.keys(resources);
-        let index = languages.indexOf(i18n.language);
-        const newLanguage = languages[++index < languages.length ? index : 0];
-
-        // Save the selected language to localStorage
-        localStorage.setItem(STORAGE_KEY, newLanguage);
-
-        // Change the language
-        i18n.changeLanguage(newLanguage);
-        setLabel(resources[newLanguage]?.label);
-      }}
-      bgColor={bgColor}
+      onClick={() => nextLanguage(i18n.language, setLanguage)}
+      style={style}
+      size={size}
     />
   );
 };
 
 ToggleLanguageButton.propTypes = {
-  bgColor: PropTypes.string,
+  style: PropTypes.string,
+  size: PropTypes.string,
 };
 
 export default ToggleLanguageButton;

@@ -4,6 +4,11 @@
   "version": "1.4.1",
   "type": "module",
   "license": "MIT",
+  "author": {
+    "name": "Michinobu Maeda",
+    "url": "https://michinobu.jp",
+    "email": "michinobumaeda@gmail.com"
+  },
   "scripts": {
     "start": "vite --port 8000",
     "build": "vite build",

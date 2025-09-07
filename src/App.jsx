@@ -13,7 +13,7 @@ import {
 } from "./state.js";
 
 import AppBar from "./xuan-paper/AppBar.jsx";
-import AppBarItem from "./xuan-paper/AppBarItem.jsx";
+import Button from "./xuan-paper/Button.jsx";
 import NavigationDrawer from "./xuan-paper/NavigationDrawer.jsx";
 import NavigationRail from "./xuan-paper/NavigationRail.jsx";
 import NavigationBar from "./xuan-paper/NavigationBar.jsx";
@@ -169,12 +169,18 @@ function App() {
       ${drawerKeep ? "pl-84" : ""}`}
     >
       <AppBar
-        backArrow={
-          <AppBarItem icon={<SvgArrowBackIos />} disabled onClick={() => {}} />
-        }
-        navigationDrawer={
+        appLogo={<img src={appLogo} alt={`${appName} logo`} />}
+        appName={appName}
+        prefix={[
+          <Button.forAppBar
+            key="back-arrow"
+            icon={<SvgArrowBackIos />}
+            disabled
+            onClick={() => {}}
+          />,
           !drawerKeep && (
-            <AppBarItem
+            <Button.forAppBar
+              key="navigation-drawer"
               icon={
                 /* Material icons 'Menu' https://fonts.google.com/icons */
                 <svg
@@ -187,10 +193,8 @@ function App() {
               }
               onClick={() => setDrawerOpen(true)}
             />
-          )
-        }
-        appLogo={<img src={appLogo} alt={`${appName} logo`} />}
-        appName={appName}
+          ),
+        ]}
         suffix={[
           <ToggleLanguageButton key="toggle-language" />,
           <ToggleDarkModeButton key="toggle-dark-mode" />,
