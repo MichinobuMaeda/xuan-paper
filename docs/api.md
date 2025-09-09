@@ -1415,8 +1415,8 @@ keyboard navigation support, and semantic markup for screen readers.
 | --- | --- | --- |
 | props | <code>object</code> | Component props |
 | [props.items] | <code>Array.&lt;object&gt;</code> | Array of navigation items to display in the drawer (defaults to []).   Each item object supports properties: icon, label, badge, onClick, active, disabled.   Empty objects ({}) render as horizontal dividers between sections. |
-| [props.keep] | <code>boolean</code> | Controls drawer behavior: true for persistent mode (always visible),   false for temporary mode with overlay and dismissal capability |
 | [props.open] | <code>boolean</code> | Whether the drawer is currently open and visible (defaults to false) |
+| [props.keep] | <code>boolean</code> | Controls drawer behavior: true for persistent mode (always visible),   false for temporary mode with overlay and dismissal capability |
 | [props.onClose] | <code>function</code> | Callback function invoked when drawer should close (defaults to empty function) |
 | [props.width] | <code>string</code> | Width of the drawer using Tailwind CSS class (defaults to "w-84") |
 | [props.bgColor] | <code>string</code> | Background color CSS classes for the drawer container (defaults to "bg-light-surface-container-low dark:bg-dark-surface-container-low") |

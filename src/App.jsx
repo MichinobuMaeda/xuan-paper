@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import {
@@ -113,37 +113,40 @@ function App() {
   const navRailOptionalClass = `h-full w-24 lg:w-56 fixed top-0 pt-20 pb-20`;
 
   // Navigation drawer state management
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [drawerKeep, setDrawerKeep] = useState(false);
 
+  const STORAGE_KEY_DRAWER = "xuan-paper-drawer-state-close";
+  const DRAWER_STATE = { OPENED: "open", CLOSED: "close", PINNED: "pinned" };
+  const [drawerState, setDrawerState] = useState(
+    () => localStorage.getItem(STORAGE_KEY_DRAWER) || DRAWER_STATE.CLOSED,
+  );
   // Define navigation items for bottom bar, navigation rail, and drawer
   const navItems = [
-    drawerOpen
-      ? drawerKeep
+    drawerState === DRAWER_STATE.PINNED
+      ? {
+          icon: <SvgKeepOff />,
+          label: "Narrow floating layout",
+          active: true,
+          onClick: () => {
+            setDrawerState(DRAWER_STATE.OPENED);
+          },
+        }
+      : drawerState === DRAWER_STATE.OPENED
         ? {
-            icon: <SvgKeepOff />,
-            label: "Narrow floating layout",
-            active: true,
-            onClick: () => {
-              setDrawerKeep(false);
-            },
-          }
-        : {
             icon: <SvgKeep />,
             label: "Wide fixed layout",
             active: true,
             onClick: () => {
-              setDrawerKeep(true);
+              setDrawerState(DRAWER_STATE.PINNED);
             },
           }
-      : {
-          icon: <SvgScreenRotationUp />,
-          label: t("rotate"),
-          active: true,
-          onClick: () => {
-            setNavVertical(!navVertical);
+        : {
+            icon: <SvgScreenRotationUp />,
+            label: t("rotate"),
+            active: true,
+            onClick: () => {
+              setNavVertical(!navVertical);
+            },
           },
-        },
     {
       icon: <SvgDownload />,
       label: cssFileName,
@@ -158,15 +161,24 @@ function App() {
     {
       icon: <SvgUndo />,
       label: t("undo"),
-      onClick: () => setDemoValueReset(true),
+      onClick: () => {
+        setDemoValueReset(true);
+        setDrawerState(DRAWER_STATE.CLOSED);
+        localStorage.removeItem(STORAGE_KEY_DRAWER);
+      },
       disabled: demoValueReset,
     },
   ];
 
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY_DRAWER, drawerState);
+    console.log(`drawerState: ${drawerState}`);
+  }, [drawerState]);
+
   return (
     <div
       className={`flex flex-col w-full justify-start items-start
-      ${drawerKeep ? "pl-84" : ""}`}
+      ${drawerState === DRAWER_STATE.PINNED ? "pl-84" : ""}`}
     >
       <AppBar
         appLogo={<img src={appLogo} alt={`${appName} logo`} />}
@@ -178,7 +190,7 @@ function App() {
             disabled
             onClick={() => {}}
           />,
-          !drawerKeep && (
+          drawerState !== DRAWER_STATE.PINNED && (
             <Button.forAppBar
               key="navigation-drawer"
               icon={
@@ -191,7 +203,7 @@ function App() {
                   <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
                 </svg>
               }
-              onClick={() => setDrawerOpen(true)}
+              onClick={() => setDrawerState(DRAWER_STATE.OPENED)}
             />
           ),
         ]}
@@ -235,7 +247,7 @@ function App() {
           </a>
         </div>
       </main>
-      {!drawerOpen &&
+      {drawerState !== DRAWER_STATE.PINNED &&
         (navVertical ? (
           <NavigationRail
             items={navItems}
@@ -246,9 +258,9 @@ function App() {
         ))}
 
       <NavigationDrawer
-        keep={drawerKeep}
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
+        keep={drawerState === DRAWER_STATE.PINNED}
+        open={drawerState === DRAWER_STATE.OPENED}
+        onClose={() => setDrawerState(DRAWER_STATE.CLOSED)}
         items={[
           {
             label: "Headline",

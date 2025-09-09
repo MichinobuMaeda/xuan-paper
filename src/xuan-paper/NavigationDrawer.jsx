@@ -110,9 +110,9 @@ NavItem.propTypes = {
  * @param {Array<object>} [props.items] - Array of navigation items to display in the drawer (defaults to []).
  *   Each item object supports properties: icon, label, badge, onClick, active, disabled.
  *   Empty objects ({}) render as horizontal dividers between sections.
+ * @param {boolean} [props.open] - Whether the drawer is currently open and visible (defaults to false)
  * @param {boolean} [props.keep] - Controls drawer behavior: true for persistent mode (always visible),
  *   false for temporary mode with overlay and dismissal capability
- * @param {boolean} [props.open] - Whether the drawer is currently open and visible (defaults to false)
  * @param {Function} [props.onClose] - Callback function invoked when drawer should close (defaults to empty function)
  * @param {string} [props.width] - Width of the drawer using Tailwind CSS class (defaults to "w-84")
  * @param {string} [props.bgColor] - Background color CSS classes for the drawer container (defaults to "bg-light-surface-container-low dark:bg-dark-surface-container-low")
@@ -170,13 +170,13 @@ NavItem.propTypes = {
  */
 const NavigationDrawer = ({
   items = [],
-  keep,
   open = false,
+  keep = false,
   onClose = () => {},
   width = "w-84",
   bgColor = "bg-light-surface-container-low dark:bg-dark-surface-container-low",
 }) => {
-  return open ? (
+  return open || keep ? (
     <div
       className={`flex flex-row ${keep ? width : "w-full"} h-full
         fixed top-0 left-0 ${keep ? "" : "z-50"}
