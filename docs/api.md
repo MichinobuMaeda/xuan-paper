@@ -1,4 +1,4 @@
-# API Documentation xuan-paper 1.0.2
+# API Documentation xuan-paper 1.0.0
 
 ## Modules
 
@@ -405,8 +405,8 @@ The color system generates 33+ semantic color tokens for each theme mode, ensuri
 consistent color relationships across all UI elements while maintaining WCAG
 accessibility standards.
 
-**Since**: 1.0.0  
-**Example**  
+**Since**: 1.0.0
+**Example**
 ```js
 // Basic theme generation
 import { generateScheme, applyColorScheme } from './material-theme.js';
@@ -414,7 +414,7 @@ import { generateScheme, applyColorScheme } from './material-theme.js';
 const scheme = await generateScheme('#1976D2', 0);
 applyColorScheme(scheme); // Apply theme to document
 ```
-**Example**  
+**Example**
 ```js
 // Generate CSS for static inclusion
 import { generateScheme, generateThemeCss } from './material-theme.js';
@@ -451,23 +451,23 @@ The function creates separate tokens for key UI elements following Material Desi
 naming conventions like 'onPrimary' for text on primary surfaces and 'primaryContainer'
 for container elements with primary color associations.
 
-**Kind**: static method of [<code>material-theme</code>](#module_material-theme)  
+**Kind**: static method of [<code>material-theme</code>](#module_material-theme)
 **Returns**: <code>Promise.&lt;Array.&lt;ThemeObject&gt;&gt;</code> - Promise resolving to an array of theme objects:
 - Each theme contains: {brightness, colors}
 - brightness: "light" or "dark"
-- colors: Array of [tokenName, hexColor] pairs (33+ tokens per theme)  
+- colors: Array of [tokenName, hexColor] pairs (33+ tokens per theme)
 **Throws**:
 
 - <code>Error</code> Throws error if seedColor is not a valid hex color format
 
-**Since**: 1.0.0  
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
 | seedColor | <code>string</code> | Hex color code (e.g., "#FF5722") to use as the base for generating the entire color scheme.   Must be a valid 6-digit hexadecimal color with # prefix. Invalid colors will throw an error. |
 | contrast | <code>number</code> | Contrast level for the scheme, typically ranging from -1.0 to 1.0.   - 0.0: Standard contrast (default Material Design contrast)   - Positive values: Higher contrast for improved accessibility   - Negative values: Lower contrast for softer appearance   - Values outside -1.0 to 1.0 are automatically clamped |
 
-**Example**  
+**Example**
 ```js
 // Generate a blue-based theme with standard contrast
 const scheme = await generateScheme("#1976D2", 0);
@@ -476,12 +476,12 @@ const scheme = await generateScheme("#1976D2", 0);
 //   {brightness: "dark", colors: [["primary", "#90CAF9"], ["onPrimary", "#003258"], ...]}
 // ]
 ```
-**Example**  
+**Example**
 ```js
 // Generate a high-contrast green theme for accessibility
 const highContrastScheme = await generateScheme("#4CAF50", 0.5);
 ```
-**Example**  
+**Example**
 ```js
 // Generate theme for brand colors with custom contrast
 const brandColor = "#E91E63"; // Brand pink
@@ -502,21 +502,21 @@ Each color value is formatted as a hexadecimal color string suitable for CSS usa
 The generated variables follow Material Design's semantic naming system for consistent
 theming across components.
 
-**Kind**: static method of [<code>material-theme</code>](#module_material-theme)  
+**Kind**: static method of [<code>material-theme</code>](#module_material-theme)
 **Returns**: <code>object</code> - Object with brightness values as keys ("light", "dark")
   and CSS variable objects as values. Each nested object contains CSS variable names
-  as keys (with -- prefix) and hex color values.  
+  as keys (with -- prefix) and hex color values.
 **Throws**:
 
 - <code>Error</code> Throws error if scheme is empty, malformed, or contains invalid color data
 
-**Since**: 1.0.0  
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
 | scheme | <code>Array.&lt;ThemeObject&gt;</code> | Array of theme objects from generateScheme().   Expected format: [{brightness: "light"|"dark", colors: [[tokenName, hexColor], ...]}, ...]   - Must contain at least one theme object   - Each theme must have brightness and colors properties   - colors should be array of [string, string] tuples |
 
-**Example**  
+**Example**
 ```js
 // Convert generated scheme to CSS variables
 const scheme = await generateScheme("#1976D2", 0);
@@ -540,7 +540,7 @@ console.log(cssVars);
 //   }
 // }
 ```
-**Example**  
+**Example**
 ```js
 // Apply to stylesheet dynamically
 const variables = convertToVariables(themeScheme);
@@ -565,34 +565,34 @@ of `--color-{brightness}-{token-name}` for CSS variables.
 The function performs immediate DOM manipulation, so themes become active
 instantly without requiring page reloads or additional CSS loading.
 
-**Kind**: static method of [<code>material-theme</code>](#module_material-theme)  
+**Kind**: static method of [<code>material-theme</code>](#module_material-theme)
 **Returns**: <code>void</code> - This function does not return a value, it modifies the document directly.
-  All CSS custom properties are set on document.documentElement for global access.  
+  All CSS custom properties are set on document.documentElement for global access.
 **Throws**:
 
 - <code>Error</code> May throw if scheme data is malformed or DOM manipulation fails
 
-**Since**: 1.0.0  
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
 | scheme | <code>Array.&lt;ThemeObject&gt;</code> | Color scheme data from generateScheme().   Expected format: Array of {brightness, colors} objects where:   - brightness: "light" or "dark" string identifier   - colors: Array of [tokenName, hexColor] string pair arrays   - Must contain valid color data for proper theme application |
 
-**Example**  
+**Example**
 ```js
 // Generate a theme and apply it immediately
 const scheme = await generateScheme("#1976D2", 0);
 applyColorScheme(scheme);
 // CSS variables like --color-light-primary and --color-dark-primary are now available
 ```
-**Example**  
+**Example**
 ```js
 // Update theme dynamically based on user selection
 const userColor = getUserSelectedColor();
 const newScheme = await generateScheme(userColor, 0.2);
 applyColorScheme(newScheme);
 ```
-**Example**  
+**Example**
 ```js
 // Apply theme with error handling
 try {
@@ -623,13 +623,13 @@ and form controls that maintain design consistency.
 The generated CSS includes comprehensive metadata documenting when and how the theme
 was created, making it easier to track theme generations and their parameters.
 
-**Kind**: static method of [<code>material-theme</code>](#module_material-theme)  
+**Kind**: static method of [<code>material-theme</code>](#module_material-theme)
 **Returns**: <code>string</code> - CSS string containing complete @theme block with:
   - Header comment with generation metadata (timestamp, seed color, contrast)
   - All Material Design color custom properties for light and dark modes
   - Additional semantic color variables for links and forms
-  - Proper CSS formatting ready for file output or style injection  
-**Since**: 1.0.0  
+  - Proper CSS formatting ready for file output or style injection
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -637,21 +637,21 @@ was created, making it easier to track theme generations and their parameters.
 | seedColor | <code>string</code> | The original seed color used to generate the scheme.   Should be a valid hex color (e.g., "#1976D2") used for theme generation metadata.   This value is included in generated CSS comments for documentation purposes. |
 | contrast | <code>number</code> | The contrast level used when generating the scheme.   Typically ranges from -1.0 to 1.0, included in CSS metadata for reference.   Used to document the accessibility settings applied to the theme. |
 
-**Example**  
+**Example**
 ```js
 // Convert scheme to complete CSS theme
 const scheme = await generateScheme("#1976D2", 0);
 const cssTheme = generateThemeCss(scheme, "#1976D2", 0);
 // Returns formatted CSS with @theme block containing color variables
 ```
-**Example**  
+**Example**
 ```js
 // Generate CSS file for build process
 const brandScheme = await generateScheme("#E91E63", 0.3);
 const themeCSS = generateThemeCss(brandScheme, "#E91E63", 0.3);
 await fs.writeFile('theme.css', themeCSS, 'utf8');
 ```
-**Example**  
+**Example**
 ```js
 // Use with CSS injection for dynamic theming
 const userScheme = await generateScheme(userPickedColor, userContrastLevel);
@@ -676,10 +676,10 @@ The conversion follows the standard HSL color space definition where:
 - Saturation controls color purity (0% = grayscale, 100% = pure color)
 - Lightness controls brightness (0% = black, 50% = pure color, 100% = white)
 
-**Kind**: static method of [<code>material-theme</code>](#module_material-theme)  
+**Kind**: static method of [<code>material-theme</code>](#module_material-theme)
 **Returns**: <code>string</code> - Hexadecimal color code in format #RRGGBB (uppercase).
-  Always returns 6-digit hex format with # prefix for CSS compatibility.  
-**Since**: 1.0.0  
+  Always returns 6-digit hex format with # prefix for CSS compatibility.
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -687,29 +687,29 @@ The conversion follows the standard HSL color space definition where:
 | [s] | <code>number</code> | Saturation percentage (0-100). Controls color intensity/purity.   Defaults to 100 if not provided.   - 0 = Completely desaturated (grayscale)   - 100 = Fully saturated (pure color)   - Values outside 0-100 are clamped to valid range |
 | [l] | <code>number</code> | Lightness percentage (0-100). Controls brightness.   Defaults to 50 if not provided.   - 0 = Black (regardless of hue/saturation)   - 50 = Normal lightness (pure color at full saturation)   - 100 = White (regardless of hue/saturation) |
 
-**Example**  
+**Example**
 ```js
 // Pure red color
 hslToHex(0, 100, 50); // Returns "#FF0000"
 ```
-**Example**  
+**Example**
 ```js
 // Blue with default saturation and lightness
 hslToHex(240); // Returns "#0000FF" (equivalent to hslToHex(240, 100, 50))
 ```
-**Example**  
+**Example**
 ```js
 // Create a pastel pink
 hslToHex(330, 50, 80); // Returns "#E6B3CC"
 ```
-**Example**  
+**Example**
 ```js
 // Generate complementary colors
 const baseHue = 200; // Cyan-blue
 const baseColor = hslToHex(baseHue, 70, 60);
 const complementary = hslToHex(baseHue + 180, 70, 60);
 ```
-**Example**  
+**Example**
 ```js
 // Create color variations with different lightness
 const hue = 90; // Yellow-green
@@ -726,17 +726,17 @@ A color token pair representing a semantic color name and its hexadecimal value.
 Used throughout the Material Design color system to associate meaningful names
 with specific color values, enabling semantic color usage in UI components.
 
-**Kind**: inner typedef of [<code>material-theme</code>](#module_material-theme)  
-**Since**: 1.0.0  
-**Example**  
+**Kind**: inner typedef of [<code>material-theme</code>](#module_material-theme)
+**Since**: 1.0.0
+**Example**
 ```js
 ["primary", "#1976D2"]
 ```
-**Example**  
+**Example**
 ```js
 ["onPrimary", "#FFFFFF"]
 ```
-**Example**  
+**Example**
 ```js
 ["surfaceContainerHighest", "#E8EAF6"]
 ```
@@ -748,8 +748,8 @@ Represents either a light or dark theme variant with all Material Design 3
 semantic color tokens. Each theme object contains 33+ color pairs covering
 primary, secondary, tertiary, surface, and semantic color categories.
 
-**Kind**: inner typedef of [<code>material-theme</code>](#module_material-theme)  
-**Since**: 1.0.0  
+**Kind**: inner typedef of [<code>material-theme</code>](#module_material-theme)
+**Since**: 1.0.0
 **Properties**
 
 | Name | Type | Description |
@@ -757,7 +757,7 @@ primary, secondary, tertiary, surface, and semantic color categories.
 | brightness | <code>string</code> | Theme brightness mode, either "light" or "dark" |
 | colors | <code>Array.&lt;ColorPair&gt;</code> | Array of semantic color token pairs |
 
-**Example**  
+**Example**
 ```js
 // Light theme example
 {
@@ -771,7 +771,7 @@ primary, secondary, tertiary, surface, and semantic color categories.
   ]
 }
 ```
-**Example**  
+**Example**
 ```js
 // Dark theme example
 {
@@ -815,9 +815,9 @@ color are fully configurable to accommodate different design requirements.
 The component includes responsive padding that adapts to screen sizes, with tighter
 spacing on mobile devices and more generous spacing on larger screens.
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - AppBar component with configured navigation and branding elements  
-**Component**:   
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - AppBar component with configured navigation and branding elements
+**Component**:
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -831,7 +831,7 @@ spacing on mobile devices and more generous spacing on larger screens.
 | [props.textColor] | <code>string</code> | Text color CSS classes with light/dark mode variants for app bar content (defaults to "text-light-on-surface dark:text-dark-on-surface") |
 | [props.bgColor] | <code>string</code> | Background color CSS classes with light/dark mode variants for the app bar container (defaults to "bg-light-surface dark:bg-dark-surface") |
 
-**Example**  
+**Example**
 ```js
 import { SvgMenu, SvgSearch, SvgNotifications } from '../icons';
 import Button from './Button';
@@ -848,7 +848,7 @@ import Button from './Button';
   ]}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Full configuration with logo and multiple actions
 import { SvgLogo, SvgMenu, SvgSearch, SvgNotifications, SvgAccount } from '../icons';
@@ -895,9 +895,9 @@ Features include:
 - Icon-only or text-only configurations
 - Factory method (Button.forAppBar) for creating AppBar-optimized buttons
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered button component with configured styling and behavior  
-**Component**:   
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - Rendered button component with configured styling and behavior
+**Component**:
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -912,12 +912,12 @@ Features include:
 | [props.size] | <code>&#x27;xs&#x27;</code> \| <code>&#x27;sm&#x27;</code> \| <code>&#x27;md&#x27;</code> | Size variant of the button (defaults to "sm", auto-adjusts to "xs" for embedded style) |
 | [props.width] | <code>string</code> | Tailwind CSS class for button width (defaults to "w-fit") |
 
-**Example**  
+**Example**
 ```js
 // Basic filled button (default style)
 <Button label="Click Me" onClick={() => console.log('clicked')} />
 ```
-**Example**  
+**Example**
 ```js
 // Icon button with custom styling
 <Button
@@ -927,7 +927,7 @@ Features include:
   rounded="rounded-lg"
 />
 ```
-**Example**  
+**Example**
 ```js
 // Danger button with label
 <Button
@@ -937,7 +937,7 @@ Features include:
   disabled={isLoading}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Icon-only button with custom width
 <Button
@@ -947,7 +947,7 @@ Features include:
   width="w-12"
 />
 ```
-**Example**  
+**Example**
 ```js
 // Embedded text button for inline actions
 <Button
@@ -956,7 +956,7 @@ Features include:
   onClick={showDetails}
 />
 ```
-**Example**  
+**Example**
 ```js
 // AppBar button using factory method
 import { SvgMenu } from '../icons';
@@ -973,8 +973,8 @@ Factory method to create a Button optimized for AppBar usage.
 Automatically applies style="embedded" and size="sm" which are the recommended
 settings for buttons used in AppBar prefix and suffix arrays.
 
-**Kind**: static method of [<code>Button</code>](#Button)  
-**Returns**: <code>JSX.Element</code> - Button component optimized for AppBar usage  
+**Kind**: static method of [<code>Button</code>](#Button)
+**Returns**: <code>JSX.Element</code> - Button component optimized for AppBar usage
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -985,7 +985,7 @@ settings for buttons used in AppBar prefix and suffix arrays.
 | [props.onClick] | <code>function</code> | Click event handler function |
 | [props.disabled] | <code>boolean</code> | Whether the button is disabled |
 
-**Example**  
+**Example**
 ```js
 // Create an AppBar navigation button
 import { SvgMenu } from '../icons';
@@ -995,7 +995,7 @@ const navigationButton = Button.forAppBar({
   onClick: () => setDrawerOpen(true)
 });
 ```
-**Example**  
+**Example**
 ```js
 // Create an AppBar action button
 import { SvgSettings } from '../icons';
@@ -1029,10 +1029,10 @@ group (multi-select) or a segmented control (single-select) depending on configu
 All buttons within the group maintain consistent sizing and spacing while providing
 clear visual feedback for user interactions and selection states.
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered button group component with all configured buttons  
-**Component**:   
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - Rendered button group component with all configured buttons
+**Component**:
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1045,7 +1045,7 @@ clear visual feedback for user interactions and selection states.
 | [props.disabled] | <code>boolean</code> | When true, disables the entire button group.   Defaults to false. Prevents all user interaction and applies disabled styling.   Individual buttons cannot be disabled separately within the group. |
 | [props.size] | <code>&#x27;xs&#x27;</code> \| <code>&#x27;sm&#x27;</code> \| <code>&#x27;md&#x27;</code> | Size variant applied to all buttons in the group.   Defaults to 'sm'. All buttons within the group will use the same size for consistency.   - 'xs': Compact size for tight layouts   - 'sm': Standard size for most use cases   - 'md': Larger size for prominent controls |
 
-**Example**  
+**Example**
 ```js
 // Single-select view mode switcher
 <ButtonGroup
@@ -1059,7 +1059,7 @@ clear visual feedback for user interactions and selection states.
   onChange={(value) => setCurrentView(value)}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Multi-select filter options
 <ButtonGroup
@@ -1074,7 +1074,7 @@ clear visual feedback for user interactions and selection states.
   onChange={(values) => setSelectedFilters(values)}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Icon-only button group for formatting
 import { SvgFormatBold, SvgFormatItalic, SvgFormatUnderline } from '../icons';
@@ -1092,7 +1092,7 @@ import { SvgFormatBold, SvgFormatItalic, SvgFormatUnderline } from '../icons';
   onChange={setFormatOptions}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Mixed icon and label button group
 import { SvgDashboard, SvgList, SvgSettings } from '../icons';
@@ -1132,10 +1132,10 @@ maintains consistent styling across different browsers and platforms.
 Error states apply red color variants throughout the component for clear visual
 feedback during form validation scenarios.
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered checkbox component with all configured features and styling  
-**Component**:   
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - Rendered checkbox component with all configured features and styling
+**Component**:
+**Since**: 1.0.0
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1147,7 +1147,7 @@ feedback during form validation scenarios.
 | [props.onChange] | <code>function</code> |  | Callback function invoked when checkbox state changes.   Receives the new checked state as a boolean parameter.   Required for controlled component behavior and form integration. |
 | [props.disabled] | <code>boolean</code> | <code>false</code> | When true, disables the checkbox interaction.   Applies disabled styling with reduced opacity and prevents all user interaction.   Use for checkboxes that are temporarily unavailable or not applicable. |
 
-**Example**  
+**Example**
 ```js
 // Basic checkbox with label
 <CheckBox
@@ -1156,7 +1156,7 @@ feedback during form validation scenarios.
   onChange={(checked) => setIsChecked(checked)}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Checkbox with danger/error styling for validation
 <CheckBox
@@ -1167,7 +1167,7 @@ feedback during form validation scenarios.
   onChange={setHasError}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Disabled checkbox for read-only state
 <CheckBox
@@ -1177,7 +1177,7 @@ feedback during form validation scenarios.
   onChange={() => {}} // No-op since it's disabled
 />
 ```
-**Example**  
+**Example**
 ```js
 // Checkbox in a form with controlled state
 const [preferences, setPreferences] = useState({
@@ -1195,7 +1195,7 @@ const [preferences, setPreferences] = useState({
   }
 />
 ```
-**Example**  
+**Example**
 ```js
 // Checkbox with validation in form context
 <CheckBox
@@ -1229,10 +1229,10 @@ The component automatically handles menu state transitions and provides visual
 feedback for all interactions. Menu items are displayed with appropriate spacing
 and follow the same design patterns as the main FAB button.
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - FAB component with configured styling and optional expandable menu  
-**Component**:   
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - FAB component with configured styling and optional expandable menu
+**Component**:
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1246,7 +1246,7 @@ and follow the same design patterns as the main FAB button.
 | [props.position] | <code>string</code> | CSS positioning classes.   Defaults to bottom-right positioning with safe area support.   Can be customized for different layouts (e.g., 'fixed bottom-4 left-4' for bottom-left). |
 | [props.onClick] | <code>function</code> | Click handler for the main FAB button.   Called when FAB is clicked. For expandable FABs, this is called in addition to menu toggle.   Defaults to no-op function if not provided. |
 
-**Example**  
+**Example**
 ```js
 // Simple FAB for primary action
 import { SvgAdd } from '../icons';
@@ -1257,7 +1257,7 @@ import { SvgAdd } from '../icons';
   onClick={handleAddItem}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Expandable FAB with multiple actions
 import { SvgAdd, SvgEdit, SvgShare, SvgDelete } from '../icons';
@@ -1286,7 +1286,7 @@ import { SvgAdd, SvgEdit, SvgShare, SvgDelete } from '../icons';
   ]}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Conditionally hidden FAB based on scroll
 <Fab
@@ -1297,7 +1297,7 @@ import { SvgAdd, SvgEdit, SvgShare, SvgDelete } from '../icons';
   position="fixed bottom-4 right-4 z-50"
 />
 ```
-**Example**  
+**Example**
 ```js
 // Secondary color FAB in custom position
 <Fab
@@ -1327,9 +1327,9 @@ The component automatically handles different visual states:
 - Hover/active effects adapt between mobile and desktop views
 - Provides enhanced touch feedback with active states for mobile interactions
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered navigation bar component  
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - Rendered navigation bar component
+**Since**: 1.0.0
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1337,7 +1337,7 @@ The component automatically handles different visual states:
 | props.items | [<code>Array.&lt;NavigationBarItem&gt;</code>](#NavigationBarItem) |  | Array of navigation items to display |
 | [props.optionalClass] | <code>string</code> | <code>&quot;\&quot;fixed bottom-0\&quot;&quot;</code> | Additional CSS classes for positioning and styling |
 
-**Example**  
+**Example**
 ```js
 // Basic usage with icons and labels
 <NavigationBar
@@ -1367,7 +1367,7 @@ The component automatically handles different visual states:
   ]}
 />
 ```
-**Example**  
+**Example**
 ```js
 // With custom positioning as a top navigation bar
 <NavigationBar
@@ -1396,9 +1396,9 @@ persistent mode, the drawer remains visible and takes up dedicated screen space.
 The component respects accessibility guidelines with proper focus management,
 keyboard navigation support, and semantic markup for screen readers.
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - NavigationDrawer component or empty fragment when closed  
-**Component**:   
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - NavigationDrawer component or empty fragment when closed
+**Component**:
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1410,7 +1410,7 @@ keyboard navigation support, and semantic markup for screen readers.
 | [props.width] | <code>string</code> | Width of the drawer using Tailwind CSS class (defaults to "w-84") |
 | [props.bgColor] | <code>string</code> | Background color CSS classes for the drawer container (defaults to "bg-light-surface-container-low dark:bg-dark-surface-container-low") |
 
-**Example**  
+**Example**
 ```js
 // Basic usage with temporary drawer
 import { SvgHome, SvgSettings, SvgLogout } from '../icons';
@@ -1439,7 +1439,7 @@ import { SvgHome, SvgSettings, SvgLogout } from '../icons';
   ]}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Persistent drawer (always visible)
 <NavigationDrawer
@@ -1447,7 +1447,7 @@ import { SvgHome, SvgSettings, SvgLogout } from '../icons';
   items={navigationItems}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Custom width drawer
 <NavigationDrawer
@@ -1457,7 +1457,7 @@ import { SvgHome, SvgSettings, SvgLogout } from '../icons';
   onClose={() => setIsOpen(false)}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Custom styling with background color
 <NavigationDrawer
@@ -1486,9 +1486,9 @@ Features:
 - Provides hover effects that adapt based on screen size
 - Follows Material Design 3 theming guidelines with proper light/dark mode support
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered navigation rail component  
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - Rendered navigation rail component
+**Since**: 1.0.0
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1496,7 +1496,7 @@ Features:
 | props.items | [<code>Array.&lt;NavigationRailItem&gt;</code>](#NavigationRailItem) |  | Array of navigation items to display |
 | [props.optionalClass] | <code>string</code> | <code>&quot;\&quot;h-full w-24 lg:w-56 fixed top-0 py-4\&quot;&quot;</code> | Additional CSS classes for positioning and styling |
 
-**Example**  
+**Example**
 ```js
 // Basic usage with icons and labels
 <NavigationRail
@@ -1526,7 +1526,7 @@ Features:
   ]}
 />
 ```
-**Example**  
+**Example**
 ```js
 // With custom positioning and width
 <NavigationRail
@@ -1559,11 +1559,11 @@ The component handles all PWA lifecycle states automatically:
 The notification appears as a small badge/banner that doesn't interfere with
 the main app interface while providing essential PWA status information.
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> \| <code>null</code> - Notification badge component or null when no notifications needed  
-**Component**:   
-**Generated**: Based on @vite-pwa/pwa plugin setup with customized Material Design UI  
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> \| <code>null</code> - Notification badge component or null when no notifications needed
+**Component**:
+**Generated**: Based on @vite-pwa/pwa plugin setup with customized Material Design UI
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1573,7 +1573,7 @@ the main app interface while providing essential PWA status information.
 | [props.needRefreshMessage] | <code>string</code> | Message displayed when a new version is available. |
 | props.useRegisterSW | <code>function</code> | The useRegisterSW hook from @vite-pwa/pwa, injected for service worker lifecycle management. Required.   Defaults to the imported useRegisterSW if not provided. Allows for dependency injection in testing or advanced usage. |
 
-**Example**  
+**Example**
 ```js
 // Basic usage in application layout
 import PWABadge from '../components/PWABadge';
@@ -1590,7 +1590,7 @@ function AppLayout({ children }) {
   );
 }
 ```
-**Example**  
+**Example**
 ```js
 // With custom messages and faster update checking
 <PWABadge
@@ -1599,7 +1599,7 @@ function AppLayout({ children }) {
   needRefreshMessage="Update available! Click to refresh and get the latest features."
 />
 ```
-**Example**  
+**Example**
 ```js
 // In a PWA-focused component with longer intervals
 <PWABadge
@@ -1608,7 +1608,7 @@ function AppLayout({ children }) {
   needRefreshMessage="🆕 New version ready - tap to update"
 />
 ```
-**Example**  
+**Example**
 ```js
 // Integration with notification system
 function NotificationArea() {
@@ -1627,7 +1627,7 @@ function NotificationArea() {
 ### PWABadge~close() ⇒ <code>void</code>
 Closes the PWA notification badge by resetting offline ready and need refresh states.
 
-**Kind**: inner method of [<code>PWABadge</code>](#PWABadge)  
+**Kind**: inner method of [<code>PWABadge</code>](#PWABadge)
 <a name="PasswordField"></a>
 
 ## PasswordField(props) ⇒ <code>JSX.Element</code>
@@ -1652,10 +1652,10 @@ by defaulting to hidden text.
 All styling and behavior is consistent with the base TextField component while
 adding password-specific enhancements for security and usability.
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered password field component with integrated visibility toggle  
-**Component**:   
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - Rendered password field component with integrated visibility toggle
+**Component**:
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1670,7 +1670,7 @@ adding password-specific enhancements for security and usability.
 | [props.fontFamily] | <code>string</code> | Tailwind CSS font family class.   Defaults to 'font-mono' for better password character distinction.   Monospace fonts help users identify similar characters more easily. |
 | [props.onChange] | <code>function</code> | Callback function invoked when password value changes.   Receives the new password value as a string parameter for state updates. |
 
-**Example**  
+**Example**
 ```js
 // Basic password field with label
 <PasswordField
@@ -1679,7 +1679,7 @@ adding password-specific enhancements for security and usability.
   onChange={(value) => setPassword(value)}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Password field with validation and requirements
 <PasswordField
@@ -1692,7 +1692,7 @@ adding password-specific enhancements for security and usability.
   onChange={setPassword}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Filled style password field with custom font
 <PasswordField
@@ -1704,7 +1704,7 @@ adding password-specific enhancements for security and usability.
   onChange={setNewPassword}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Registration form password with strength validation
 <PasswordField
@@ -1742,10 +1742,10 @@ the group share the same name attribute for proper browser grouping behavior.
 The layout can be configured for different use cases - horizontal for compact
 selections and vertical for longer lists or improved mobile accessibility.
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered radio group component (React Fragment containing radio buttons)  
-**Component**:   
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - Rendered radio group component (React Fragment containing radio buttons)
+**Component**:
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1756,7 +1756,7 @@ selections and vertical for longer lists or improved mobile accessibility.
 | [props.onChange] | <code>function</code> | Callback function invoked when a radio button is selected.   Receives the selected item's value as a string parameter.   Required for controlled component behavior and state updates. |
 | [props.layout] | <code>&#x27;vertical&#x27;</code> \| <code>&#x27;horizontal&#x27;</code> | Layout direction for the radio buttons.   Defaults to 'horizontal'.   - 'horizontal': Arranges radio buttons in a row (compact for short lists)   - 'vertical': Arranges radio buttons in a column (better for longer lists) |
 
-**Example**  
+**Example**
 ```js
 // Basic radio group for size selection
 <RadioGroup
@@ -1770,7 +1770,7 @@ selections and vertical for longer lists or improved mobile accessibility.
   onChange={(value) => setSelectedSize(value)}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Vertical radio group for theme preferences
 <RadioGroup
@@ -1785,7 +1785,7 @@ selections and vertical for longer lists or improved mobile accessibility.
   onChange={handleThemeChange}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Radio group for payment methods
 <RadioGroup
@@ -1801,7 +1801,7 @@ selections and vertical for longer lists or improved mobile accessibility.
   onChange={setSelectedPayment}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Settings radio group with controlled state
 const [notification, setNotification] = useState('email');
@@ -1840,10 +1840,10 @@ feedback during interaction and maintains smooth performance across all devices.
 All interactions are handled through modern pointer events for consistent behavior
 across different input methods (mouse, touch, pen).
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered interactive slider component with all configured features  
-**Component**:   
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - Rendered interactive slider component with all configured features
+**Component**:
+**Since**: 1.0.0
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1855,7 +1855,7 @@ across different input methods (mouse, touch, pen).
 | [props.width] | <code>string</code> | Tailwind CSS width class controlling slider container width.   Supports responsive width classes (e.g., 'w-full md:w-80') for adaptive layouts. |
 | [props.onChange] | <code>function</code> | Callback function invoked when slider value changes.   Receives the new value as a number parameter matching the slider mode.   Omitting this prop creates a read-only slider suitable for progress indication. |
 
-**Example**  
+**Example**
 ```js
 // Continuous volume slider (0-1 range)
 <Slider
@@ -1865,7 +1865,7 @@ across different input methods (mouse, touch, pen).
   size="sm"
 />
 ```
-**Example**  
+**Example**
 ```js
 // Discrete rating slider (0-10 integer values)
 <Slider
@@ -1877,7 +1877,7 @@ across different input methods (mouse, touch, pen).
   width="w-80"
 />
 ```
-**Example**  
+**Example**
 ```js
 // Progress indicator (read-only, no interaction)
 <Slider
@@ -1887,7 +1887,7 @@ across different input methods (mouse, touch, pen).
   // No onChange = read-only mode
 />
 ```
-**Example**  
+**Example**
 ```js
 // Settings panel brightness control
 <Slider
@@ -1901,7 +1901,7 @@ across different input methods (mouse, touch, pen).
   size="sm"
 />
 ```
-**Example**  
+**Example**
 ```js
 // Discrete step selector for quantities
 <Slider
@@ -1935,10 +1935,10 @@ behavior across different platforms and browsers.
 Commonly used for settings, preferences, feature toggles, and any binary choice
 where immediate feedback is important to the user experience.
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered switch component with all configured features and styling  
-**Component**:   
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - Rendered switch component with all configured features and styling
+**Component**:
+**Since**: 1.0.0
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1948,7 +1948,7 @@ where immediate feedback is important to the user experience.
 | [props.onChange] | <code>function</code> |  | Callback function invoked when switch state changes.   Receives the new state as a boolean parameter for state updates.   Required for controlled component behavior and user interaction. |
 | [props.disabled] | <code>boolean</code> | <code>false</code> | When true, disables switch interaction.   Applies disabled styling with reduced opacity and prevents all user interaction.   Use for switches that are temporarily unavailable or not applicable. |
 
-**Example**  
+**Example**
 ```js
 // Basic switch for notifications
 <Switch
@@ -1957,7 +1957,7 @@ where immediate feedback is important to the user experience.
   onChange={(enabled) => setNotificationsEnabled(enabled)}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Switch with disabled state for premium features
 <Switch
@@ -1967,7 +1967,7 @@ where immediate feedback is important to the user experience.
   disabled={!isPremiumUser}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Dark mode toggle switch with theme application
 <Switch
@@ -1979,7 +1979,7 @@ where immediate feedback is important to the user experience.
   }}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Settings panel with multiple switches
 const [settings, setSettings] = useState({
@@ -1996,7 +1996,7 @@ const [settings, setSettings] = useState({
   }
 />
 ```
-**Example**  
+**Example**
 ```js
 // Switch with form integration and validation
 <Switch
@@ -2029,10 +2029,10 @@ user feedback through visual and text cues.
 All interactive prefix and suffix elements should use Button components with
 style="embedded" for consistent theming and behavior within the text field context.
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - Rendered text field component with all configured features and styling  
-**Component**:   
-**Since**: 1.0.0  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - Rendered text field component with all configured features and styling
+**Component**:
+**Since**: 1.0.0
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -2052,7 +2052,7 @@ style="embedded" for consistent theming and behavior within the text field conte
 | [props.readOnly] | <code>boolean</code> |  | When true, makes the input read-only.   Users can select and copy text but cannot modify the content.   Useful for displaying editable-looking data that shouldn't be changed. |
 | [props.disabled] | <code>boolean</code> |  | When true, completely disables the input field.   Defaults to false. Prevents all user interaction and applies disabled styling with reduced opacity.   Use for fields that are temporarily unavailable or not applicable. |
 
-**Example**  
+**Example**
 ```js
 // Basic text input with floating label
 <TextField
@@ -2062,7 +2062,7 @@ style="embedded" for consistent theming and behavior within the text field conte
   onChange={setUsername}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Email field with validation and helper text
 <TextField
@@ -2074,7 +2074,7 @@ style="embedded" for consistent theming and behavior within the text field conte
   onChange={setEmail}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Password field with visibility toggle
 import { SvgVisibility, SvgVisibilityOff } from '../icons';
@@ -2094,7 +2094,7 @@ import Button from './Button';
   onChange={setPassword}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Search field with prefix icon and clear button
 import { SvgSearch, SvgClose } from '../icons';
@@ -2117,7 +2117,7 @@ import Button from './Button';
   onChange={setSearchQuery}
 />
 ```
-**Example**  
+**Example**
 ```js
 // Filled style numeric input with custom width
 <TextField
@@ -2135,8 +2135,8 @@ import Button from './Button';
 ## computeMode(systemMode, brightnessSetting) ⇒ <code>boolean</code>
 Computes the actual theme mode (dark/light) based on system preference and user setting.
 
-**Kind**: global function  
-**Returns**: <code>boolean</code> - True for dark mode, false for light mode  
+**Kind**: global function
+**Returns**: <code>boolean</code> - True for dark mode, false for light mode
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2148,8 +2148,8 @@ Computes the actual theme mode (dark/light) based on system preference and user 
 ## nextMode(systemMode, brightnessSetting) ⇒ <code>string</code>
 Determines the next mode in the cycling sequence based on current system and user settings.
 
-**Kind**: global function  
-**Returns**: <code>string</code> - The next brightness setting in the cycle  
+**Kind**: global function
+**Returns**: <code>string</code> - The next brightness setting in the cycle
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2179,14 +2179,14 @@ CSS Setup Required:
 To enable dark mode styles in your application, add this custom variant to your CSS:
 ```css
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - A button with dynamic icon that reflects current theme mode  
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - A button with dynamic icon that reflects current theme mode
 **Custom-variant**: dark (&:where(.dark, .dark *));
 ```
 
 The component automatically manages the "dark" class on the document element,
-allowing Tailwind CSS dark: modifiers to work correctly.  
-**Component**:   
+allowing Tailwind CSS dark: modifiers to work correctly.
+**Component**:
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2194,7 +2194,7 @@ allowing Tailwind CSS dark: modifiers to work correctly.
 | [props.style] | <code>string</code> | Visual style variant for the button (defaults to "embedded") |
 | [props.size] | <code>string</code> | Size variant for the button (defaults to "sm") |
 
-**Example**  
+**Example**
 ```js
 // Basic usage in a header component
 import ToggleDarkModeButton from '../xuan-paper/ToggleDarkModeButton';
@@ -2209,12 +2209,12 @@ const Header = () => (
   </header>
 );
 ```
-**Example**  
+**Example**
 ```js
 // Custom styling with different button appearance
 <ToggleDarkModeButton style="outlined" size="md" />
 ```
-**Example**  
+**Example**
 ```js
 // Usage in a settings panel
 const SettingsPanel = () => (
@@ -2232,7 +2232,7 @@ const SettingsPanel = () => (
 ## initLanguage(langs, setLanguage)
 Initializes the language from localStorage if a valid language is stored.
 
-**Kind**: global function  
+**Kind**: global function
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2244,7 +2244,7 @@ Initializes the language from localStorage if a valid language is stored.
 ## nextLanguage(langs, currentLanguage, setLanguage)
 Cycles to the next available language in the languages object.
 
-**Kind**: global function  
+**Kind**: global function
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2275,9 +2275,9 @@ Requirements:
 - Each language entry should optionally have a 'label' property for display
 - Parent component should handle the actual language switching logic via setLang callback
 
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - A button displaying the current language label or a language icon.  
-**Component**:   
+**Kind**: global function
+**Returns**: <code>JSX.Element</code> - A button displaying the current language label or a language icon.
+**Component**:
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -2288,7 +2288,7 @@ Requirements:
 | [props.style] | <code>string</code> | Visual style variant for the button (e.g., "embedded", "outlined"). Defaults to "embedded". |
 | [props.size] | <code>string</code> | Size variant for the button (e.g., "sm", "md"). Defaults to "sm". |
 
-**Example**  
+**Example**
 ```js
 // Basic usage in a header component
 import ToggleLanguageButton from '../xuan-paper/ToggleLanguageButton';
@@ -2316,7 +2316,7 @@ const Header = () => {
   );
 };
 ```
-**Example**  
+**Example**
 ```js
 // Custom styling with different button styles
 <ToggleLanguageButton
@@ -2327,7 +2327,7 @@ const Header = () => {
   size="md"
 />
 ```
-**Example**  
+**Example**
 ```js
 // Example languages object structure
 const languages = {
@@ -2357,7 +2357,7 @@ const handleLanguageChange = (newLang) => {
 <a name="FabMenuItemProp"></a>
 
 ## FabMenuItemProp : <code>object</code>
-**Kind**: global typedef  
+**Kind**: global typedef
 **Properties**
 
 | Name | Type | Description |
@@ -2370,7 +2370,7 @@ const handleLanguageChange = (newLang) => {
 <a name="NavigationBarItem"></a>
 
 ## NavigationBarItem : <code>object</code>
-**Kind**: global typedef  
+**Kind**: global typedef
 **Properties**
 
 | Name | Type | Default | Description |
@@ -2384,7 +2384,7 @@ const handleLanguageChange = (newLang) => {
 <a name="NavigationRailItem"></a>
 
 ## NavigationRailItem : <code>object</code>
-**Kind**: global typedef  
+**Kind**: global typedef
 **Properties**
 
 | Name | Type | Default | Description |
