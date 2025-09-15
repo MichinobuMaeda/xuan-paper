@@ -27,14 +27,14 @@ jobs:
         run: npm run build
         if: github.ref_type == 'tag'
 
-      - name: Prepare publish
+      - name: Prepare sample
         run: |
           cp -r dist/* ./docs/ && \
           sed -i -e 's/="\//="\/xuan-paper\//g' docs/index.html && \
           sed -i -e 's/:\s*"\//:"\/xuan-paper\//g' docs/manifest.webmanifest
         if: github.ref_type == 'tag'
 
-      - name: Publish
+      - name: Publish sample
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "Publish sample"

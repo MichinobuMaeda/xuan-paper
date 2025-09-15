@@ -1,6 +1,10 @@
 {
-  "name": "xuan-paper",
-  "version": "1.0.2",
+  "name": "@michinobumaeda/xuan-paper",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MichinobuMaeda/xuan-paper.git"
+  },
+  "version": "1.0.0",
   "type": "module",
   "main": "index.js",
   "license": "MIT",
