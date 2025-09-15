@@ -1,4 +1,4 @@
-# API Documentation xuan-paper 1.0.0
+# API Documentation xuan-paper 1.0.1
 
 ## Modules
 
@@ -1571,7 +1571,8 @@ the main app interface while providing essential PWA status information.
 | props | <code>object</code> | Component props |
 | [props.checkForUpdateInterval] | <code>number</code> | Interval in milliseconds to check for PWA updates.   Defaults to 60*60*1000 (1 hour). Controls how frequently the app checks for new versions.   Shorter intervals provide faster update detection but consume more resources. |
 | [props.offlineReadyMessage] | <code>string</code> | Message displayed when app is ready for offline use.   Defaults to "App ready to work offline". Shown when service worker has cached   all necessary resources for offline functionality. |
-| [props.needRefreshMessage] | <code>string</code> | Message displayed when a new version is available.   Defaults to "New app available, click on reload button to update."   Shown when the service worker has downloaded a new version but requires user action to activate. |
+| [props.needRefreshMessage] | <code>string</code> | Message displayed when a new version is available. |
+| props.useRegisterSW |  | Defaults to "New app available, click on reload button to update."   Shown when the service worker has downloaded a new version but requires user action to activate. |
 
 **Example**  
 ```js

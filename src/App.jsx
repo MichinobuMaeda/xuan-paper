@@ -1,3 +1,8 @@
+/**
+ * @file Main application component for the Xuan Paper theme generator.
+ * Provides layout, theme customization, navigation, and demo functionality using Material Design 3 principles.
+ * @since 1.0.0
+ */
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
@@ -11,6 +16,7 @@ import {
   colorChangedAtom,
   demoValueResetAtom,
 } from "./state.js";
+import { useRegisterSW } from "virtual:pwa-register/react";
 
 import AppBar from "../lib/AppBar.jsx";
 import Button from "../lib/Button.jsx";
@@ -225,6 +231,7 @@ function App() {
             shadow-xs shadow-light-shadow/50 dark:shadow-dark-shadow/50`}
         >
           <PWABadge
+            useRegisterSW={useRegisterSW}
             checkForUpdateInterval={60 * 60 * 1000}
             needRefreshMessage={t("need refresh")}
             offlineReadyMessage={t("offline ready")}

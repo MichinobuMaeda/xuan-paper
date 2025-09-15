@@ -4,10 +4,8 @@
  * @since 1.0.0
  */
 
-import Button from "./Button.jsx";
-
-import { useRegisterSW } from "virtual:pwa-register/react";
 import PropTypes from "prop-types";
+import Button from "./Button.jsx";
 
 /**
  * PWA status notification component implementing Progressive Web App principles
@@ -41,6 +39,7 @@ import PropTypes from "prop-types";
  *   Defaults to "App ready to work offline". Shown when service worker has cached
  *   all necessary resources for offline functionality.
  * @param {string} [props.needRefreshMessage] - Message displayed when a new version is available.
+ * @param props.useRegisterSW
  *   Defaults to "New app available, click on reload button to update."
  *   Shown when the service worker has downloaded a new version but requires user action to activate.
  * @returns {JSX.Element|null} Notification badge component or null when no notifications needed
@@ -88,6 +87,7 @@ import PropTypes from "prop-types";
  * }
  */
 function PWABadge({
+  useRegisterSW,
   checkForUpdateInterval = 60 * 60 * 1000,
   offlineReadyMessage = "App ready to work offline",
   needRefreshMessage = "New app available, click on reload button to update.",
@@ -173,6 +173,7 @@ function PWABadge({
   );
 }
 PWABadge.propTypes = {
+  useRegisterSW: PropTypes.func.isRequired,
   checkForUpdateInterval: PropTypes.number,
   offlineReadyMessage: PropTypes.string,
   needRefreshMessage: PropTypes.string,
