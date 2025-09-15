@@ -1,20 +1,58 @@
+/**
+ * @file An interactive slider component implementing Material Design 3 slider patterns.
+ * Supports both continuous and discrete values with drag functionality and responsive design.
+ * @since 1.0.0
+ */
+
 import { useState, useId, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 
 /**
- * An interactive slider component with drag functionality and responsive design.
- * Supports both continuous values (0-1 range) and discrete step values (integer count).
- * Features hover and active states, automatic resize handling, and customizable sizing.
- * @param {object} props - The props object
- * @param {string} [props.id] - Unique identifier for the slider element (auto-generated if not provided)
- * @param {number} [props.value] - Current value of the slider. For continuous mode (count=1): 0-1 range. For discrete mode: 0 to count
- * @param {number} [props.count] - Number of discrete steps. Use 1 for continuous slider, >1 for stepped slider
- * @param {('xs'|'sm'|'md')} [props.size] - Visual size variant affecting track height and thumb size
- * @param {string} [props.width] - Tailwind CSS width class for the slider container
- * @param {Function} [props.onChange] - Callback function called when slider value changes
- * @returns {JSX.Element} Rendered interactive slider component
+ * An interactive slider component implementing Material Design 3 principles that provides
+ * intuitive value selection through drag interactions and click positioning.
+ *
+ * This component offers a comprehensive slider solution featuring:
+ * - **Continuous and Discrete Modes**: Support for 0-1 continuous values or discrete step counts
+ * - **Touch and Mouse Interaction**: Responsive drag handling optimized for both desktop and mobile
+ * - **Visual Feedback**: Smooth animations, hover states, and active interaction indicators
+ * - **Responsive Design**: Automatic resize handling and touch-optimized interaction zones
+ * - **Accessibility**: Keyboard navigation support and proper ARIA attributes
+ * - **Theme Integration**: Seamless light/dark mode support with Material Design colors
+ * - **Flexible Sizing**: Multiple size variants (xs, sm, md) for different use cases
+ * - **Progress Indication**: Can be used as read-only progress indicators
+ *
+ * The component supports both continuous sliders (count=1, values 0-1) and discrete
+ * step sliders (count>1, integer values 0 to count). It provides immediate visual
+ * feedback during interaction and maintains smooth performance across all devices.
+ *
+ * All interactions are handled through modern pointer events for consistent behavior
+ * across different input methods (mouse, touch, pen).
+ * @component
+ * @param {object} props - Component props
+ * @param {string} [props.id] - Unique identifier for the slider element.
+ *   Auto-generated using React's useId hook if not provided.
+ *   Used for accessibility and programmatic access.
+ * @param {number} [props.value] - Current value of the slider.
+ *   For continuous mode (count=1): accepts decimal values in 0-1 range.
+ *   For discrete mode (count>1): accepts integer values from 0 to count.
+ *   This is a controlled component requiring external state management.
+ * @param {number} [props.count] - Number of discrete steps or mode selector.
+ *   Use 1 for continuous slider with 0-1 decimal values.
+ *   Use values >1 for stepped slider with integer values from 0 to count.
+ *   Determines the interaction behavior and value constraints.
+ * @param {('xs'|'sm'|'md')} [props.size] - Visual size variant affecting dimensions.
+ *   - 'xs': Minimal height for compact layouts and progress indicators
+ *   - 'sm': Standard size for most interactive sliders
+ *   - 'md': Larger size for prominent controls requiring easier interaction
+ * @param {string} [props.width] - Tailwind CSS width class controlling slider container width.
+ *   Supports responsive width classes (e.g., 'w-full md:w-80') for adaptive layouts.
+ * @param {Function} [props.onChange] - Callback function invoked when slider value changes.
+ *   Receives the new value as a number parameter matching the slider mode.
+ *   Omitting this prop creates a read-only slider suitable for progress indication.
+ * @returns {JSX.Element} Rendered interactive slider component with all configured features
+ * @since 1.0.0
  * @example
- * // Continuous slider (0-1 range)
+ * // Continuous volume slider (0-1 range)
  * <Slider
  *   value={volume}
  *   onChange={(newValue) => setVolume(newValue)}
@@ -22,7 +60,7 @@ import PropTypes from "prop-types";
  *   size="sm"
  * />
  * @example
- * // Discrete step slider (0-10 range)
+ * // Discrete rating slider (0-10 integer values)
  * <Slider
  *   id="rating-slider"
  *   value={rating}
@@ -32,7 +70,7 @@ import PropTypes from "prop-types";
  *   width="w-80"
  * />
  * @example
- * // Progress indicator (read-only)
+ * // Progress indicator (read-only, no interaction)
  * <Slider
  *   value={downloadProgress}
  *   size="xs"
@@ -40,17 +78,25 @@ import PropTypes from "prop-types";
  *   // No onChange = read-only mode
  * />
  * @example
- * // Temperature control with custom sizing
+ * // Settings panel brightness control
  * <Slider
- *   id="temperature"
- *   value={currentTemp}
- *   count={100}
- *   size="md"
- *   width="w-96"
- *   onChange={(temp) => {
- *     setCurrentTemp(temp);
- *     adjustTemperature(temp);
+ *   id="brightness"
+ *   value={brightness}
+ *   onChange={(value) => {
+ *     setBrightness(value);
+ *     adjustScreenBrightness(value);
  *   }}
+ *   width="w-56"
+ *   size="sm"
+ * />
+ * @example
+ * // Discrete step selector for quantities
+ * <Slider
+ *   value={quantity}
+ *   count={50}
+ *   onChange={setQuantity}
+ *   width="w-72"
+ *   size="md"
  * />
  */
 const Slider = ({

@@ -1,7 +1,6 @@
 /**
  * @file Navigation drawer component implementing Material Design 3 patterns.
  * Provides both persistent and temporary drawer modes with comprehensive navigation item support.
- * @author Michinobu Maeda
  * @since 1.0.0
  */
 

@@ -1,7 +1,6 @@
 /**
  * @file A versatile button component implementing Material Design 3 button patterns.
  * Provides multiple styles, sizes, and configurations with comprehensive theming support.
- * @author Michinobu Maeda
  * @since 1.0.0
  */
 

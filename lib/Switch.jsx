@@ -1,16 +1,47 @@
+/**
+ * @file A toggle switch component implementing Material Design 3 switch patterns.
+ * Provides an intuitive on/off control interface with smooth animations and theming.
+ * @since 1.0.0
+ */
+
 import PropTypes from "prop-types";
 
 /**
- * A toggle switch component that provides an intuitive on/off control interface.
- * Features a sliding toggle with visual feedback, checkmark icon when enabled,
- * and automatic light/dark theme adaptation.
- * Commonly used for settings and preferences.
- * @param {object} props - The props object
- * @param {string} [props.id] - Unique identifier for the switch input element
- * @param {boolean} props.value - Current state of the switch (true for on/enabled, false for off/disabled)
- * @param {Function} [props.onChange] - Callback function called when switch state changes
- * @param {boolean} [props.disabled=false] - Whether the switch is disabled and non-interactive
- * @returns {JSX.Element} Rendered switch component
+ * A toggle switch component implementing Material Design 3 principles that provides
+ * an intuitive on/off control interface with smooth visual transitions.
+ *
+ * This component offers a complete switch solution featuring:
+ * - **Material Design 3 Styling**: Authentic visual appearance with proper track and thumb proportions
+ * - **Smooth Animations**: Fluid transitions for thumb movement and color changes
+ * - **Visual Indicators**: Checkmark icon appears when switch is in enabled state
+ * - **State Feedback**: Clear visual distinction between on/off states with color coding
+ * - **Theme Integration**: Seamless light/dark mode support with Material Design colors
+ * - **Accessibility**: Full keyboard navigation support and screen reader compatibility
+ * - **Touch Optimization**: Appropriate touch target size for mobile interaction
+ * - **Disabled States**: Proper visual feedback for non-interactive switches
+ *
+ * The switch follows controlled component patterns, requiring external state management.
+ * It provides immediate visual feedback during state transitions and maintains consistent
+ * behavior across different platforms and browsers.
+ *
+ * Commonly used for settings, preferences, feature toggles, and any binary choice
+ * where immediate feedback is important to the user experience.
+ * @component
+ * @param {object} props - Component props
+ * @param {string} [props.id] - Unique identifier for the switch input element.
+ *   Used for accessibility, form association, and programmatic access.
+ *   Enables proper keyboard navigation and screen reader support.
+ * @param {boolean} props.value - Current state of the switch.
+ *   True indicates enabled/on state, false indicates disabled/off state.
+ *   This is a controlled component requiring external state management.
+ * @param {Function} [props.onChange] - Callback function invoked when switch state changes.
+ *   Receives the new state as a boolean parameter for state updates.
+ *   Required for controlled component behavior and user interaction.
+ * @param {boolean} [props.disabled=false] - When true, disables switch interaction.
+ *   Applies disabled styling with reduced opacity and prevents all user interaction.
+ *   Use for switches that are temporarily unavailable or not applicable.
+ * @returns {JSX.Element} Rendered switch component with all configured features and styling
+ * @since 1.0.0
  * @example
  * // Basic switch for notifications
  * <Switch
@@ -19,7 +50,7 @@ import PropTypes from "prop-types";
  *   onChange={(enabled) => setNotificationsEnabled(enabled)}
  * />
  * @example
- * // Switch with disabled state
+ * // Switch with disabled state for premium features
  * <Switch
  *   id="premium-feature"
  *   value={premiumEnabled}
@@ -27,7 +58,7 @@ import PropTypes from "prop-types";
  *   disabled={!isPremiumUser}
  * />
  * @example
- * // Dark mode toggle switch
+ * // Dark mode toggle switch with theme application
  * <Switch
  *   id="dark-mode"
  *   value={isDarkMode}
@@ -37,11 +68,27 @@ import PropTypes from "prop-types";
  *   }}
  * />
  * @example
- * // Auto-save setting switch
+ * // Settings panel with multiple switches
+ * const [settings, setSettings] = useState({
+ *   notifications: true,
+ *   autoSave: false,
+ *   syncData: true
+ * });
+ *
  * <Switch
  *   id="auto-save"
- *   value={autoSaveEnabled}
- *   onChange={handleAutoSaveToggle}
+ *   value={settings.autoSave}
+ *   onChange={(enabled) =>
+ *     setSettings(prev => ({ ...prev, autoSave: enabled }))
+ *   }
+ * />
+ * @example
+ * // Switch with form integration and validation
+ * <Switch
+ *   id="terms-agreement"
+ *   value={agreedToTerms}
+ *   disabled={formSubmitting}
+ *   onChange={setAgreedToTerms}
  * />
  */
 

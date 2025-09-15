@@ -1,3 +1,9 @@
+/**
+ * @file NavigationBar component implementing Material Design 3 bottom navigation patterns.
+ * Provides horizontal navigation for primary app destinations with icon and label support.
+ * @since 1.0.0
+ */
+
 import PropTypes from "prop-types";
 
 /**
@@ -25,6 +31,7 @@ import PropTypes from "prop-types";
  * - Disabled items appear with reduced opacity and are non-interactive
  * - Hover/active effects adapt between mobile and desktop views
  * - Provides enhanced touch feedback with active states for mobile interactions
+ * @since 1.0.0
  * @param {object} props - Component props
  * @param {Array<NavigationBarItem>} props.items - Array of navigation items to display
  * @param {string} [props.optionalClass="fixed bottom-0"] - Additional CSS classes for positioning and styling

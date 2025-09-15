@@ -3,12 +3,9 @@ import PropTypes from "prop-types";
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import { hueAtom, contrastAtom, seedColorAtom, schemeAtom } from "./state.js";
 
-import Slider from "./xuan-paper/Slider.jsx";
+import Slider from "../lib/Slider.jsx";
 import SvgContrast from "./icons/SvgContrast.jsx";
-import {
-  generateScheme,
-  applyColorScheme,
-} from "./xuan-paper/material-theme.js";
+import { generateScheme, applyColorScheme } from "../lib/material-theme.js";
 import { isDarkBackground } from "./utils.js";
 
 const ColorThemeParameters = () => {

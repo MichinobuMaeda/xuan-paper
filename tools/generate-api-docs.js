@@ -28,6 +28,8 @@ import jsdoc2md from "jsdoc-to-markdown";
 /**
  * Configuration for API documentation generation
  * @typedef {object} ApiDocsConfig
+ * @property {string} [name] - The name of the project/library for documentation header
+ * @property {string} [version] - The version of the project/library for documentation header
  * @property {string[]} files - Array of file paths to extract documentation from
  *   These files should contain JSDoc comments for functions, classes, and modules
  * @property {string} output - The path to the output markdown file
@@ -41,6 +43,8 @@ import jsdoc2md from "jsdoc-to-markdown";
 /**
  * Plugin configuration for Vite integration
  * @typedef {object} ApiDocsPluginConfig
+ * @property {string} [name] - The name of the project/library for documentation header
+ * @property {string} [version] - The version of the project/library for documentation header
  * @property {string[]} inputs - Array of glob patterns for input files
  *   Files matching these patterns will be processed for JSDoc extraction
  * @property {string} output - The path to the output markdown file
@@ -48,14 +52,12 @@ import jsdoc2md from "jsdoc-to-markdown";
  */
 
 /**
- * Converts a relative path to an absolute normalized path
+ * Converts a relative path to an absolute path, normalized for the current OS
  *
- * This utility function takes a relative path and:
- * 1. Resolves it against the current working directory
- * 2. Normalizes it to ensure proper platform-specific separators
- * 3. Resolves any '..' or '.' segments
- *
- * Useful for ensuring consistent path handling across different platforms.
+ * This utility function takes a relative path and converts it to an absolute path
+ * by resolving it against the current working directory. It handles various path
+ * formats including those with dots (. and ..) and normalizes the result.
+ * If the path is already absolute, it returns the normalized absolute path.
  * @param {string} relativePath - The relative path to convert
  * @returns {string} The absolute path normalized for the current OS
  * @example
@@ -65,8 +67,13 @@ import jsdoc2md from "jsdoc-to-markdown";
  * // Works with paths containing . or ..
  * absolutePath('./config/../src/version.js') // Normalizes to '/path/to/project/src/version.js'
  */
-export const absolutePath = (relativePath) =>
-  path.normalize(path.resolve(process.cwd(), relativePath));
+export const absolutePath = (relativePath) => {
+  // If path is already absolute, just normalize it
+  if (path.isAbsolute && path.isAbsolute(relativePath)) {
+    return path.normalize(relativePath);
+  }
+  return path.normalize(path.resolve(process.cwd(), relativePath));
+};
 
 /**
  * Generates API documentation from JavaScript files with JSDoc comments
@@ -77,29 +84,35 @@ export const absolutePath = (relativePath) =>
  *
  * The function:
  * 1. Renders JSDoc comments from the specified files into markdown format
- * 2. Creates the output directory structure if needed
- * 3. Writes the generated markdown to the specified output file
+ * 2. Creates a documentation header with project name and version (if provided)
+ * 3. Creates the output directory structure if needed
+ * 4. Writes the generated markdown to the specified output file
  *
  * The generated documentation includes all exported functions, classes,
  * modules, and their associated JSDoc annotations including parameters,
  * return values, examples, and type information.
  * @param {ApiDocsConfig} config - The configuration object
+ * @param {string} [config.name] - Name of the project/library for documentation header
+ * @param {string} [config.version] - Version of the project/library for documentation header
  * @param {string[]} config.files - Array of file paths to process for JSDoc extraction
  * @param {string} config.output - Path where the generated markdown will be written
  * @param {object} [config.options] - Additional options passed to jsdoc-to-markdown
  * @returns {Promise<void>} A promise that resolves when documentation is generated
  * @throws {Error} If files cannot be read or output cannot be written
  * @example
- * // Generate docs from specific files
+ * // Generate docs from specific files with project info
  * await generateApiDocs({
+ *   name: 'My Library',
+ *   version: '1.0.0',
  *   files: ['src/utils.js', 'src/components.js'],
  *   output: 'docs/api.md',
- *   title: 'Xuan paper API Documentation',
  *   options: { private: false }
  * });
  * @example
  * // Generate docs with custom options
  * await generateApiDocs({
+ *   name: 'My API',
+ *   version: '2.1.0',
  *   files: ['src/index.js', 'src/lib.js'],
  *   output: 'docs/api.md',
  *   options: {
@@ -108,8 +121,17 @@ export const absolutePath = (relativePath) =>
  *   }
  * });
  */
-export const generateApiDocs = async ({ files, output, options }) => {
-  const md = await jsdoc2md.render({ files, ...options });
+export const generateApiDocs = async ({
+  name,
+  version,
+  files,
+  output,
+  options,
+}) => {
+  const body = await jsdoc2md.render({ files, ...options });
+  const md = `# API Documentation ${name} ${version}
+
+${body}`;
   await fs.mkdir(path.dirname(absolutePath(output)), { recursive: true });
   await fs.writeFile(absolutePath(output), md);
 };
@@ -138,7 +160,7 @@ export const generateApiDocs = async ({ files, output, options }) => {
  * export default defineConfig({
  *   plugins: [
  *     apiDocsPlugin({
- *       inputs: ['src/xuan-paper/*.js'],
+ *       inputs: ['src/*.js'],
  *       output: 'docs/api.md'
  *     })
  *   ]
@@ -155,8 +177,10 @@ export const generateApiDocs = async ({ files, output, options }) => {
  * })
  */
 export const apiDocsPlugin = (config) => {
+  const name = config.name;
+  const version = config.version;
   const inputs = (config.inputs || []).map((input) => absolutePath(input));
-  const outputPath = config.output;
+  const outputPath = absolutePath(config.output);
   const options = config.options || {};
 
   const files = [];
@@ -165,6 +189,17 @@ export const apiDocsPlugin = (config) => {
       files.push(file);
     }
   });
+
+  console.info(`API Docs Plugin:
+  Inputs: ${path.relative(process.cwd(), inputs.join(", "))}
+  Output: ${path.relative(process.cwd(), outputPath)}
+  Options: ${JSON.stringify(options, null, 2)}
+  Files: ${JSON.stringify(
+    files.map((file) => path.relative(process.cwd(), file)),
+    null,
+    2,
+  )}
+`);
 
   return {
     name: "api-doc-generator",
@@ -178,7 +213,7 @@ export const apiDocsPlugin = (config) => {
      * @returns {Promise<void>} A promise that resolves when documentation is generated
      */
     async buildStart() {
-      generateApiDocs({ files, output: outputPath, options });
+      generateApiDocs({ name, version, files, output: outputPath, options });
     },
     /**
      * Handles hot updates in development mode
@@ -195,7 +230,7 @@ export const apiDocsPlugin = (config) => {
       const path = absolutePath(file);
       if (files.includes(path)) {
         console.log(`Regenerating API docs due to change in ${file}`);
-        generateApiDocs({ files, output: outputPath, options });
+        generateApiDocs({ name, version, files, output: outputPath, options });
       }
     },
   };

@@ -3,20 +3,17 @@ import { VitePWA } from "vite-plugin-pwa";
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import { versionPlugin } from "./tools/generate-version.js";
 import { apiDocsPlugin } from "./tools/generate-api-docs.js";
+import { name, version } from "./package.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    versionPlugin({
-      input: path.join("package.json"),
-      output: path.join("src", "version.js"),
-    }),
     apiDocsPlugin({
-      inputs: ["src/xuan-paper/*.{js,jsx}", "tools/*.js"],
+      name,
+      version,
+      inputs: ["lib/*.{js,jsx}"],
       output: path.join("docs", "api.md"),
-      title: "Xuan Paper API Documentation",
       options: {},
     }),
     tailwindcss(),

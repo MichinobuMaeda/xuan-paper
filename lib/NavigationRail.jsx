@@ -1,3 +1,9 @@
+/**
+ * @file NavigationRail component implementing Material Design 3 side navigation rail patterns.
+ * Provides vertical navigation for primary app destinations with compact and expanded modes.
+ * @since 1.0.0
+ */
+
 import PropTypes from "prop-types";
 
 /**
@@ -24,6 +30,7 @@ import PropTypes from "prop-types";
  * - Supports disabled states with reduced opacity
  * - Provides hover effects that adapt based on screen size
  * - Follows Material Design 3 theming guidelines with proper light/dark mode support
+ * @since 1.0.0
  * @param {object} props - Component props
  * @param {Array<NavigationRailItem>} props.items - Array of navigation items to display
  * @param {string} [props.optionalClass="h-full w-24 lg:w-56 fixed top-0 py-4"] - Additional CSS classes for positioning and styling

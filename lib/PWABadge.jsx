@@ -1,54 +1,91 @@
+/**
+ * @file PWA status notification component implementing Progressive Web App lifecycle management.
+ * Provides offline readiness and update prompts with comprehensive service worker integration.
+ * @since 1.0.0
+ */
+
 import Button from "./Button.jsx";
 
 import { useRegisterSW } from "virtual:pwa-register/react";
 import PropTypes from "prop-types";
 
 /**
- * PWA status notification component that displays offline readiness and update prompts.
- * This component is built upon the @vite-pwa/pwa plugin's useRegisterSW hook to handle
- * PWA lifecycle events and service worker updates.
+ * PWA status notification component implementing Progressive Web App principles
+ * that provides seamless offline capability and update management.
  *
- * The component renders:
- * - An update notification with reload button when a new version is available
- * - An offline ready notification when content has been cached for offline use
- * - Nothing when no PWA status updates are available
+ * This component offers comprehensive PWA lifecycle management featuring:
+ * - **Service Worker Integration**: Built upon @vite-pwa/pwa plugin's useRegisterSW hook
+ * - **Update Notifications**: Automatic detection and prompting for new app versions
+ * - **Offline Ready Status**: Clear indication when content is cached and available offline
+ * - **User-Controlled Updates**: Reload button for user-initiated app updates
+ * - **Customizable Messaging**: Configurable notification text for different scenarios
+ * - **Automatic Monitoring**: Periodic checking for app updates at configurable intervals
+ * - **Responsive Design**: Notification badge adapts to different screen sizes
+ * - **Accessibility**: Proper ARIA attributes and keyboard navigation support
+ *
+ * The component handles all PWA lifecycle states automatically:
+ * - Silent background checking for updates
+ * - Notification display when updates are available
+ * - Clear indication when app is ready for offline use
+ * - Graceful handling of service worker registration failures
+ *
+ * The notification appears as a small badge/banner that doesn't interfere with
+ * the main app interface while providing essential PWA status information.
  * @component
- * @generated Based on the @vite-pwa/pwa plugin setup with customized UI
+ * @generated Based on @vite-pwa/pwa plugin setup with customized Material Design UI
  * @param {object} props - Component props
- * @param {number} [props.checkForUpdateInterval=60*60*1000] - Interval in milliseconds to check for PWA updates (default: 1 hour)
- * @param {string} [props.offlineReadyMessage="App ready to work offline"] - Message to display when the app is ready for offline use
- * @param {string} [props.needRefreshMessage="New app available, click on reload button to update."] - Message to display when a new version is available
- * @returns {JSX.Element|null} A notification badge or null if no notifications
+ * @param {number} [props.checkForUpdateInterval] - Interval in milliseconds to check for PWA updates.
+ *   Defaults to 60*60*1000 (1 hour). Controls how frequently the app checks for new versions.
+ *   Shorter intervals provide faster update detection but consume more resources.
+ * @param {string} [props.offlineReadyMessage] - Message displayed when app is ready for offline use.
+ *   Defaults to "App ready to work offline". Shown when service worker has cached
+ *   all necessary resources for offline functionality.
+ * @param {string} [props.needRefreshMessage] - Message displayed when a new version is available.
+ *   Defaults to "New app available, click on reload button to update."
+ *   Shown when the service worker has downloaded a new version but requires user action to activate.
+ * @returns {JSX.Element|null} Notification badge component or null when no notifications needed
+ * @since 1.0.0
  * @example
- * // Basic usage in a layout component
+ * // Basic usage in application layout
  * import PWABadge from '../components/PWABadge';
  *
- * function Layout() {
+ * function AppLayout({ children }) {
  *   return (
- *     <header>
- *       <h1>My PWA App</h1>
- *       <PWABadge />
- *     </header>
+ *     <div>
+ *       <header>
+ *         <h1>My PWA Application</h1>
+ *         <PWABadge />
+ *       </header>
+ *       <main>{children}</main>
+ *     </div>
  *   );
  * }
  * @example
- * // With custom messages and update interval
+ * // With custom messages and faster update checking
  * <PWABadge
  *   checkForUpdateInterval={30 * 60 * 1000}
  *   offlineReadyMessage="Your app is now available offline!"
- *   needRefreshMessage="Update available! Click to refresh."
+ *   needRefreshMessage="Update available! Click to refresh and get the latest features."
  * />
- */
-
-/**
- * PWA Badge component that displays notifications for service worker updates and offline status.
- * Handles automatic update checks and provides user notifications for app updates and offline readiness.
- * @component
- * @param {object} props - Component props
- * @param {number} [props.checkForUpdateInterval] - Interval in milliseconds for checking updates
- * @param {string} [props.offlineReadyMessage] - Message to display when app is ready offline
- * @param {string} [props.needRefreshMessage] - Message to display when app update is available
- * @returns {JSX.Element} PWA notification badge component
+ * @example
+ * // In a PWA-focused component with longer intervals
+ * <PWABadge
+ *   checkForUpdateInterval={2 * 60 * 60 * 1000}
+ *   offlineReadyMessage="✓ Ready for offline use"
+ *   needRefreshMessage="🆕 New version ready - tap to update"
+ * />
+ * @example
+ * // Integration with notification system
+ * function NotificationArea() {
+ *   return (
+ *     <div className="fixed top-4 right-4 z-50">
+ *       <PWABadge
+ *         offlineReadyMessage="App cached successfully"
+ *         needRefreshMessage="Update downloaded - restart to apply"
+ *       />
+ *     </div>
+ *   );
+ * }
  */
 function PWABadge({
   checkForUpdateInterval = 60 * 60 * 1000,

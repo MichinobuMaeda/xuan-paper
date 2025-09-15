@@ -1,7 +1,6 @@
 /**
  * @file AppBar component implementing Material Design 3 top app bar patterns.
  * Provides a configurable top navigation bar with branding, actions, and responsive design.
- * @author Michinobu Maeda
  * @since 1.0.0
  */
 

@@ -1,7 +1,6 @@
 /**
  * @file ToggleDarkModeButton component for theme switching functionality.
  * Provides a button that cycles through system, light, and dark themes with persistence.
- * @author Michinobu Maeda
  * @since 1.0.0
  */
 

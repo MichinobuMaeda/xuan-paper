@@ -2,7 +2,7 @@
 @import "tailwindcss";
 @import "tailwindcss-safe-area";
 @import "./theme.css";
-@import "./xuan-paper/xuan-paper.css";
+@import "../lib/xuan-paper.css";
 
 body {
   @apply text-base

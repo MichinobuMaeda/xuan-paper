@@ -30,6 +30,8 @@ vi.mock("path", () => ({
     normalize: vi.fn((p) => p.replace(/\/+/g, "/")), // Remove double slashes
     resolve: vi.fn((cwd, relativePath) => `/mock/project/${relativePath}`),
     dirname: vi.fn((p) => p.replace(/\/[^/]*$/, "")),
+    relative: vi.fn((from, to) => to.replace(from + "/", "")), // Mock relative path
+    isAbsolute: vi.fn((p) => p.startsWith("/")), // Mock isAbsolute check
   },
 }));
 
@@ -93,6 +95,8 @@ describe("generate-api-docs utilities", () => {
 
     it("should generate API documentation", async () => {
       const config = {
+        name: "xuan-paper",
+        version: "1.0.0",
         files: ["/mock/project/src/test.js"],
         output: "docs/api.md",
         options: { template: "custom" },
@@ -109,7 +113,7 @@ describe("generate-api-docs utilities", () => {
       });
       expect(fs.writeFile).toHaveBeenCalledWith(
         "/mock/project/docs/api.md",
-        "# API Documentation\n\nGenerated docs content",
+        "# API Documentation xuan-paper 1.0.0\n\n# API Documentation\n\nGenerated docs content",
       );
     });
 
@@ -265,6 +269,8 @@ describe("generate-api-docs utilities", () => {
     describe("buildStart hook", () => {
       it("should generate API docs on build start", async () => {
         const config = {
+          name: "xuan-paper",
+          version: "1.0.0",
           inputs: ["src/*.js"],
           output: "docs/api.md",
           options: { template: "custom" },
@@ -284,7 +290,7 @@ describe("generate-api-docs utilities", () => {
         });
         expect(fs.writeFile).toHaveBeenCalledWith(
           "/mock/project/docs/api.md",
-          "# API Documentation",
+          "# API Documentation xuan-paper 1.0.0\n\n# API Documentation",
         );
       });
     });
@@ -309,12 +315,13 @@ describe("generate-api-docs utilities", () => {
 
         const plugin = apiDocsPlugin(config);
 
-        // The original implementation has a flaw where files array is empty when handleHotUpdate runs
-        // Let's test that the console log doesn't happen because files array is empty
+        // Test that the console log happens when a watched file changes
         plugin.handleHotUpdate({ file: "/mock/project/src/file1.js" });
 
-        // Since files array is empty, no console log should happen
-        expect(consoleSpy).not.toHaveBeenCalled();
+        // Should log when a watched file changes
+        expect(consoleSpy).toHaveBeenCalledWith(
+          "Regenerating API docs due to change in /mock/project/src/file1.js",
+        );
       });
 
       it("should not regenerate docs when unwatched file changes", async () => {
@@ -371,6 +378,8 @@ describe("generate-api-docs utilities", () => {
 
     it("should handle complete plugin lifecycle", async () => {
       const config = {
+        name: "xuan-paper",
+        version: "1.0.0",
         inputs: ["src/*.js"],
         output: "docs/api.md",
         options: { configure: "conf.json" },
@@ -390,17 +399,19 @@ describe("generate-api-docs utilities", () => {
       });
       expect(fs.writeFile).toHaveBeenCalledWith(
         "/mock/project/docs/api.md",
-        "# Complete API Documentation",
+        "# API Documentation xuan-paper 1.0.0\n\n# Complete API Documentation",
       );
 
       // Test hot update
       const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
-      // The files array is empty due to async population not being awaited
+      // Test that hot update works when a watched file changes
       plugin.handleHotUpdate({ file: "/mock/project/src/component.js" });
 
-      // Since files array is empty, no console log should happen
-      expect(consoleSpy).not.toHaveBeenCalled();
+      // Should log when a watched file changes
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Regenerating API docs due to change in /mock/project/src/component.js",
+      );
 
       consoleSpy.mockRestore();
     });

@@ -1,3 +1,9 @@
+/**
+ * @file Floating Action Button (FAB) component implementing Material Design 3 FAB patterns.
+ * Provides primary action buttons with expandable menu functionality and comprehensive theming.
+ * @since 1.0.0
+ */
+
 import PropTypes from "prop-types";
 import { useState } from "react";
 
@@ -76,20 +82,106 @@ FabMenuItem.propTypes = {
 };
 
 /**
- * Floating Action Button (FAB) component with expandable menu functionality.
- * Provides a primary action button that can expand to show additional menu items.
- * Follows Material Design 3 FAB guidelines with support for different color variants.
+ * Floating Action Button (FAB) component implementing Material Design 3 principles
+ * with expandable menu functionality and comprehensive styling options.
+ *
+ * This component provides a complete FAB solution featuring:
+ * - **Primary Action Focus**: Prominent circular button for the most important action
+ * - **Expandable Menu**: Optional secondary actions that appear when FAB is activated
+ * - **Material Design 3 Styling**: Authentic elevation, colors, and interaction patterns
+ * - **Multiple Color Variants**: Primary, secondary, and tertiary color schemes
+ * - **Smooth Animations**: Fluid transitions for expand/collapse and hover states
+ * - **Accessibility**: Proper ARIA attributes and keyboard navigation support
+ * - **Responsive Positioning**: Flexible positioning with safe area support
+ * - **State Management**: Internal state handling for expand/collapse behavior
+ *
+ * The FAB follows Material Design guidelines for floating action buttons, providing
+ * a persistent and prominent way to access primary actions. When items are provided,
+ * it becomes an expandable FAB that reveals additional actions in a vertical menu.
+ *
+ * The component automatically handles menu state transitions and provides visual
+ * feedback for all interactions. Menu items are displayed with appropriate spacing
+ * and follow the same design patterns as the main FAB button.
  * @component
  * @param {object} props - Component props
- * @param {string} [props.id] - HTML ID attribute for the FAB button
- * @param {React.ReactNode} [props.icon] - Icon to display in the FAB button
- * @param {string} [props.label] - Text label for the FAB button
- * @param {Array} [props.items] - Array of menu items to display when FAB is expanded
- * @param {boolean} [props.hidden] - Whether the FAB should be hidden
- * @param {string} [props.color] - Color variant (primary, secondary, tertiary)
- * @param {string} [props.position] - CSS positioning classes for the FAB
- * @param {Function} [props.onClick] - Click handler for the main FAB button
- * @returns {JSX.Element} FAB component with optional expandable menu
+ * @param {string} [props.id] - HTML ID attribute for the FAB button element.
+ *   Used for accessibility and programmatic access to the component.
+ * @param {React.ReactNode} [props.icon] - Icon element to display in the center of the FAB.
+ *   Should be an appropriately sized icon (typically 24x24px) for clear recognition.
+ * @param {string} [props.label] - Text label for the FAB button.
+ *   Provides accessibility context and may be displayed as tooltip or extended FAB text.
+ * @param {Array} [props.items] - Array of menu item objects for expandable functionality.
+ *   Each item should have: {icon, label, onClick, disabled} properties.
+ *   Defaults to empty array. When empty, FAB behaves as simple action button without expansion.
+ * @param {boolean} [props.hidden] - When true, hides the FAB from view.
+ *   Defaults to false. Useful for conditionally showing/hiding based on context.
+ * @param {('primary'|'secondary'|'tertiary')} [props.color] - Color variant for theming.
+ *   Defaults to 'primary'.
+ *   - 'primary': Uses primary color scheme for most important actions
+ *   - 'secondary': Uses secondary color scheme for alternative actions
+ *   - 'tertiary': Uses tertiary color scheme for supporting actions
+ * @param {string} [props.position] - CSS positioning classes.
+ *   Defaults to bottom-right positioning with safe area support.
+ *   Can be customized for different layouts (e.g., 'fixed bottom-4 left-4' for bottom-left).
+ * @param {Function} [props.onClick] - Click handler for the main FAB button.
+ *   Called when FAB is clicked. For expandable FABs, this is called in addition to menu toggle.
+ *   Defaults to no-op function if not provided.
+ * @returns {JSX.Element} FAB component with configured styling and optional expandable menu
+ * @since 1.0.0
+ * @example
+ * // Simple FAB for primary action
+ * import { SvgAdd } from '../icons';
+ *
+ * <Fab
+ *   icon={<SvgAdd />}
+ *   label="Add new item"
+ *   onClick={handleAddItem}
+ * />
+ * @example
+ * // Expandable FAB with multiple actions
+ * import { SvgAdd, SvgEdit, SvgShare, SvgDelete } from '../icons';
+ *
+ * <Fab
+ *   icon={<SvgAdd />}
+ *   label="Actions"
+ *   color="primary"
+ *   items={[
+ *     {
+ *       icon: <SvgEdit />,
+ *       label: "Edit",
+ *       onClick: handleEdit
+ *     },
+ *     {
+ *       icon: <SvgShare />,
+ *       label: "Share",
+ *       onClick: handleShare
+ *     },
+ *     {
+ *       icon: <SvgDelete />,
+ *       label: "Delete",
+ *       onClick: handleDelete,
+ *       disabled: !canDelete
+ *     }
+ *   ]}
+ * />
+ * @example
+ * // Conditionally hidden FAB based on scroll
+ * <Fab
+ *   icon={<SvgArrowUp />}
+ *   label="Scroll to top"
+ *   hidden={!showScrollToTop}
+ *   onClick={scrollToTop}
+ *   position="fixed bottom-4 right-4 z-50"
+ * />
+ * @example
+ * // Secondary color FAB in custom position
+ * <Fab
+ *   icon={<SvgHelp />}
+ *   label="Help"
+ *   color="secondary"
+ *   position="fixed bottom-4 left-4"
+ *   onClick={showHelpDialog}
+ * />
  */
 function Fab({
   id,

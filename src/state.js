@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { hslToHex } from "./utils.js";
+import { hslToHex } from "../lib/material-theme.js";
 
 export const iniHue = 0.4;
 export const iniContrast = 0;

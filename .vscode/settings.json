@@ -42,5 +42,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "eslint.debug": true
+  "eslint.debug": true,
+  "css.customData": [".vscode/tailwind.json"]
 }

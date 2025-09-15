@@ -23,7 +23,8 @@ import {
   applyColorScheme,
   generateThemeCss,
   convertToVariables,
-} from "../../../src/xuan-paper/material-theme.js";
+  hslToHex,
+} from "../../lib/material-theme.js";
 
 // Import the mocked modules for setup
 import {
@@ -472,6 +473,58 @@ describe("material-theme utilities", () => {
         ["--color-light-on-primary", "#FFFFFF"],
         ["--color-light-primary-container", "#BBDEFB"],
       ]);
+    });
+  });
+});
+
+describe("hslToHex", () => {
+  it("should convert HSL to hex with default saturation and lightness", () => {
+    // Test pure red (0°)
+    expect(hslToHex(0)).toBe("#ff0000");
+
+    // Test pure green (120°)
+    expect(hslToHex(120)).toBe("#00ff00");
+
+    // Test pure blue (240°)
+    expect(hslToHex(240)).toBe("#0000ff");
+  });
+
+  it("should convert HSL to hex with custom saturation and lightness", () => {
+    // Test red with 50% saturation and 75% lightness
+    const result = hslToHex(0, 50, 75);
+    expect(result).toMatch(/^#[0-9a-f]{6}$/);
+    expect(result).toBe("#df9f9f");
+  });
+
+  it("should handle edge cases", () => {
+    // Test with 0% saturation (grayscale)
+    expect(hslToHex(0, 0, 50)).toBe("#808080");
+
+    // Test with 0% lightness (black)
+    expect(hslToHex(0, 100, 0)).toBe("#000000");
+
+    // Test with 100% lightness (white)
+    expect(hslToHex(0, 100, 100)).toBe("#ffffff");
+  });
+
+  it("should handle hue values beyond 360 degrees", () => {
+    // Hue wraps around, so 360° should be same as 0°
+    expect(hslToHex(360)).toBe(hslToHex(0));
+
+    // 480° should be same as 120°
+    expect(hslToHex(480)).toBe(hslToHex(120));
+  });
+
+  it("should produce valid hex color format", () => {
+    const colors = [
+      hslToHex(30, 80, 60),
+      hslToHex(150, 40, 30),
+      hslToHex(270, 90, 80),
+    ];
+
+    colors.forEach((color) => {
+      expect(color).toMatch(/^#[0-9a-f]{6}$/);
+      expect(color).toHaveLength(7);
     });
   });
 });

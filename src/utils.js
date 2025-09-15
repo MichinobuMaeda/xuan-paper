@@ -1,31 +1,4 @@
 /**
- * Converts HSL (Hue, Saturation, Lightness) color values to hexadecimal format.
- * Uses the HSL color model to generate web-compatible hex color codes.
- * @param {number} h - Hue value in degrees (0-360). Represents the color wheel position
- * @param {number} [s] - Saturation percentage (0-100). Controls color intensity/purity
- * @param {number} [l] - Lightness percentage (0-100). Controls brightness (0=black, 100=white)
- * @returns {string} Hexadecimal color code in format #RRGGBB
- * @example
- * // Pure red color
- * hslToHex(0, 100, 50); // Returns "#ff0000"
- * @example
- * // Blue with default saturation and lightness
- * hslToHex(240); // Returns "#0000ff"
- */
-export const hslToHex = (h, s = 100, l = 50) => {
-  l /= 100;
-  const a = (s * Math.min(l, 1 - l)) / 100;
-  const f = (n) => {
-    const k = (n + h / 30) % 12;
-    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-    return Math.round(255 * color)
-      .toString(16)
-      .padStart(2, "0");
-  };
-  return `#${f(0)}${f(8)}${f(4)}`;
-};
-
-/**
  * Determines whether a given hex color represents a dark background.
  * Uses weighted RGB luminance calculation to assess if text should be light-colored
  * when displayed on this background. The algorithm applies different weights to
@@ -34,12 +7,15 @@ export const hslToHex = (h, s = 100, l = 50) => {
  * @returns {boolean} true if the color is dark (light text recommended),
  *  false if light (dark text recommended)
  */
-export const isDarkBackground = (hex) =>
-  (Number(`0x${hex.slice(1, 3)}`) * 1.1 +
-    Number(`0x${hex.slice(3, 5)}`) * 1.3 +
-    Number(`0x${hex.slice(5, 7)}`) / 1.5) /
-    3 <
-  112;
+export function isDarkBackground(hex) {
+  return (
+    (Number(`0x${hex.slice(1, 3)}`) * 1.1 +
+      Number(`0x${hex.slice(3, 5)}`) * 1.3 +
+      Number(`0x${hex.slice(5, 7)}`) / 1.5) /
+      3 <
+    112
+  );
+}
 
 /**
  * Triggers a file download in the browser with specified filename and content.
@@ -53,7 +29,7 @@ export const isDarkBackground = (hex) =>
  * const textContent = "Hello, World!\nThis is a sample file.";
  * downloadFile("sample.txt", textContent);
  */
-export const downloadFile = (filename, content) => {
+export function downloadFile(filename, content) {
   const data = new Blob([content]);
   const url = URL.createObjectURL(data);
   const link = document.createElement("a");
@@ -62,4 +38,4 @@ export const downloadFile = (filename, content) => {
   document.body.appendChild(link);
   link.click();
   link.parentNode.removeChild(link);
-};
+}

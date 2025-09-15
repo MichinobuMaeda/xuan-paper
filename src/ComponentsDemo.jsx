@@ -4,14 +4,14 @@ import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
 import { demoValueResetAtom } from "./state.js";
 
-import Button from "./xuan-paper/Button.jsx";
-import CheckBox from "./xuan-paper/CheckBox.jsx";
-import Switch from "./xuan-paper/Switch.jsx";
-import RadioGroup from "./xuan-paper/RadioGroup.jsx";
-import ButtonGroup from "./xuan-paper/ButtonGroup.jsx";
-import TextField from "./xuan-paper/TextField.jsx";
-import PasswordField from "./xuan-paper/PasswordField.jsx";
-import Slider from "./xuan-paper/Slider.jsx";
+import Button from "../lib/Button.jsx";
+import CheckBox from "../lib/CheckBox.jsx";
+import Switch from "../lib/Switch.jsx";
+import RadioGroup from "../lib/RadioGroup.jsx";
+import ButtonGroup from "../lib/ButtonGroup.jsx";
+import TextField from "../lib/TextField.jsx";
+import PasswordField from "../lib/PasswordField.jsx";
+import Slider from "../lib/Slider.jsx";
 
 import SvgInfo from "./icons/SvgInfo.jsx";
 import SvgClose from "./icons/SvgClose.jsx";

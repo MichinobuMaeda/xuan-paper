@@ -12,15 +12,15 @@ import {
   demoValueResetAtom,
 } from "./state.js";
 
-import AppBar from "./xuan-paper/AppBar.jsx";
-import Button from "./xuan-paper/Button.jsx";
-import NavigationDrawer from "./xuan-paper/NavigationDrawer.jsx";
-import NavigationRail from "./xuan-paper/NavigationRail.jsx";
-import NavigationBar from "./xuan-paper/NavigationBar.jsx";
-import Fab from "./xuan-paper/Fab.jsx";
-import ToggleLanguageButton from "./xuan-paper/ToggleLanguageButton.jsx";
-import ToggleDarkModeButton from "./xuan-paper/ToggleDarkModeButton.jsx";
-import { generateThemeCss } from "./xuan-paper/material-theme.js";
+import AppBar from "../lib/AppBar.jsx";
+import Button from "../lib/Button.jsx";
+import NavigationDrawer from "../lib/NavigationDrawer.jsx";
+import NavigationRail from "../lib/NavigationRail.jsx";
+import NavigationBar from "../lib/NavigationBar.jsx";
+import Fab from "../lib/Fab.jsx";
+import ToggleLanguageButton from "../lib/ToggleLanguageButton.jsx";
+import ToggleDarkModeButton from "../lib/ToggleDarkModeButton.jsx";
+import { generateThemeCss } from "../lib/material-theme.js";
 
 import SvgArrowBackIos from "./icons/SvgArrowBackIos.jsx";
 import SvgScreenRotationUp from "./icons/SvgScreenRotationUp.jsx";
@@ -33,9 +33,9 @@ import SvgInfo from "./icons/SvgInfo.jsx";
 import SvgEdit from "./icons/SvgEdit.jsx";
 
 import "./App.css";
-import PWABadge from "./xuan-paper/PWABadge.jsx";
+import PWABadge from "../lib/PWABadge.jsx";
 import appLogo from "./assets/images/favicon.svg";
-import version from "./version.js";
+import { version } from "../package.json";
 
 import ColorThemeParameters from "./ColorThemeParameters.jsx";
 import ComponentsDemo from "./ComponentsDemo.jsx";
@@ -124,7 +124,7 @@ function App() {
     drawerState === DRAWER_STATE.PINNED
       ? {
           icon: <SvgKeepOff />,
-          label: "Narrow floating layout",
+          label: t("unpin menu"),
           active: true,
           onClick: () => {
             setDrawerState(DRAWER_STATE.OPENED);
@@ -133,7 +133,7 @@ function App() {
       : drawerState === DRAWER_STATE.OPENED
         ? {
             icon: <SvgKeep />,
-            label: "Wide fixed layout",
+            label: t("pin menu"),
             active: true,
             onClick: () => {
               setDrawerState(DRAWER_STATE.PINNED);

@@ -1,14 +1,13 @@
 /**
  * @file ToggleLanguageButton component for internationalization support.
  * Provides a button that cycles through available languages with persistence.
- * @author Michinobu Maeda
  * @since 1.0.0
  */
 
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
-import { resources } from "../i18n.js";
+import { resources } from "../src/i18n.js";
 
 import Button from "./Button.jsx";
 
