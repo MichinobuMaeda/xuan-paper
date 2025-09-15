@@ -4,21 +4,21 @@ Tailwind / React / Material design 3
 
 [Sample](https://pages.michinobu.jp/xuan-paper)
 
-[API](docs/api.md)
+[API](/docs/api.md)
 
-![Green light](docs/green-light.png)
-![Green dark](docs/green-dark.png)
-![Blue light](docs/blue-light.png)
-![Blue dark](docs/blue-dark.png)
-![Navigation rail wide](docs/nav-rail-wide.png)
+![Green light](/docs/green-light.png)
+![Green dark](/docs/green-dark.png)
+![Blue light](/docs/blue-light.png)
+![Blue dark](/docs/blue-dark.png)
+![Navigation rail wide](/docs/nav-rail-wide.png)
 
 <p style="float: left">
-<img src="docs/nav-rail-narrow.png" alt="Navigation rail narrow" style="width: 65%">
-<img src="docs/nav-bar-narrow.png" alt="Navigation bar narrow" style="width: 34%">
+<img src="/docs/nav-rail-narrow.png" alt="Navigation rail narrow" style="width: 65%">
+<img src="/docs/nav-bar-narrow.png" alt="Navigation bar narrow" style="width: 34%">
 </p>
 
-![Drawer open](docs/drawer-open.png)
-![Drawer fixed](docs/drawer-fixed.png)
+![Drawer open](/docs/drawer-open.png)
+![Drawer fixed](/docs/drawer-fixed.png)
 
 ## Note
 
