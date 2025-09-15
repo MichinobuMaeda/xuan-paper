@@ -1,4 +1,4 @@
-# API Documentation xuan-paper 1.0.1
+# API Documentation xuan-paper 1.0.0
 
 ## Modules
 
