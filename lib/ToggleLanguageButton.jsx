@@ -6,8 +6,6 @@
 
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import { resources } from "../src/i18n.js";
 
 import Button from "./Button.jsx";
 
@@ -15,22 +13,24 @@ const STORAGE_KEY = "xuan-paper-language";
 
 /**
  * Initializes the language from localStorage if a valid language is stored.
+ * @param {object} langs - Languages object mapping language codes to language configurations.
  * @param {Function} setLanguage - Function to set the current language
  */
-const initLanguage = (setLanguage) => {
+const initLanguage = (langs, setLanguage) => {
   const lang = localStorage.getItem(STORAGE_KEY);
-  if (lang && Object.keys(resources).includes(lang)) {
+  if (lang && Object.keys(langs).includes(lang)) {
     setLanguage(lang);
   }
 };
 
 /**
- * Cycles to the next available language in the resources object.
+ * Cycles to the next available language in the languages object.
+ * @param {object} langs - Languages object mapping language codes to language configurations.
  * @param {string} currentLanguage - The currently active language code
  * @param {Function} setLanguage - Function to set the new language
  */
-const nextLanguage = (currentLanguage, setLanguage) => {
-  const languages = Object.keys(resources);
+const nextLanguage = (langs, currentLanguage, setLanguage) => {
+  const languages = Object.keys(langs);
   let index = languages.indexOf(currentLanguage) + 1;
   const nextLang = languages[index < languages.length ? index : 0];
   localStorage.setItem(STORAGE_KEY, nextLang);
@@ -39,96 +39,110 @@ const nextLanguage = (currentLanguage, setLanguage) => {
 
 /**
  * A button component that toggles the application's language between available translations.
- * Cycles through languages defined in the resources object and persists the selection in localStorage.
+ * Cycles through languages defined in the languages object and persists the selection in localStorage.
  *
  * The component automatically displays either:
- * - The current language's label (if defined in resources[lang].label)
+ * - The current language's label (if defined in langs[lang].label)
  * - A universal language icon (Material Design language icon) as fallback
  *
  * Key features:
  * - Automatically loads the previously selected language from localStorage on mount
- * - Cycles through available languages in the order they appear in the resources object
+ * - Cycles through available languages in the order they appear in the languages object
  * - Persists language preference across browser sessions using localStorage
- * - Integrates seamlessly with react-i18next for language switching
+ * - Framework-agnostic design works with any internationalization library or custom setup
  * - Provides visual feedback with either text labels or language icon
  * - Supports all Button component styling options
  *
  * Requirements:
- * - A properly configured i18next setup with react-i18next
- * - A resources object exported from i18n.js with language codes as keys
- * - Each translation entry should optionally have a 'label' property for display
- * - The i18n configuration must use the exported resources object
+ * - A languages object with language codes as keys
+ * - Each language entry should optionally have a 'label' property for display
+ * - Parent component should handle the actual language switching logic via setLang callback
  * @component
  * @param {object} props - Component props
- * @param {string} [props.style] - Visual style variant for the button (defaults to "embedded")
- * @param {string} [props.size] - Size variant for the button (defaults to "sm")
- * @returns {JSX.Element} A button displaying the current language label or a language icon
+ * @param {object} props.langs - Languages object mapping language codes to language configurations (e.g., { en: {label: 'En'}, ja: {label: '日'} }). Each entry may have a 'label' property for display.
+ * @param {string} props.lang - The currently active language code.
+ * @param {Function} props.setLang - Callback to update the current language code.
+ * @param {string} [props.style] - Visual style variant for the button (e.g., "embedded", "outlined"). Defaults to "embedded".
+ * @param {string} [props.size] - Size variant for the button (e.g., "sm", "md"). Defaults to "sm".
+ * @returns {JSX.Element} A button displaying the current language label or a language icon.
  * @example
  * // Basic usage in a header component
  * import ToggleLanguageButton from '../xuan-paper/ToggleLanguageButton';
  *
- * const Header = () => (
- *   <header className="flex justify-between items-center p-4">
- *     <h1>My App</h1>
- *     <div className="flex gap-2">
- *       <ToggleLanguageButton />
- *       <SettingsButton />
- *     </div>
- *   </header>
- * );
+ * const Header = () => {
+ *   const [currentLang, setCurrentLang] = useState('en');
+ *   const languages = {
+ *     en: { label: 'En' },
+ *     ja: { label: '日' },
+ *     es: { label: 'Es' }
+ *   };
+ *
+ *   return (
+ *     <header className="flex justify-between items-center p-4">
+ *       <h1>My App</h1>
+ *       <div className="flex gap-2">
+ *         <ToggleLanguageButton
+ *           langs={languages}
+ *           lang={currentLang}
+ *           setLang={setCurrentLang}
+ *         />
+ *         <SettingsButton />
+ *       </div>
+ *     </header>
+ *   );
+ * };
  * @example
  * // Custom styling with different button styles
- * <ToggleLanguageButton style="outlined" size="md" />
+ * <ToggleLanguageButton
+ *   langs={languages}
+ *   lang={currentLang}
+ *   setLang={setCurrentLang}
+ *   style="outlined"
+ *   size="md"
+ * />
  * @example
- * // Example i18n.js file with exported resources object
- * import i18n from "i18next";
- * import { initReactI18next } from "react-i18next";
- *
- * export const resources = {
+ * // Example languages object structure
+ * const languages = {
  *   en: {
- *     label: "En",
- *     translation: {
- *       // English translations
- *     }
+ *     label: "En"
  *   },
  *   ja: {
- *     label: "日",
- *     translation: {
- *       // Japanese translations
- *     }
+ *     label: "日"
  *   },
  *   es: {
- *     label: "Es",
- *     translation: {
- *       // Spanish translations
- *     }
+ *     label: "Es"
+ *   },
+ *   fr: {
+ *     label: "Fr"
  *   }
  * };
  *
- * // The i18n instance must use the same resources object that is exported
- * i18n.use(initReactI18next).init({
- *   resources, // Use the exported resources
- *   lng: "en",
- *   interpolation: {
- *     escapeValue: false // not needed for react as it escapes by default
- *   }
- * });
- *
- * export default i18n;
+ * // Use with any internationalization setup
+ * const handleLanguageChange = (newLang) => {
+ *   setCurrentLanguage(newLang);
+ *   // Update your app's language however you prefer:
+ *   // - i18next: i18n.changeLanguage(newLang)
+ *   // - react-intl: setLocale(newLang)
+ *   // - custom solution: updateTranslations(newLang)
+ * };
  */
-const ToggleLanguageButton = ({ style = "embedded", size = "sm" }) => {
-  const { i18n } = useTranslation();
-
-  const [label, setLabel] = useState(resources[i18n.language]?.label);
+const ToggleLanguageButton = ({
+  langs,
+  lang,
+  setLang,
+  style = "embedded",
+  size = "sm",
+}) => {
+  const [label, setLabel] = useState(langs[lang]?.label);
 
   const setLanguage = (lang) => {
-    i18n.changeLanguage(lang);
-    setLabel(resources[lang]?.label);
+    setLang(lang);
+    setLabel(langs[lang]?.label);
   };
 
   // On component mount
   useEffect(() => {
-    initLanguage(setLanguage);
+    initLanguage(langs, setLanguage);
   }, []);
 
   return (
@@ -153,7 +167,7 @@ const ToggleLanguageButton = ({ style = "embedded", size = "sm" }) => {
           </svg>
         )
       }
-      onClick={() => nextLanguage(i18n.language, setLanguage)}
+      onClick={() => nextLanguage(langs, lang, setLanguage)}
       style={style}
       size={size}
     />
@@ -161,6 +175,13 @@ const ToggleLanguageButton = ({ style = "embedded", size = "sm" }) => {
 };
 
 ToggleLanguageButton.propTypes = {
+  langs: PropTypes.objectOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+    }),
+  ).isRequired,
+  lang: PropTypes.string.isRequired,
+  setLang: PropTypes.func.isRequired,
   style: PropTypes.string,
   size: PropTypes.string,
 };

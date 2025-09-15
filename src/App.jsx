@@ -17,6 +17,7 @@ import {
   demoValueResetAtom,
 } from "./state.js";
 import { useRegisterSW } from "virtual:pwa-register/react";
+import { resources } from "../src/i18n.js";
 
 import AppBar from "../lib/AppBar.jsx";
 import Button from "../lib/Button.jsx";
@@ -67,7 +68,7 @@ const cssFileName = "theme.css";
  * @returns {JSX.Element} The complete application layout with navigation, theme controls, and demo components
  */
 function App() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // Set up state management with Jotai for theme customization
   const setHue = useSetAtom(hueAtom);
@@ -214,7 +215,12 @@ function App() {
           ),
         ]}
         suffix={[
-          <ToggleLanguageButton key="toggle-language" />,
+          <ToggleLanguageButton
+            key="toggle-language"
+            langs={resources}
+            lang={i18n.language}
+            setLang={i18n.changeLanguage}
+          />,
           <ToggleDarkModeButton key="toggle-dark-mode" />,
         ]}
         optionalClass={headerOptionalClass}

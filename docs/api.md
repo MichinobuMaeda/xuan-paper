@@ -1,4 +1,4 @@
-# API Documentation xuan-paper 1.0.1
+# API Documentation xuan-paper 1.0.2
 
 ## Modules
 
@@ -342,35 +342,34 @@ Automatically detects system preference via media queries and persists user&#39;
 To enable dark mode styles in your application, add this custom variant to your CSS:
 ```css</p>
 </dd>
-<dt><a href="#initLanguage">initLanguage(setLanguage)</a></dt>
+<dt><a href="#initLanguage">initLanguage(langs, setLanguage)</a></dt>
 <dd><p>Initializes the language from localStorage if a valid language is stored.</p>
 </dd>
-<dt><a href="#nextLanguage">nextLanguage(currentLanguage, setLanguage)</a></dt>
-<dd><p>Cycles to the next available language in the resources object.</p>
+<dt><a href="#nextLanguage">nextLanguage(langs, currentLanguage, setLanguage)</a></dt>
+<dd><p>Cycles to the next available language in the languages object.</p>
 </dd>
 <dt><a href="#ToggleLanguageButton">ToggleLanguageButton(props)</a> ⇒ <code>JSX.Element</code></dt>
 <dd><p>A button component that toggles the application&#39;s language between available translations.
-Cycles through languages defined in the resources object and persists the selection in localStorage.</p>
+Cycles through languages defined in the languages object and persists the selection in localStorage.</p>
 <p>The component automatically displays either:</p>
 <ul>
-<li>The current language&#39;s label (if defined in resources[lang].label)</li>
+<li>The current language&#39;s label (if defined in langs[lang].label)</li>
 <li>A universal language icon (Material Design language icon) as fallback</li>
 </ul>
 <p>Key features:</p>
 <ul>
 <li>Automatically loads the previously selected language from localStorage on mount</li>
-<li>Cycles through available languages in the order they appear in the resources object</li>
+<li>Cycles through available languages in the order they appear in the languages object</li>
 <li>Persists language preference across browser sessions using localStorage</li>
-<li>Integrates seamlessly with react-i18next for language switching</li>
+<li>Framework-agnostic design works with any internationalization library or custom setup</li>
 <li>Provides visual feedback with either text labels or language icon</li>
 <li>Supports all Button component styling options</li>
 </ul>
 <p>Requirements:</p>
 <ul>
-<li>A properly configured i18next setup with react-i18next</li>
-<li>A resources object exported from i18n.js with language codes as keys</li>
-<li>Each translation entry should optionally have a &#39;label&#39; property for display</li>
-<li>The i18n configuration must use the exported resources object</li>
+<li>A languages object with language codes as keys</li>
+<li>Each language entry should optionally have a &#39;label&#39; property for display</li>
+<li>Parent component should handle the actual language switching logic via setLang callback</li>
 </ul>
 </dd>
 </dl>
@@ -1572,7 +1571,7 @@ the main app interface while providing essential PWA status information.
 | [props.checkForUpdateInterval] | <code>number</code> | Interval in milliseconds to check for PWA updates.   Defaults to 60*60*1000 (1 hour). Controls how frequently the app checks for new versions.   Shorter intervals provide faster update detection but consume more resources. |
 | [props.offlineReadyMessage] | <code>string</code> | Message displayed when app is ready for offline use.   Defaults to "App ready to work offline". Shown when service worker has cached   all necessary resources for offline functionality. |
 | [props.needRefreshMessage] | <code>string</code> | Message displayed when a new version is available. |
-| props.useRegisterSW |  | Defaults to "New app available, click on reload button to update."   Shown when the service worker has downloaded a new version but requires user action to activate. |
+| props.useRegisterSW | <code>function</code> | The useRegisterSW hook from @vite-pwa/pwa, injected for service worker lifecycle management. Required.   Defaults to the imported useRegisterSW if not provided. Allows for dependency injection in testing or advanced usage. |
 
 **Example**  
 ```js
@@ -2230,24 +2229,26 @@ const SettingsPanel = () => (
 ```
 <a name="initLanguage"></a>
 
-## initLanguage(setLanguage)
+## initLanguage(langs, setLanguage)
 Initializes the language from localStorage if a valid language is stored.
 
 **Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
+| langs | <code>object</code> | Languages object mapping language codes to language configurations. |
 | setLanguage | <code>function</code> | Function to set the current language |
 
 <a name="nextLanguage"></a>
 
-## nextLanguage(currentLanguage, setLanguage)
-Cycles to the next available language in the resources object.
+## nextLanguage(langs, currentLanguage, setLanguage)
+Cycles to the next available language in the languages object.
 
 **Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
+| langs | <code>object</code> | Languages object mapping language codes to language configurations. |
 | currentLanguage | <code>string</code> | The currently active language code |
 | setLanguage | <code>function</code> | Function to set the new language |
 
@@ -2255,93 +2256,103 @@ Cycles to the next available language in the resources object.
 
 ## ToggleLanguageButton(props) ⇒ <code>JSX.Element</code>
 A button component that toggles the application's language between available translations.
-Cycles through languages defined in the resources object and persists the selection in localStorage.
+Cycles through languages defined in the languages object and persists the selection in localStorage.
 
 The component automatically displays either:
-- The current language's label (if defined in resources[lang].label)
+- The current language's label (if defined in langs[lang].label)
 - A universal language icon (Material Design language icon) as fallback
 
 Key features:
 - Automatically loads the previously selected language from localStorage on mount
-- Cycles through available languages in the order they appear in the resources object
+- Cycles through available languages in the order they appear in the languages object
 - Persists language preference across browser sessions using localStorage
-- Integrates seamlessly with react-i18next for language switching
+- Framework-agnostic design works with any internationalization library or custom setup
 - Provides visual feedback with either text labels or language icon
 - Supports all Button component styling options
 
 Requirements:
-- A properly configured i18next setup with react-i18next
-- A resources object exported from i18n.js with language codes as keys
-- Each translation entry should optionally have a 'label' property for display
-- The i18n configuration must use the exported resources object
+- A languages object with language codes as keys
+- Each language entry should optionally have a 'label' property for display
+- Parent component should handle the actual language switching logic via setLang callback
 
 **Kind**: global function  
-**Returns**: <code>JSX.Element</code> - A button displaying the current language label or a language icon  
+**Returns**: <code>JSX.Element</code> - A button displaying the current language label or a language icon.  
 **Component**:   
 
 | Param | Type | Description |
 | --- | --- | --- |
 | props | <code>object</code> | Component props |
-| [props.style] | <code>string</code> | Visual style variant for the button (defaults to "embedded") |
-| [props.size] | <code>string</code> | Size variant for the button (defaults to "sm") |
+| props.langs | <code>object</code> | Languages object mapping language codes to language configurations (e.g., { en: {label: 'En'}, ja: {label: '日'} }). Each entry may have a 'label' property for display. |
+| props.lang | <code>string</code> | The currently active language code. |
+| props.setLang | <code>function</code> | Callback to update the current language code. |
+| [props.style] | <code>string</code> | Visual style variant for the button (e.g., "embedded", "outlined"). Defaults to "embedded". |
+| [props.size] | <code>string</code> | Size variant for the button (e.g., "sm", "md"). Defaults to "sm". |
 
 **Example**  
 ```js
 // Basic usage in a header component
 import ToggleLanguageButton from '../xuan-paper/ToggleLanguageButton';
 
-const Header = () => (
-  <header className="flex justify-between items-center p-4">
-    <h1>My App</h1>
-    <div className="flex gap-2">
-      <ToggleLanguageButton />
-      <SettingsButton />
-    </div>
-  </header>
-);
+const Header = () => {
+  const [currentLang, setCurrentLang] = useState('en');
+  const languages = {
+    en: { label: 'En' },
+    ja: { label: '日' },
+    es: { label: 'Es' }
+  };
+
+  return (
+    <header className="flex justify-between items-center p-4">
+      <h1>My App</h1>
+      <div className="flex gap-2">
+        <ToggleLanguageButton
+          langs={languages}
+          lang={currentLang}
+          setLang={setCurrentLang}
+        />
+        <SettingsButton />
+      </div>
+    </header>
+  );
+};
 ```
 **Example**  
 ```js
 // Custom styling with different button styles
-<ToggleLanguageButton style="outlined" size="md" />
+<ToggleLanguageButton
+  langs={languages}
+  lang={currentLang}
+  setLang={setCurrentLang}
+  style="outlined"
+  size="md"
+/>
 ```
 **Example**  
 ```js
-// Example i18n.js file with exported resources object
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-
-export const resources = {
+// Example languages object structure
+const languages = {
   en: {
-    label: "En",
-    translation: {
-      // English translations
-    }
+    label: "En"
   },
   ja: {
-    label: "日",
-    translation: {
-      // Japanese translations
-    }
+    label: "日"
   },
   es: {
-    label: "Es",
-    translation: {
-      // Spanish translations
-    }
+    label: "Es"
+  },
+  fr: {
+    label: "Fr"
   }
 };
 
-// The i18n instance must use the same resources object that is exported
-i18n.use(initReactI18next).init({
-  resources, // Use the exported resources
-  lng: "en",
-  interpolation: {
-    escapeValue: false // not needed for react as it escapes by default
-  }
-});
-
-export default i18n;
+// Use with any internationalization setup
+const handleLanguageChange = (newLang) => {
+  setCurrentLanguage(newLang);
+  // Update your app's language however you prefer:
+  // - i18next: i18n.changeLanguage(newLang)
+  // - react-intl: setLocale(newLang)
+  // - custom solution: updateTranslations(newLang)
+};
 ```
 <a name="FabMenuItemProp"></a>
 

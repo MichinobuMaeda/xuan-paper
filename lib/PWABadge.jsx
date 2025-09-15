@@ -39,9 +39,8 @@ import Button from "./Button.jsx";
  *   Defaults to "App ready to work offline". Shown when service worker has cached
  *   all necessary resources for offline functionality.
  * @param {string} [props.needRefreshMessage] - Message displayed when a new version is available.
- * @param props.useRegisterSW
- *   Defaults to "New app available, click on reload button to update."
- *   Shown when the service worker has downloaded a new version but requires user action to activate.
+ * @param {Function} props.useRegisterSW - The useRegisterSW hook from @vite-pwa/pwa, injected for service worker lifecycle management. Required.
+ *   Defaults to the imported useRegisterSW if not provided. Allows for dependency injection in testing or advanced usage.
  * @returns {JSX.Element|null} Notification badge component or null when no notifications needed
  * @since 1.0.0
  * @example

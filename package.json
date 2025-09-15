@@ -1,6 +1,6 @@
 {
   "name": "xuan-paper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "main": "index.js",
   "license": "MIT",
@@ -24,11 +24,9 @@
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0",
     "@tailwindcss/vite": "^4.1.13",
-    "i18next": "^25.5.2",
     "prop-types": "^15.8.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-i18next": "^15.7.3",
     "tailwindcss": "^4.1.13",
     "tailwindcss-safe-area": "^1.1.0"
   },
@@ -46,10 +44,12 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "glob": "^11.0.3",
     "globals": "^16.4.0",
+    "i18next": "^25.5.2",
     "jotai": "^2.14.0",
     "jsdoc-to-markdown": "^9.1.2",
     "jsdom": "^27.0.0",
     "prettier": "3.6.2",
+    "react-i18next": "^15.7.3",
     "vite": "^7.1.5",
     "vite-plugin-pwa": "^1.0.3",
     "vitest": "^3.2.4",
