@@ -1,4 +1,4 @@
-# API Documentation @michinobumaeda/xuan-paper 1.0.2
+# API Documentation @michinobumaeda/xuan-paper 1.0.0
 
 ## Modules
 
